@@ -17,7 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { navlinks } from "../../constants/data"; 
 import {
   button_text,
-  container_style,
+
   gold_store_name_typo,
   icon_box,
   map_box,
@@ -44,8 +44,8 @@ const NavBar: React.FC<NavBarProps> = ({ dashboard }) => {
   };
 
   return (
-    <AppBar position="static">
-      <Container sx={container_style} maxWidth="lg">
+    <AppBar position="static"   sx={{backgroundColor: "#1C1B19"}} >
+     
         <Toolbar disableGutters>
           <Typography variant="h6" noWrap component="div" sx={gold_store_name_typo}>
             طلای تهران
@@ -103,13 +103,13 @@ const NavBar: React.FC<NavBarProps> = ({ dashboard }) => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="ثبت نام">
-              <Link to={dashboard === "200" ? DashboardPath() : "/SignUp"}  >
+              {/* <Link to={dashboard === "200" ? DashboardPath() : "/SignUp"}  >
                 <Button sx={profile_button}>{dashboard === "200" ? "پروفایل" : "ورود | ثبت نام"}</Button>
-              </Link>
+              </Link> */}
             </Tooltip>
           </Box>
         </Toolbar>
-      </Container>
+   
     </AppBar>
   );
 };

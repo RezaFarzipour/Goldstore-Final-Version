@@ -1,6 +1,3 @@
-export const container_style = {
-  backgroundColor: "#1C1B19",
-};
 
 export const gold_store_name_typo = {
   mr: 2,
