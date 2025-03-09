@@ -19,3 +19,11 @@ export  interface NavLinks {
         text:string
     }[]
   }
+
+
+  export type stepstypes = {
+    id: number,
+    label: string
+    description: string
+  
+  }
