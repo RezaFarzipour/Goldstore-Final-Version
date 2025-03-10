@@ -8,18 +8,18 @@ export const navlinks:NavLinks[] = [
     },
     {
       id: 1,
-      link: "/About",
+      link: "/aboutus",
       text: "درباره ما",
     },
   
     {
       id: 2,
-      link: "/Faqs",
+      link: "/faqs",
       text: "سوالات متداول",
     },
     {
       id: 3,
-      link: "/Contact",
+      link: "/contactus",
       text: "ارتباط با ما",
     },
   ];
