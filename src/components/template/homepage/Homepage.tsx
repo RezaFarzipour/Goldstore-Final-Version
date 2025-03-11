@@ -1,27 +1,24 @@
-import { Box, Container, Grid2 } from '@mui/material'
-import React from 'react'
-import Home_page_desc from '../../module/home.modules/homepagedescription.module'
-import Direct_Sign_up from '../../module/home.modules/directSignUpButton'
-import { Animate } from '../../module/home.modules/Anime/Animate'
-import SteperStep from '../../module/home.modules/steper/Steper.module'
+import { Box, Container, Grid2 } from "@mui/material";
+import React from "react";
+import Home_page_desc from "../../module/home.modules/homepagedescription.module";
+import Direct_Sign_up from "../../module/home.modules/directSignUpButton";
+import { Animate } from "../../module/home.modules/Anime/Animate";
+import SteperStep from "../../module/home.modules/steper/Steper.module";
+import Layout from "../../layout";
 // import DimondHeader from '../../module/DimondHeader/DimondHeader'
 // import DiamonHeaderMobile from '../../module/DimondHeaderMobile/DimondHeaderMobile'
 const Homepage = () => {
   return (
-    <Container maxWidth="xl">
-
-      {/* diamon header section */}
-      <Grid2 ml={10} mt={19} size={{xs:12}}>
+    <Layout>
+      <Container maxWidth="xl">
+        {/* diamon header section */}
+        <Grid2 ml={10} mt={19} size={{ xs: 12 }}>
           {/* <DimondHeader />
           <DiamonHeaderMobile /> */}
         </Grid2>
 
-{/* home description */}
-        <Box
-          sx={{  mt: { xs: -12, md: 10 } }}
-      
-          width="100%"
-        >
+        {/* home description */}
+        <Box sx={{ mt: { xs: -12, md: 10 } }} width="100%">
           <Home_page_desc />
           <Box
             sx={{
@@ -35,7 +32,7 @@ const Homepage = () => {
           </Box>
         </Box>
 
-{/* tab price section */}
+        {/* tab price section */}
 
         <Grid2
           container
@@ -51,16 +48,14 @@ const Homepage = () => {
           }}
         >
           <Grid2
-           size={{xs:12,md:6}}
-           
+            size={{ xs: 12, md: 6 }}
             sx={{ display: { xs: "none", md: "block" } }}
           >
             <Animate />
           </Grid2>
 
           <Grid2
-        size={{xs:12,md:6}}
-           
+            size={{ xs: 12, md: 6 }}
             sx={{
               "@media (max-width:1116px) and (min-width:900px)": {
                 ml: 12,
@@ -72,8 +67,6 @@ const Homepage = () => {
           </Grid2>
         </Grid2>
 
-
-
         <Grid2
           sx={{
             mb: { xs: 30, md: 20 },
@@ -82,10 +75,11 @@ const Homepage = () => {
             placeItems: "center",
           }}
         >
-      <SteperStep/>
+          <SteperStep />
         </Grid2>
-    </Container>
-  )
-}
+      </Container>
+    </Layout>
+  );
+};
 
-export default Homepage
+export default Homepage;

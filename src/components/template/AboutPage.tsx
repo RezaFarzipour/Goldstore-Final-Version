@@ -1,7 +1,9 @@
 import {  Grid2, Typography } from "@mui/material";
+import Layout from "../layout";
 
 const AboutUsPage = () => {
   return (
+    <Layout>
     <Grid2
       container
       sx={{ p: { xs: 1, md: 8 }, justifyContent: "center", display: "flex" }}
@@ -59,6 +61,7 @@ const AboutUsPage = () => {
         </Grid2>
       </Grid2>
     </Grid2>
+    </Layout>
   );
 };
 

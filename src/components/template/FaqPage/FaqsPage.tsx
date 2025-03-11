@@ -10,6 +10,7 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from "../../module/Faq.module";
+import Layout from "../../layout";
 
 const FaqsPage: React.FC = () => {
   const [expanded, setExpanded] = React.useState<string | false>("");
@@ -40,6 +41,7 @@ const FaqsPage: React.FC = () => {
     ));
 
   return (
+    <Layout>
     <Container maxWidth="xl" sx={{ mb: 6 }}>
       <Box>
         <Typography sx={TypoOneSx}>سوالات متداول</Typography>
@@ -57,6 +59,7 @@ const FaqsPage: React.FC = () => {
         </Grid2>
       </Grid2>
     </Container>
+    </Layout>
   );
 };
 

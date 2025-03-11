@@ -4,10 +4,12 @@ import PhoneEnabledIcon from "@mui/icons-material/PhoneEnabled";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import contactusImage from "../../assets/images/images.png";
+import Layout from "../layout";
 
 const ContactUsPage = () => {
   return (
     <>
+    <Layout>
       <Box
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
@@ -80,6 +82,7 @@ const ContactUsPage = () => {
           </Box>
         </Grid2>
       </Grid2>
+      </Layout>
     </>
   );
 };
