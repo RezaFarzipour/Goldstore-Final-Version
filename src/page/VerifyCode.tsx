@@ -1,10 +1,7 @@
-import React from 'react'
-import VerifyCodePage from '../components/template/verifycode/VerifyCodePage'
+import VerifyCodePage from "../components/template/verifycode/VerifyCodeTemp";
 
-const VerifyCode = () => {
-  return (
-    <VerifyCodePage/>
-  )
-}
+const VerifyCode: React.FC = () => {
+  return <VerifyCodePage />;
+};
 
-export default VerifyCode
+export default VerifyCode;

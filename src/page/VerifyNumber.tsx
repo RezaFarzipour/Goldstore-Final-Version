@@ -1,11 +1,8 @@
-import React from 'react'
+import React from "react";
+import VerifyNumberPage from "../components/template/verifynumber/VerifyNumberTemp";
 
-import VerifyNumberPage from '../components/template/verifynumber/VerifyNumberPage'
+const VerifyNumber: React.FC = () => {
+  return <VerifyNumberPage />;
+};
 
-const SignUp = () => {
-  return (
-    <VerifyNumberPage/>
-  )
-}
-
-export default SignUp
+export default VerifyNumber;

@@ -1,6 +1,6 @@
-import AboutUsPage from "../components/template/AboutPage";
+import AboutUsPage from "../components/template/AboutTemp";
 
-const About = () => {
+const About: React.FC = () => {
   return <AboutUsPage />;
 };
 

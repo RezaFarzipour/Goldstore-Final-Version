@@ -1,10 +1,7 @@
-import React from 'react'
-import ContactUsPage from '../components/template/ContactUsPage'
+import ContactUsPage from "../components/template/ContactUsTemp";
 
-const ContactUs = () => {
-  return (
-    <ContactUsPage/>
-  )
-}
+const ContactUs: React.FC = () => {
+  return <ContactUsPage />;
+};
 
-export default ContactUs
+export default ContactUs;

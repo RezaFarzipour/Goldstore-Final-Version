@@ -1,7 +1,6 @@
-import React from "react";
-import FaqsPage from "../components/template/faqpage/FaqsPage";
+import FaqsPage from "../components/template/FaqPage/FaqsTemp";
 
-const Faq = () => {
+const Faq: React.FC = () => {
   return <FaqsPage />;
 };
 

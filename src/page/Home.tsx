@@ -1,12 +1,11 @@
-import React from 'react'
-import Homepage from '../components/template/homepage/Homepage'
-
-
+import Homepage from "../components/template/homepage/HomeTemp";
 
 const Home = () => {
   return (
-    <div><Homepage/></div>
-  )
-}
+    <div>
+      <Homepage />
+    </div>
+  );
+};
 
-export default Home
+export default Home;

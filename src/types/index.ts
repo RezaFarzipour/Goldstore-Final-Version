@@ -1,7 +1,7 @@
 export interface NavLinks {
   id: number;
-  link: string;
-  text: string;
+  path: string;
+  label: string;
 }
 
 export type footerdatatypes = {
@@ -31,3 +31,5 @@ export type FaqItem = {
   title: string;
   description: string;
 };
+
+declare module 'stylis-plugin-rtl';

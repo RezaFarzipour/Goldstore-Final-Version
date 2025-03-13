@@ -15,8 +15,6 @@ const AppRoutes = () => {
       <Route path="/contactus" element={<ContactUs />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/verifycode" element={<VerifyCode />} />
-
-
     </Routes>
   );
 };

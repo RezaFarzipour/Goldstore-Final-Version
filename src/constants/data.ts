@@ -1,26 +1,24 @@
 import { FaqItem, NavLinks, stepstypes } from "../types";
 import { footerdatatypes } from "../types";
+
+// LayoutData:
 export const navlinks: NavLinks[] = [
-  {
-    id: 4,
-    link: "/",
-    text: "خانه",
-  },
+
   {
     id: 1,
-    link: "/aboutus",
-    text: "درباره ما",
+    path: "/aboutus",
+    label: "درباره ما",
   },
 
   {
     id: 2,
-    link: "/faqs",
-    text: "سوالات متداول",
+    path: "/faqs",
+    label: "سوالات متداول",
   },
   {
     id: 3,
-    link: "/contactus",
-    text: "ارتباط با ما",
+    path: "/contactus",
+    label: "ارتباط با ما",
   },
 ];
 
@@ -57,6 +55,7 @@ export const footerdata: footerdatatypes = {
   ],
 };
 
+// StepperData:
 export const steps: stepstypes[] = [
   {
     id: 1,
@@ -82,6 +81,8 @@ export const steps: stepstypes[] = [
   },
 ];
 
+
+// FaqsData:
 export const faqsObject1: FaqItem[] = [
   {
     id: 1,
@@ -112,6 +113,7 @@ export const faqsObject1: FaqItem[] = [
       "طلای ‌آب‌شده توسط آزمایشگاه‌های معتبر عیار سنجی شده و شماره‌ای به عنوان انگ روی آن حک می‌شود. با استعلام تلفنی این شماره از آزمایشگاه و یا استعلام اینترنتی آن از سامانه نمایش جواب انگ طلا، عیار طلای آب‌شده به شما اعلام می‌گردد.",
   },
 ];
+
 export const faqsObject2: FaqItem[] = [
   {
     id: 5,
