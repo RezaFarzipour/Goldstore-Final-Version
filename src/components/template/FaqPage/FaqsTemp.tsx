@@ -9,7 +9,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-} from "../../module/Faq.module";
+} from "../../modules/Faq.module";
 import Layout from "../../containers/layout/Layout";
 
 const FaqsPage: React.FC = () => {

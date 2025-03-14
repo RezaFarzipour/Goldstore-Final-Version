@@ -1,8 +1,8 @@
 import { Box, Container, Grid2 } from "@mui/material";
-import DirectSignUp from "../../module/home/DirectSignUpButton.module";
-import HomePageDesc from "../../module/home/Homepagedescription.module";
-import { Animate } from "../../module/home/anim/Animate.module";
-import SteperStep from "../../module/home/steper/Steper.module";
+import DirectSignUp from "../../modules/home/DirectSignUpButton.module";
+import HomePageDesc from "../../modules/home/Homepagedescription.module";
+import { Animate } from "../../modules/home/anim/Animate.module";
+import SteperStep from "../../modules/home/steper/Steper.module";
 import Layout from "../../containers/layout/Layout";
 
 const Homepage: React.FC = () => {

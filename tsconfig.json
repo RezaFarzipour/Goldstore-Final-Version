@@ -12,7 +12,7 @@
       "@/utils/*": ["src/utils/*"],
       "@/models/*": ["src/models/*"],
       "@/layout/*": ["src/components/layout/*"],
-      "@/module/*": ["src/components/module/*"],
+      "@/module/*": ["src/components/modules/*"],
       "@/template/*": ["src/components/template/*"],
       "@/providers/*": ["src/providers/*"],
       "@/api/*": ["src/app/api/*"],
