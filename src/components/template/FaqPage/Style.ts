@@ -4,6 +4,8 @@ export const TypoOneSx = {
   fontSize: { xs: "25px", md: "35px" },
   mt: 5,
   fontWeight: "bold",
+  display: "flex",
+  justifyContent: "center"
 };
 export const TypotwoSx = {
   color: "#fff",

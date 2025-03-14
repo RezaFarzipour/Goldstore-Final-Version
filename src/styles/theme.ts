@@ -2,11 +2,11 @@ import { createTheme } from "@mui/material";
 
 // color design tokens export
 export const tokens = () => ({
-    gold: { 100: "#FFC436" },
+    gold: { 100: "#e7b84d" },
     grey: {
-        100: "#141414",
+        100: "#1C1B19",
         200: "#292929",
-        300: "#3d3d3d",
+        300: "#3C3A36",
         400: "#525252",
         500: "#666666",
         600: "#858585",
@@ -48,23 +48,49 @@ export const tokens = () => ({
         900: "#f8dcdb",
     },
 });
-
+export const colors = tokens();
 // mui theme settings
 export const themeSettings = () => {
     const colors = tokens();
     return {
         palette: {
-            mode: "light" as const,
             primary: {
-                main: colors.primary[100],
+                100: colors.primary[100],
+                200: colors.primary[200],
+                300: colors.primary[300],
+                400: colors.primary[400],
+                500: colors.primary[500],
+                600: colors.primary[600],
+                700: colors.primary[700],
+                800: colors.primary[800],
+                900: colors.primary[900],
             },
-            secondary: {
-                main: colors.greenAccent[500],
+
+            greenAccent: {
+                100: colors.greenAccent[100],
+                200: colors.greenAccent[200],
+                300: colors.greenAccent[300],
+                400: colors.greenAccent[400],
+                500: colors.greenAccent[500],
+                600: colors.greenAccent[600],
+                700: colors.greenAccent[700],
+                800: colors.greenAccent[800],
+                900: colors.greenAccent[900],
             },
-            neutral: {
-                dark: colors.grey[700],
-                main: colors.grey[500],
-                light: colors.grey[100],
+            redAccent: {
+                100: colors.redAccent[100],
+                200: colors.redAccent[200],
+                300: colors.redAccent[300],
+                400: colors.redAccent[400],
+                500: colors.redAccent[500],
+                600: colors.redAccent[600],
+                700: colors.redAccent[700],
+                800: colors.redAccent[800],
+                900: colors.redAccent[900],
+            },
+            gold: {
+                gold: colors.gold[100],
+
             },
             background: {
                 default: "#fcfcfc",
@@ -103,3 +129,4 @@ export const themeSettings = () => {
 
 const theme = createTheme(themeSettings());
 export default theme;
+

@@ -1,3 +1,4 @@
+import { colors } from "../../../styles/theme";
 
 // NavBar:
 const commonTextStyles = {
@@ -28,7 +29,8 @@ export const menu_style = {
             width: "100vw",
             height: "100vh",
             transition: "all 2s ease-in-out",
-            backgroundColor: "#3C3A36",
+            backgroundColor: colors.grey[300],
+
         },
     },
 };
@@ -60,13 +62,7 @@ export const button_text = {
     "&:hover": { backgroundColor: "#FFC436", color: "#111" },
 };
 
-export const profile_button = {
-    letterSpacing: "-0.035em",
-    fontFamily: "Yekan",
-    color: "#FFC436",
-    border: "1px solid #FFC436",
-    "&:hover": { backgroundColor: "rgba(204, 163, 69,0.4)" },
-};
+
 
 // Footer:
 
@@ -86,7 +82,7 @@ export const navlinks = {
 }
 
 export const Footer_Grid = {
-    backgroundColor: "#2d2c2a",
+    backgroundColor: colors.grey[200],
 };
 
 export const Gridstyle = {

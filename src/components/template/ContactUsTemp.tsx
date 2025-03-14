@@ -13,6 +13,7 @@ const ContactUsPage: React.FC = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          mt: 8,
         }}
       >
         <Typography
@@ -34,7 +35,7 @@ const ContactUsPage: React.FC = () => {
         <Grid2
           sx={{
             border: "1px solid #2B2926",
-            borderRadius: "60px",
+            borderRadius: "20px",
             backgroundColor: "#2B2926",
             width: "80%",
             padding: "20px",

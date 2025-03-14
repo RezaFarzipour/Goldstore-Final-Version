@@ -23,7 +23,7 @@ const AboutUsPage = () => {
         <Grid2
           sx={{
             border: "1px solid #2B2926",
-            borderRadius: "60px",
+            borderRadius: "20px",
             backgroundColor: "#2B2926",
           }}
           container

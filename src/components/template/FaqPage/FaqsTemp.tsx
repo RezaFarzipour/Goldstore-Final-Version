@@ -42,7 +42,7 @@ const FaqsPage: React.FC = () => {
 
   return (
     <Layout>
-      <Container maxWidth="xl" sx={{ mb: 6 }}>
+      <Container maxWidth="xl" sx={{ mt: 12, mb: 6 }}>
         <Box>
           <Typography sx={TypoOneSx}>سوالات متداول</Typography>
         </Box>
