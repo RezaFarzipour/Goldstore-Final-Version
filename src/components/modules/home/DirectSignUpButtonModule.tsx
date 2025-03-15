@@ -1,6 +1,7 @@
 import { Box, Button } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { Link } from "react-router-dom";
+import { colors } from "../../../styles/theme";
 
 const DirectSignUp = () => {
   return (
@@ -15,9 +16,10 @@ const DirectSignUp = () => {
       <Link to="/signup">
         <Button
           sx={{
-            color: "#111",
-            fontSize: { xs: "15px", md: "20px" },
+            color: colors.grey[200],
+            fontSize: { xs: "15px", md: "18px" },
             fontFamily: "Yekan",
+            fontWeight: "bold",
           }}
           endIcon={<ArrowBackIosIcon sx={{ mr: 2 }} />}
         >

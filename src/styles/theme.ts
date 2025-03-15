@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material";
 
 // color design tokens export
 export const tokens = () => ({
-    gold: { 100: "#e7b84d" },
+    gold: { 100: "#e7b84d", 200: "#3C3A36" },
     grey: {
         100: "#1C1B19",
         200: "#292929",
