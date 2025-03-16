@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Paper, Box, Typography, Grid } from "@mui/material";
+import { Button, Paper, Box, Typography, Grid2 } from "@mui/material";
 import VerifyCodeImage from "../../../assets/images/pexels-michael-steinberg-321464.jpg";
 import { useCookies } from "react-cookie";
 import {
@@ -8,30 +8,57 @@ import {
   MainVerifyBox,
   VerifyMainGrid,
 } from "./style";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import VerifyInput from "../../element/auth/verifyNumberCode-input";
 import VerifyButton from "../../element/auth/verifyNumberCode-button";
 import Rtl from "../../element/rtl";
+import { checkOtp } from "../../../services/auth";
+import { setCookie } from "../../../utils/cookie";
 
 const VerifyCodePage = () => {
   const [cookies] = useCookies<string>(["phone-number"]);
   const [verifyCode, setVerifyCode] = React.useState<string>("");
   const [loading, setLoading] = React.useState(false);
 
-  const handleVerifyCode = (e: React.FormEvent<HTMLButtonElement>) => {
+  const navigate = useNavigate();
+
+  const handleVerifyCode = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    // Add verification logic here
+    setLoading(true);
+
+    const { response, err } = await checkOtp(
+      cookies["phone-number"],
+      verifyCode
+    );
+    if (response) {
+      setCookie("token", response.data.token);
+      setCookie("user_type", response.data.user_type);
+
+      if (response.data.signup_require) {
+        navigate("/signupinfo");
+      } else if (
+        response.data.user_type === "customer" &&
+        !response.data.signup_require
+      ) {
+        navigate("/DeskPage");
+      } else if (
+        response.data.user_type === "admin" &&
+        !response.data.signup_require
+      ) {
+        navigate("/CashAmountAdmin");
+      }
+    } else if (err) {
+      setLoading(false);
+      console.log(err);
+    }
   };
 
   return (
     <Rtl>
-      <Grid container sx={VerifyMainGrid(VerifyCodeImage)}>
-        <Grid
+      <Grid2 container sx={VerifyMainGrid(VerifyCodeImage)}>
+        <Grid2
           sx={InnerGrid}
-          item
-          xs={12}
-          sm={8}
-          md={5}
+          size={{ xs: 12, sm: 8, md: 5 }}
           component={Paper}
           elevation={6}
           square
@@ -82,8 +109,8 @@ const VerifyCodePage = () => {
               </Link>
             </Box>
           </Box>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Rtl>
   );
 };

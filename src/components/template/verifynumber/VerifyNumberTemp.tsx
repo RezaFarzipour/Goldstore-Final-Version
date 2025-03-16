@@ -1,19 +1,33 @@
 import React, { useState } from "react";
-import { ButtonBox, ContentGrid, FirstBox, MainGrid } from "./style";
-import { Avatar, Box, Grid2, Paper, Typography } from "@mui/material";
+import { ContentGrid, MainGrid } from "./style";
+import { Grid2, Paper } from "@mui/material";
 import signupImage from "../../../assets/images/pexels-michael-steinberg-321464.jpg";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
-import VerifyInput from "../../element/auth/verifyNumberCode-input";
-import VerifyButton from "../../element/auth/verifyNumberCode-button";
 import Rtl from "../../element/rtl";
+import { sendOtp } from "../../../services/auth";
+import { setCookie } from "../../../utils/cookie";
+import { useNavigate } from "react-router-dom";
+import VerifyNumberBoxInput from "../../modules/authModules/VerifyNumberBoxInput";
 
 const VerifyNumberPage: React.FC = () => {
+  const navigate = useNavigate();
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const submitHandler = (e: React.FormEvent<HTMLButtonElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setLoading(true);
+
+    const { response, err } = await sendOtp(phoneNumber);
+
+    if (response) {
+      setCookie("phone-number", phoneNumber);
+      navigate("/verifycode");
+    }
+
+    if (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -26,36 +40,12 @@ const VerifyNumberPage: React.FC = () => {
           elevation={6}
           square
         >
-          <Box sx={FirstBox}>
-            <Avatar sx={{ m: 1 }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography
-              color="#fff"
-              fontFamily="Lalezar"
-              component="h1"
-              variant="h5"
-            >
-              ورود | ثبت نام
-            </Typography>
-
-            <Box sx={{ width: { xs: "70%", md: "50%" } }}>
-              <VerifyInput
-                label="شماره موبایل"
-                onchangeHandler={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPhoneNumber(e.target.value)
-                }
-              />
-            </Box>
-
-            <Box sx={ButtonBox}>
-              <VerifyButton
-                state={{ type: "phone", value: phoneNumber }}
-                submitHandler={submitHandler}
-                loading={loading}
-              />
-            </Box>
-          </Box>
+          <VerifyNumberBoxInput
+            submitHandler={submitHandler}
+            setPhoneNumber={setPhoneNumber}
+            phoneNumber={phoneNumber}
+            loading={loading}
+          />
         </Grid2>
       </Grid2>
     </Rtl>
