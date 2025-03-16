@@ -4,17 +4,28 @@ import HomePageDesc from "../../modules/home/HomepagedescriptionModule";
 import { Animate } from "../../modules/home/anim/AnimateModule";
 import SteperStep from "../../modules/home/steper/SteperModule";
 import Layout from "../../containers/layout/Layout";
+import TabPrice from "../../modules/home/tabPrice/TabPrice";
+import ArrowBottom from "../../modules/home/anim/ArrowBottom";
+import Header from "../../modules/home/Header";
 
 const Homepage: React.FC = () => {
   return (
     <Layout>
       <Container maxWidth="xl">
-        {/* diamond header section */}
-        <Grid2 ml={10} mt={19} size={{ xs: 12 }}>
-          {/* <DimondHeader /> */}
-          {/* <DiamonHeaderMobile /> */}
+        <Grid2 my={{ xs: 14, md: 19 }}>
+          <Header />
         </Grid2>
-
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "48.5%",
+            transform: "translateX(-50%,-50%)",
+            mt: 13,
+          }}
+        >
+          <ArrowBottom />
+        </Box>
         {/* home description */}
         <Box sx={{ mt: { xs: -12, md: 10 } }} width="100%">
           <HomePageDesc />
@@ -59,7 +70,7 @@ const Homepage: React.FC = () => {
               pt: { xs: 0, md: 4 },
             }}
           >
-            {/* <TabPrice tabPrice={tabPrice} /> */}
+            <TabPrice />
           </Grid2>
         </Grid2>
 
