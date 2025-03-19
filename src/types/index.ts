@@ -32,4 +32,31 @@ export type FaqItem = {
   description: string;
 };
 
-declare module 'stylis-plugin-rtl';
+declare module "stylis-plugin-rtl";
+
+export interface DrawerItem {
+  id: number;
+  label: string;
+  path: string;
+}
+
+
+
+export  type customerDashboardDataType = {
+  id: number;
+  title: string;
+  subtitle?: string;  
+  visibility?: "visable" | "hidden"; 
+  //price: number | string; 
+  btn?: string; 
+  btnColor?: string;
+  unit: string;
+  displayBtn: "flex" | "none"; 
+  path?: string;
+}
+
+
+export type BaseProps = {
+  headerLable: string;
+  priceColor: string;
+};

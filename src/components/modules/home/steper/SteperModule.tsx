@@ -16,8 +16,9 @@ import {
   FabStyle,
   TypographyStylemobile,
 } from "./style";
-import Rtl from "../../../element/rtl";
+
 import { colors } from "../../../../styles/theme";
+import { Rtl } from "../../../element/rtl";
 
 const SteperStep: React.FC = () => {
   const [activeStep, setActiveStep] = React.useState<number>(0);

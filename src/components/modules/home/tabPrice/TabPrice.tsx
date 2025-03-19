@@ -1,6 +1,6 @@
 import React from "react";
 import { AppBar, Tabs, Tab, Typography, Box, Paper } from "@mui/material";
-import Rtl from "../../../element/rtl";
+
 import DiamondIcon from "@mui/icons-material/Diamond";
 import {
   BuyTypo,
@@ -18,6 +18,7 @@ import {
   TabsItem,
 } from "./style";
 import TabsInputs from "./TabsInputs";
+import { Rtl } from "../../../element/rtl";
 
 const TabPrice = () => {
   const [value, setValue] = React.useState(0);
