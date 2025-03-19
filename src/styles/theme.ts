@@ -2,11 +2,11 @@ import { createTheme } from "@mui/material";
 
 // color design tokens export
 export const tokens = () => ({
-    gold: { 100: "#e7b84d", 200: "#3C3A36" },
+    gold: { 100: "#e7b84d", 200: "#3C3A36",300:"#FFC436" },
     grey: {
         100: "#1C1B19",
         200: "#292929",
-        300: "#3C3A36",
+        300: "#272523",
         400: "#525252",
         500: "#666666",
         600: "#858585",
@@ -97,33 +97,8 @@ export const themeSettings = () => {
             },
         },
         typography: {
-            fontFamily: ["IRANYekan", "sans-serif"].join(","),
-            fontSize: 12,
-            h1: {
-                fontFamily: ["IRANYekan", "sans-serif"].join(","),
-                fontSize: 40,
-            },
-            h2: {
-                fontFamily: ["IRANYekan", "sans-serif"].join(","),
-                fontSize: 32,
-            },
-            h3: {
-                fontFamily: ["IRANYekan", "sans-serif"].join(","),
-                fontSize: 24,
-            },
-            h4: {
-                fontFamily: ["IRANYekan", "sans-serif"].join(","),
-                fontSize: 20,
-            },
-            h5: {
-                fontFamily: ["IRANYekan", "sans-serif"].join(","),
-                fontSize: 16,
-            },
-            h6: {
-                fontFamily: ["IRANYekan", "sans-serif"].join(","),
-                fontSize: 14,
-            },
-        },
+            fontFamily: "'IRANYekan', sans-serif",  
+          },
     };
 };
 
