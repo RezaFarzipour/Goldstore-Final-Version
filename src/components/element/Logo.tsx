@@ -16,7 +16,7 @@ const Logo = ({ display }: Props) => {
         paddingRight: "8px",
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", p: { xs: 0, md: 2 } }}>
+      <Box sx={{ display: "flex", alignItems: "center", p: { xs: 0, } }}>
         <img
           src={logo}
           alt="Description of the image"

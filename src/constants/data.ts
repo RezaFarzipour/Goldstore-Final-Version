@@ -1,9 +1,8 @@
-import { FaqItem, NavLinks, stepstypes } from "../types";
+import { customerDashboardDataType, DrawerItem, FaqItem, NavLinks, stepstypes } from "../types";
 import { footerdatatypes } from "../types";
 
 // LayoutData:
 export const navlinks: NavLinks[] = [
-
   {
     id: 1,
     path: "/aboutus",
@@ -80,7 +79,6 @@ export const steps: stepstypes[] = [
     description: `با درخواست تسویه‌ی ریالی، هر میزان از موجودی کیف پول که می‌خواهید نهایتاً طی یک روز کاری به حساب بانکی شما واریز می‌شود. همچنین می‌توانید موجودی کیف طلایی خود را به صورت فیزیکی تحویل بگیرید.`,
   },
 ];
-
 
 // FaqsData:
 export const faqsObject1: FaqItem[] = [
@@ -171,5 +169,70 @@ export const faqsObject2: FaqItem[] = [
     title: " پول طلای فروخته شده طی چه مدت واریز میشود؟",
     description:
       "پس از درخواست برداشت ریالی، در اولین فرصت، درخواست واریز به حساب مشتری به صورت پایا ثبت می‌گردد و معمولاً در اولین سیکل تسویه پایا (بنا بر دستورالعمل بانک مرکزی) این اتفاق می‌افتد. البته امکان تسویه حساب زودتر از موعد در برخی از بانکها وجود دارد و در صورت درخواست مشتری و در موارد خاص تسویه آنی نیز امکان پذیر است.",
+  },
+];
+
+export const drawerList: DrawerItem[] = [
+  { id: 1, label: "میز کار", path: "/customerdashboard" },
+  { id: 2, label: "واریز وجه", path: "/customerdashboard/deposit" },
+  { id: 3, label: "برداشت وجه", path: "/customerdashboard/withdraw" },
+  { id: 4, label: "خرید طلا", path: "/customerdashboard/buy-gold" },
+  { id: 5, label: "فروش طلا", path: "/customerdashboard/sell-gold" },
+  { id: 6, label: "گزارش", path: "/customerdashboard/reports" },
+  { id: 7, label: "دریافت طلا", path: "/customerdashboard/receive-gold" },
+];
+
+
+
+
+
+
+
+
+export const customerDashboardHomeData : customerDashboardDataType[] = [
+  {
+    id: 1,
+    title: "قیمت خرید از طلای تهران",
+    subtitle: "(هر گرم طلا 18 عیار )",
+    visibility: "visable",
+    //price: format1,
+    btn: "خرید",
+    btnColor: "#41B62A",
+    unit: "ریال",
+    displayBtn: "flex",
+    path: "/customerdashboard/buy-gold",
+  },
+  {
+    id: 2,
+    title: "قیمت فروش به طلای تهران",
+    subtitle: "(هر گرم طلا 18 عیار )",
+    visibility: "visable",
+   // price: format2,
+    btn: "فروش",
+    btnColor: "#FF3F3F",
+    unit: "ریال",
+    displayBtn: "flex",
+    path: "/customerdashboard/sell-gold",
+  },
+  {
+    id: 3,
+    title: "موجودی کیف پول",
+    subtitle: "(هر گرم طلا 18 عیار )",
+    visibility: "hidden",
+    //price: format3,
+    btn: "افزایش موجودی",
+    btnColor: "skyblue",
+    unit: "ریال",
+    displayBtn: "flex",
+    path: "/customerdashboard/deposit",
+  },
+  {
+    id: 4,
+    title: "موجودی کیف طلا",
+    subtitle: "(هر گرم طلا 18 عیار )",
+    btn: " موجودی کیف پول",
+    //price: walletDataToken.wallet_gold_data,
+    unit: "گرم",
+    displayBtn: "none",
   },
 ];
