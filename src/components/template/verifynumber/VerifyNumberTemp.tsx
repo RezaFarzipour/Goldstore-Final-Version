@@ -3,11 +3,12 @@ import { ContentGrid, MainGrid } from "./style";
 import { Grid2, Paper } from "@mui/material";
 import signupImage from "../../../assets/images/pexels-michael-steinberg-321464.jpg";
 
-import Rtl from "../../element/rtl";
+
 import { sendOtp } from "../../../services/auth";
 import { setCookie } from "../../../utils/cookie";
 import { useNavigate } from "react-router-dom";
 import VerifyNumberBoxInput from "../../modules/authModules/VerifyNumberBoxInput";
+import { Rtl } from "../../element/rtl";
 
 const VerifyNumberPage: React.FC = () => {
   const navigate = useNavigate();

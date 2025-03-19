@@ -11,9 +11,10 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import VerifyInput from "../../element/auth/verifyNumberCode-input";
 import VerifyButton from "../../element/auth/verifyNumberCode-button";
-import Rtl from "../../element/rtl";
+
 import { checkOtp } from "../../../services/auth";
 import { setCookie } from "../../../utils/cookie";
+import { Rtl } from "../../element/rtl";
 
 const VerifyCodePage = () => {
   const [cookies] = useCookies<string>(["phone-number"]);
