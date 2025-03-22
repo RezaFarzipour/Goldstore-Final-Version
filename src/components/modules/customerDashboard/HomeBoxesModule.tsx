@@ -9,12 +9,16 @@ import { useNavigate } from "react-router-dom";
 import { colors } from "../../../styles/theme";
 import { customerDashboardDataType } from "../../../types";
 
+
 const HomeBoxes = ({
   obj,
 }: {
   obj: customerDashboardDataType;
 }) => {
   const navigate = useNavigate();
+
+
+  
 
   return (
     <Grid2
@@ -42,7 +46,7 @@ const HomeBoxes = ({
           sx={{ color: colors.primary[400], textAlign: "end", py: 3 }}
           variant="h5"
         >
-          {priceSeptrator(500000)} &nbsp;{obj.unit}
+          {priceSeptrator(obj.price??0)} &nbsp;{obj.unit}
         </Typography>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Button

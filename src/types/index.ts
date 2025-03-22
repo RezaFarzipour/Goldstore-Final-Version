@@ -47,7 +47,7 @@ export  type customerDashboardDataType = {
   title: string;
   subtitle?: string;  
   visibility?: "visable" | "hidden"; 
-  //price: number | string; 
+  price?: number  
   btn?: string; 
   btnColor?: string;
   unit: string;
@@ -55,8 +55,17 @@ export  type customerDashboardDataType = {
   path?: string;
 }
 
+export interface WalletDataResponse {
+  walletBalance: number;
+  goldBalance: number;
+  buyPrice: number;
+  sellPrice: number;
+}
+
 
 export type BaseProps = {
   headerLable: string;
   priceColor: string;
+  price: number | undefined;
+  walletData:WalletDataResponse | undefined
 };
