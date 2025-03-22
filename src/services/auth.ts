@@ -1,6 +1,9 @@
 import api from "../configs/api";
 
+
 export const sendOtp = async (phoneNumber: string) => {
+
+
   try {
     const response = api.get(
       `Authentication/send-code/phone-number=${phoneNumber}/`
@@ -26,7 +29,7 @@ interface CheckOtpResult {
 }
 
 export const checkOtp = async (
-  phoneNumber: string,
+  phoneNumber: string | null,
   verifyCode: string
 ): Promise<CheckOtpResult> => {
   try {

@@ -15,22 +15,13 @@ export default function DashboardAppbar({ setOpen }: DashboardAppbarProps) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={navbar}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
+          <Button
+            onClick={() => setOpen(true)}
+            sx={menuButtonStyle}
+            variant="contained"
           >
-            <Button
-              onClick={() => setOpen(true)}
-              sx={menuButtonStyle}
-              variant="contained"
-              
-            >
-              منو
-            </Button>
-          </IconButton>
+            منو
+          </Button>
 
           <div>
             <IconButton color="inherit">
