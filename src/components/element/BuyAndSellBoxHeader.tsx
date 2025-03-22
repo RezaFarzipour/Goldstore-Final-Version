@@ -8,12 +8,13 @@ import {
 import { priceSeptrator } from "../../utils/numberFormatter";
 import { BaseProps } from "../../types";
 
-type BuyAndSellBoxHeaderProps =BaseProps
+type BuyAndSellBoxHeaderProps = Omit<BaseProps, "walletData"> 
 
 
 const BuyAndSellBoxHeader = ({
   headerLable,
   priceColor,
+  price
 }: BuyAndSellBoxHeaderProps) => {
   return (
     <AppBar position="static" sx={{ borderRadius: "10px" }}>
@@ -29,7 +30,7 @@ const BuyAndSellBoxHeader = ({
             fontWeight: "600",
           }}
         >
-          {priceSeptrator(500000)}
+          {priceSeptrator(price ?? 0)}
           <span>ریال</span>
         </Typography>
       </Box>

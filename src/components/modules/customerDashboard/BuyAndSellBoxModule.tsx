@@ -9,21 +9,25 @@ import {
 
 import { priceSeptrator } from "../../../utils/numberFormatter";
 
-
 import BuyAndSellBoxHeader from "../../element/BuyAndSellBoxHeader";
 import BuyAndSellBoxFooter from "../../element/BuyAndSellBoxFooter";
 import { BaseProps } from "../../../types";
 import { Rtl } from "../../element/rtl";
 
 type BuyAndSellBoxProps = BaseProps & {
-  buttonValue:string
-}
-  
+  buttonValue: string;
+};
 
-
-const BuyAndSellBox = ({ headerLable, priceColor,buttonValue }:BuyAndSellBoxProps) => {
+const BuyAndSellBox = ({
+  headerLable,
+  priceColor,
+  buttonValue,
+  walletData,
+  price,
+}: BuyAndSellBoxProps) => {
   const [textFieldValue, setTextFieldValue] = React.useState("");
   const [goldTextField, setGoldTextField] = React.useState("");
+
 
   const handleTextFieldChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -54,7 +58,11 @@ const BuyAndSellBox = ({ headerLable, priceColor,buttonValue }:BuyAndSellBoxProp
     <Paper sx={PaperOneSxBuyGold}>
       <Box>
         <Paper elevation={10} sx={PapertwoSx}>
-          <BuyAndSellBoxHeader headerLable={headerLable} priceColor={priceColor} />
+          <BuyAndSellBoxHeader
+            price={price}
+            headerLable={headerLable}
+            priceColor={priceColor}
+          />
           <Rtl>
             <BuyAndSellFormControl
               total="ارزش کل"
@@ -74,10 +82,10 @@ const BuyAndSellBox = ({ headerLable, priceColor,buttonValue }:BuyAndSellBoxProp
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Button variant="outlined" dir={"rtl"} sx={BButtonThreeSx}>
-        {buttonValue}
+          {buttonValue}
         </Button>
       </Box>
-      <BuyAndSellBoxFooter />
+      <BuyAndSellBoxFooter walletData={walletData} />
     </Paper>
   );
 };
