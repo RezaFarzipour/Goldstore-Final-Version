@@ -1,4 +1,10 @@
-import { customerDashboardDataType, DrawerItem, FaqItem, NavLinks, stepstypes } from "../types";
+import {
+  customerDashboardDataType,
+  DrawerItem,
+  FaqItem,
+  NavLinks,
+  stepstypes,
+} from "../types";
 import { footerdatatypes } from "../types";
 
 // LayoutData:
@@ -212,56 +218,57 @@ export const AdmindrawerList: DrawerItem[] = [
   { id: 7, label: "تنظیمات", path: "/admin/setting", children: [] },
 ];
 
-
-
-
-
-
-
-export const customerDashboardHomeData: customerDashboardDataType[] = [
-  {
-    id: 1,
-    title: "قیمت خرید از طلای تهران",
-    subtitle: "(هر گرم طلا 18 عیار )",
-    visibility: "visable",
-    //price: format1,
-    btn: "خرید",
-    btnColor: "#41B62A",
-    unit: "ریال",
-    displayBtn: "flex",
-    path: "/customerdashboard/buy-gold",
-  },
-  {
-    id: 2,
-    title: "قیمت فروش به طلای تهران",
-    subtitle: "(هر گرم طلا 18 عیار )",
-    visibility: "visable",
-    // price: format2,
-    btn: "فروش",
-    btnColor: "#FF3F3F",
-    unit: "ریال",
-    displayBtn: "flex",
-    path: "/customerdashboard/sell-gold",
-  },
-  {
-    id: 3,
-    title: "موجودی کیف پول",
-    subtitle: "(هر گرم طلا 18 عیار )",
-    visibility: "hidden",
-    //price: format3,
-    btn: "افزایش موجودی",
-    btnColor: "skyblue",
-    unit: "ریال",
-    displayBtn: "flex",
-    path: "/customerdashboard/deposit",
-  },
-  {
-    id: 4,
-    title: "موجودی کیف طلا",
-    subtitle: "(هر گرم طلا 18 عیار )",
-    btn: " موجودی کیف پول",
-    //price: walletDataToken.wallet_gold_data,
-    unit: "گرم",
-    displayBtn: "none",
-  },
-];
+export const getCustomerDashboardHomeData = (walletData: {
+  walletBalance: number;
+  goldBalance: number;
+  buyPrice: number;
+  sellPrice: number;
+}): customerDashboardDataType[] => {
+  return [
+    {
+      id: 1,
+      title: "قیمت خرید از طلای تهران",
+      subtitle: "(هر گرم طلا 18 عیار )",
+      visibility: "visable",
+      price: walletData.buyPrice,
+      btn: "خرید",
+      btnColor: "#41B62A",
+      unit: "ریال",
+      displayBtn: "flex",
+      path: "/customerdashboard/buy-gold",
+    },
+    {
+      id: 2,
+      title: "قیمت فروش به طلای تهران",
+      subtitle: "(هر گرم طلا 18 عیار )",
+      visibility: "visable",
+      price: walletData.sellPrice,
+      btn: "فروش",
+      btnColor: "#FF3F3F",
+      unit: "ریال",
+      displayBtn: "flex",
+      path: "/customerdashboard/sell-gold",
+    },
+    {
+      id: 3,
+      title: "موجودی کیف پول",
+      subtitle: "(هر گرم طلا 18 عیار )",
+      visibility: "hidden",
+      price: walletData.walletBalance,
+      btn: "افزایش موجودی",
+      btnColor: "skyblue",
+      unit: "ریال",
+      displayBtn: "flex",
+      path: "/customerdashboard/deposit",
+    },
+    {
+      id: 4,
+      title: "موجودی کیف طلا",
+      subtitle: "(هر گرم طلا 18 عیار )",
+      btn: "موجودی کیف پول",
+      price: walletData.goldBalance,
+      unit: "گرم",
+      displayBtn: "none",
+    },
+  ];
+};

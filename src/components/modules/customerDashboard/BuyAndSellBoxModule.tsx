@@ -22,9 +22,12 @@ const BuyAndSellBox = ({
   headerLable,
   priceColor,
   buttonValue,
+  walletData,
+  price,
 }: BuyAndSellBoxProps) => {
   const [textFieldValue, setTextFieldValue] = React.useState("");
   const [goldTextField, setGoldTextField] = React.useState("");
+
 
   const handleTextFieldChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -56,6 +59,7 @@ const BuyAndSellBox = ({
       <Box>
         <Paper elevation={10} sx={PapertwoSx}>
           <BuyAndSellBoxHeader
+            price={price}
             headerLable={headerLable}
             priceColor={priceColor}
           />
@@ -81,7 +85,7 @@ const BuyAndSellBox = ({
           {buttonValue}
         </Button>
       </Box>
-      <BuyAndSellBoxFooter />
+      <BuyAndSellBoxFooter walletData={walletData} />
     </Paper>
   );
 };

@@ -45,17 +45,27 @@ export type DrawerItem = {
 export type customerDashboardDataType = {
   id: number;
   title: string;
-  subtitle?: string;
-  visibility?: "visable" | "hidden";
-  //price: number | string; 
-  btn?: string;
+  subtitle?: string;  
+  visibility?: "visable" | "hidden"; 
+  price?: number  
+  btn?: string; 
   btnColor?: string;
   unit: string;
   displayBtn: "flex" | "none";
   path?: string;
 }
 
+export interface WalletDataResponse {
+  walletBalance: number;
+  goldBalance: number;
+  buyPrice: number;
+  sellPrice: number;
+}
+
+
 export type BaseProps = {
   headerLable: string;
   priceColor: string;
+  price: number | undefined;
+  walletData:WalletDataResponse | undefined
 };

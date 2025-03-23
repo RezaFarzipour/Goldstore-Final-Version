@@ -33,16 +33,14 @@ const DepositeBox = ({
   return (
     <Paper
       sx={{
-        bgcolor: colors.gold[200],
+        bgcolor: "#272523",
         width: "100%",
         borderRadius: "10px",
         height: "290px",
         px: 10,
       }}
     >
-      <Typography
-        sx={{ color: "#fff", textAlign: "start", fontSize: "20px", py: 3 }}
-      >
+      <Typography sx={{ color: "#fff",textAlign:"start" ,fontSize: "20px", py: 3 }}>
         {headerContent}
       </Typography>
 

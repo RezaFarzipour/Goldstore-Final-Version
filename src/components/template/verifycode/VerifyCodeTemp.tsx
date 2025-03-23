@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Paper, Box, Typography, Grid2 } from "@mui/material";
 import VerifyCodeImage from "../../../assets/images/pexels-michael-steinberg-321464.jpg";
-import { useCookies } from "react-cookie";
 import {
   EditNumberBtn,
   InnerGrid,
@@ -13,22 +12,25 @@ import VerifyInput from "../../element/auth/verifyNumberCode-input";
 import VerifyButton from "../../element/auth/verifyNumberCode-button";
 
 import { checkOtp } from "../../../services/auth";
-import { setCookie } from "../../../utils/cookie";
+import { getCookie, setCookie } from "../../../utils/cookie";
 import { Rtl } from "../../element/rtl";
 
 const VerifyCodePage = () => {
-  const [cookies] = useCookies<string>(["phone-number"]);
+
   const [verifyCode, setVerifyCode] = React.useState<string>("");
   const [loading, setLoading] = React.useState(false);
 
+ 
+  
   const navigate = useNavigate();
+  const token = getCookie("phone-number")
 
   const handleVerifyCode = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setLoading(true);
 
     const { response, err } = await checkOtp(
-      cookies["phone-number"],
+      token,
       verifyCode
     );
     if (response) {
@@ -41,7 +43,7 @@ const VerifyCodePage = () => {
         response.data.user_type === "customer" &&
         !response.data.signup_require
       ) {
-        navigate("/DeskPage");
+        navigate("/customerdashboard/");
       } else if (
         response.data.user_type === "admin" &&
         !response.data.signup_require
