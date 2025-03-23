@@ -72,8 +72,8 @@ export const navlinks = {
     fontSize: "18px",
     backgroundColor: "none",
     border: "none",
-    fontWeight: "100",
-    fontFamily: "Lalezar",
+    fontWeight: "400",
+   
     transition: "all ease-out .2s",
     "&:hover": {
         color: "#FFC436",
@@ -108,7 +108,7 @@ export const adress_typo = {
 }
 
 export const span_style = {
-    fontFamily: "Yekan", color: '#fff'
+     color: '#fff'
 }
 
 
@@ -136,7 +136,7 @@ export const hr_style = {
 export const made_by_adlikara_typo = {
     color: "#fff",
     margin: "auto",
-    fontWeight: "bold",
-    fontFamily: "Yekan",
+    fontWeight: "400",
+  
     py: 1,
 }

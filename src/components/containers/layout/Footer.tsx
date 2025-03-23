@@ -58,10 +58,10 @@ const Footer = () => {
         {footerdata.footerContactInfo.map((info, index) => (
           <Typography
             key={index}
-            fontFamily="Yekan"
+           
             color="white"
             fontSize={20}
-            variant="h5"
+         
             textAlign="center"
             sx={{ whiteSpace: "nowrap", mb: 1 }}
           >

@@ -8,28 +8,36 @@ const HomePageDesc = () => {
       alignItems="center"
       width="100%"
     >
-      <Box display="flex" justifyContent="center" alignItems="center">
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        textAlign="center"
+        gap={2}
+        sx={{
+          mt: {
+            xs: "1px",
+            sm: "20px",
+            md: "130px",
+            lg: "130px",
+            xl: "115px",
+          },
+        }}
+      >
         <Typography
           sx={{
             fontSize: {
+              
               xs: "25px",
               md: "28px",
               color: "#A87715",
               fontFamily: "Yekan",
               fontWeight: "bold",
             },
-            mt: {
-              xs: "1px",
-              sm: "20px",
-              md: "130px",
-              lg: "130px",
-              xl: "115px",
-            },
           }}
         >
           طلای تهران
         </Typography>{" "}
-        ""
         <Typography
           sx={{
             fontSize: {
@@ -38,19 +46,18 @@ const HomePageDesc = () => {
               color: "#fff",
               fontWeight: "bold",
             },
-            mt: {
-              xs: "1px",
-              sm: "20px",
-              md: "130px",
-              lg: "130px",
-              xl: "130px",
-            },
+            // mt: {
+            //   xs: "1px",
+            //   sm: "20px",
+            //   md: "130px",
+            //   lg: "130px",
+            //   xl: "130px",
+            // },
             fontWeight: "bold",
           }}
         >
           طلای خود را از ما بخواهید
         </Typography>
-        ""
       </Box>
 
       <Box>

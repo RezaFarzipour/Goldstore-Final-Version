@@ -9,13 +9,14 @@ import ListItemButton from "@mui/material/ListItemButton";
 
 import ListItemText from "@mui/material/ListItemText";
 
-
 import { colors } from "../../styles/theme";
 
 import Logo from "../element/Logo";
 import { DrawerItem } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { Rtl } from "../element/rtl";
+import { Button } from "@mui/material";
+import { deleteCookie } from "../../utils/numberFormatter";
 
 type DashboardDrawerprops = {
   open: boolean;
@@ -38,6 +39,14 @@ export default function DashboardDrawer({
   const handleSubmit = (index: number, path: string) => {
     setSelectedIndex(index);
     navigate(path);
+  };
+
+  const handleLogout = () => {
+    deleteCookie("phone-number");
+    deleteCookie("token");
+    deleteCookie("user_type");
+
+    navigate("/");
   };
 
   const DrawerList = (
@@ -74,6 +83,12 @@ export default function DashboardDrawer({
               </ListItemButton>
             </ListItem>
           ))}
+          <Button
+            sx={{ mt: 2, color: "red", fontWeight: "400", fontSize: "17px" }}
+            onClick={handleLogout}
+          >
+            خروج
+          </Button>
         </List>
       </Box>
     </Rtl>

@@ -14,7 +14,7 @@ const AboutUsPage = () => {
             mt: 5,
             color: "#FFC436",
             fontWeight: "bold",
-            fontFamily: "Lalazar",
+           
           }}
         >
           درباره طلای تهران
@@ -36,10 +36,10 @@ const AboutUsPage = () => {
           <Grid2 size={{ xs: 12 }}>
             <Typography
               fontSize="20px"
-              variant="h6"
+             
               color="#e3e5e5"
-              fontWeight="500"
-              fontFamily="Yekan"
+              fontWeight="300"
+         
               textAlign="justify"
               sx={{
                 p: 5,
