@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Paper, Box, Typography, Grid2 } from "@mui/material";
 import VerifyCodeImage from "../../../assets/images/pexels-michael-steinberg-321464.jpg";
-import { useCookies } from "react-cookie";
 import {
   EditNumberBtn,
   InnerGrid,

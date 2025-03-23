@@ -42,7 +42,7 @@ const NavLink = ({ path, label, color, dimondDisplay }: NavLinkProps) => {
       }}
     >
       {dimondDisplay && <Box sx={diamondStyle} />}
-      <Typography variant="h5" noWrap>
+      <Typography fontWeight="500" noWrap>
         {label}
       </Typography>
       <Box />
