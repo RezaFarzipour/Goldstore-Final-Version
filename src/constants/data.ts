@@ -178,14 +178,44 @@ export const faqsObject2: FaqItem[] = [
   },
 ];
 
-export const drawerList: DrawerItem[] = [
-  { id: 1, label: "میز کار", path: "/customerdashboard" },
-  { id: 2, label: "واریز وجه", path: "/customerdashboard/deposit" },
-  { id: 3, label: "برداشت وجه", path: "/customerdashboard/withdraw" },
-  { id: 4, label: "خرید طلا", path: "/customerdashboard/buy-gold" },
-  { id: 5, label: "فروش طلا", path: "/customerdashboard/sell-gold" },
-  { id: 6, label: "گزارش", path: "/customerdashboard/reports" },
-  { id: 7, label: "دریافت طلا", path: "/customerdashboard/receive-gold" },
+export const CustomerdrawerList: DrawerItem[] = [
+  { id: 1, label: "میز کار", path: "/customerdashboard", children: [] },
+  { id: 2, label: "واریز وجه", path: "/customerdashboard/deposit", children: [] },
+  { id: 3, label: "برداشت وجه", path: "/customerdashboard/withdraw", children: [] },
+  { id: 4, label: "خرید طلا", path: "/customerdashboard/buy-gold", children: [] },
+  { id: 5, label: "فروش طلا", path: "/customerdashboard/sell-gold", children: [] },
+  { id: 6, label: "گزارش", path: "/customerdashboard/reports", children: [] },
+  { id: 7, label: "دریافت طلا", path: "/customerdashboard/receive-gold", children: [] },
+];
+export const AdmindrawerList: DrawerItem[] = [
+  { id: 1, label: "داشبورد", path: "/admin", children: [] },
+  { id: 2, label: "موجودی حساب ها", path: "/admin/inventory", children: [] },
+  { id: 3, label: "برداشت طلا", path: "/admin/gold-withdraw", children: [] },
+  { id: 4, label: "برداشت وجه", path: "/admin/cash-withdraw", children: [] },
+  { id: 5, label: "سفارش ها", path: "/admin/orders", children: [] },
+  {
+    id: 6, label: "گزارش ها", path: "", children: [
+      {
+        id: 61,
+        subLabel: 'خرید طلا',
+        path: "/admin/reports/gold-buy",
+        children: []
+      },
+      {
+        id: 62,
+        subLabel: 'فروش طلا',
+        path: "/admin/reports/gold-sale",
+        children: []
+      },
+      {
+        id: 63,
+        subLabel: 'تراکنش ها',
+        path: "/admin/reports/transactions",
+        children: []
+      },
+    ],
+  },
+  { id: 7, label: "تنظیمات", path: "/admin/setting", children: [] },
 ];
 
 export const getCustomerDashboardHomeData = (walletData: {

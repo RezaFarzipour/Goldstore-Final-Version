@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import { walletdata } from "../../../services/customerDashboard";
 import { ErrorPendingHandler } from "../../../utils/ErrrorPendingHandler";
 
-
 const Withdraw = () => {
 
   const {data:walletData,error,isPending} = useQuery({

@@ -31,13 +31,13 @@ const NavLink = ({ path, label, color, dimondDisplay }: NavLinkProps) => {
       sx={{
         pt: "8px",
         pr: "25px",
-        color: isActive ? "#FFC436" : color,
+        color: isActive ? colors.gold[100] : color,
         fontWeight: "bold",
         position: "relative",
 
         "&:hover": {
           bgcolor: "transparent",
-          color: "#FFC436",
+          color: colors.gold[100],
         },
       }}
     >

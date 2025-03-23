@@ -34,15 +34,15 @@ export type FaqItem = {
 
 declare module "stylis-plugin-rtl";
 
-export interface DrawerItem {
+export type DrawerItem = {
   id: number;
-  label: string;
+  subLabel?: string;
+  label?: string;
   path: string;
-}
+  children?: DrawerItem[];
+};
 
-
-
-export  type customerDashboardDataType = {
+export type customerDashboardDataType = {
   id: number;
   title: string;
   subtitle?: string;  
@@ -51,7 +51,7 @@ export  type customerDashboardDataType = {
   btn?: string; 
   btnColor?: string;
   unit: string;
-  displayBtn: "flex" | "none"; 
+  displayBtn: "flex" | "none";
   path?: string;
 }
 

@@ -7,6 +7,7 @@ import SignUp from "../pages/VerifyNumber";
 import VerifyCode from "../pages/VerifyCode";
 import SignupInfo from "../pages/SignupInfo";
 import CustomerDashboard from "../pages/CustomerDashboard";
+import AdminDashboard from "../pages/AdminDashboard";
 
 const AppRoutes = () => {
   return (
@@ -19,6 +20,7 @@ const AppRoutes = () => {
       <Route path="/verifycode" element={<VerifyCode />} />
       <Route path="/signupinfo" element={<SignupInfo />} />
       <Route path="/customerdashboard/*" element={<CustomerDashboard />} />
+      <Route path="/admin/*" element={<AdminDashboard />} />
     </Routes>
   );
 };
