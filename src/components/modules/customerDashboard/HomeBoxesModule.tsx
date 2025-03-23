@@ -9,11 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { colors } from "../../../styles/theme";
 import { customerDashboardDataType } from "../../../types";
 
-const HomeBoxes = ({
-  obj,
-}: {
-  obj: customerDashboardDataType;
-}) => {
+const HomeBoxes = ({ obj }: { obj: customerDashboardDataType }) => {
   const navigate = useNavigate();
 
   return (

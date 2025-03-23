@@ -17,22 +17,33 @@ import { colors } from "../../../styles/theme";
 type DepositeBoxProps = {
   buttonValue: string;
   display: string;
+  headerContent: string;
+  footerContent: string;
+  unit: string;
 };
 
-const DepositeBox = ({ buttonValue, display }: DepositeBoxProps) => {
+const DepositeBox = ({
+  headerContent,
+  footerContent,
+  buttonValue,
+  unit,
+  display,
+}: DepositeBoxProps) => {
   const [textFieldValue, setTextFieldValue] = React.useState("");
   return (
     <Paper
       sx={{
-        bgcolor: "#272523",
+        bgcolor: colors.gold[200],
         width: "100%",
         borderRadius: "10px",
         height: "290px",
         px: 10,
       }}
     >
-      <Typography sx={{ color: "#fff", fontSize: "20px", py: 3 }}>
-        مبلغ را وارد کنید:
+      <Typography
+        sx={{ color: "#fff", textAlign: "start", fontSize: "20px", py: 3 }}
+      >
+        {headerContent}
       </Typography>
 
       <TextField
@@ -48,7 +59,7 @@ const DepositeBox = ({ buttonValue, display }: DepositeBoxProps) => {
               }}
               position="start"
             >
-              ریال
+              {unit}
             </InputAdornment>
           ),
         }}
@@ -66,8 +77,16 @@ const DepositeBox = ({ buttonValue, display }: DepositeBoxProps) => {
       </Box>
 
       <Box display={display}>
-        <Typography  sx={{ color: colors.primary[400],textAlign:"center" ,fontWeight:500}}>
-          <span style={{ color: "rgb(255,172,25)",marginLeft:"6px" }}>موجودی کیف پول:</span>
+        <Typography
+          sx={{
+            color: colors.primary[400],
+            textAlign: "center",
+            fontWeight: 500,
+          }}
+        >
+          <span style={{ color: "rgb(255,172,25)", marginLeft: "6px" }}>
+            {footerContent}
+          </span>
           <span>
             {/* {numeral(props.WalletData.wallet_money_data).format("0,0")} */}
             {priceSeptrator(5657565)}

@@ -11,7 +11,6 @@ export const gold_store_name_typo = {
     mr: 2,
     ml: 4,
     display: { xs: "none", md: "flex" },
-    fontFamily: "monospace",
     fontWeight: 900,
     letterSpacing: "-0.065em",
 };
