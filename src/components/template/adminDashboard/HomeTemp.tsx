@@ -1,7 +1,7 @@
 import { Box, Grid2, Typography } from "@mui/material";
 import HomeBoxes from "../../modules/customerDashboard/HomeBoxesModule";
 import { colors } from "../../../styles/theme";
-import { customerDashboardHomeData } from "../../../constants/data";
+import { getCustomerDashboardHomeData } from "../../../constants/data";
 
 type Props = {};
 
@@ -26,7 +26,7 @@ const HomeTemp = (props: Props) => {
       </Box>
 
       <Grid2 container>
-        {customerDashboardHomeData.map((obj) => {
+        {getCustomerDashboardHomeData.map((obj) => {
           return <HomeBoxes obj={obj} />;
         })}
       </Grid2>
