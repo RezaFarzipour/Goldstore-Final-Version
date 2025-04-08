@@ -2,29 +2,29 @@ import { Box } from "@mui/material";
 import BuyAndSellBox from "../../modules/customerDashboard/BuyAndSellBoxModule";
 import { useQuery } from "@tanstack/react-query";
 import { walletdata } from "../../../services/customerDashboard";
-import { ErrorPendingHandler } from "../../../utils/ErrrorPendingHandler";
+import { ErrorPendingHandler } from "../../element/ErrrorPendingHandler";
 
 const BuyGold = () => {
+  const {
+    data: walletData,
+    error,
+    isPending,
+  } = useQuery({
+    queryKey: ["walletdata"],
+    queryFn: walletdata,
+  });
 
-  const {data:walletData,error,isPending} = useQuery({
-    queryKey:["walletdata"],
-    queryFn:walletdata
-  })
+  ErrorPendingHandler(error?.message, isPending);
 
-  ErrorPendingHandler(error?.message,isPending)
+  const buyPrice = walletData?.buyPrice;
 
-  
-  const buyPrice = walletData?.buyPrice
-
-
-  
   return (
     <Box
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <BuyAndSellBox
-      price={buyPrice}
-     walletData={walletData}
+        price={buyPrice}
+        walletData={walletData}
         headerLable="قیمت خرید"
         priceColor={"green"}
         buttonValue="خرید"
