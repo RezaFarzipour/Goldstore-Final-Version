@@ -3,7 +3,6 @@ import HomeBoxes from "../../modules/customerDashboard/HomeBoxesModule";
 import { colors } from "../../../styles/theme";
 import { getCustomerDashboardHomeData } from "../../../constants/data";
 
-
 type Props = {};
 
 const HomeTemp = (props: Props) => {
