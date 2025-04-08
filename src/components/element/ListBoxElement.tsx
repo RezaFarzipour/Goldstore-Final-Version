@@ -1,58 +1,104 @@
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Typography,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { DrawerItem } from "../../types";
+import * as React from "react";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 import { colors } from "../../styles/theme";
+import { Box } from "@mui/material";
+
+type DrawerItem = {
+  id: number;
+  label: string;
+  children?: {
+    id: number;
+    subLabel: string;
+    path: string;
+  }[];
+};
 
 type Props = {
   segment: DrawerItem;
   handleSubmit: (index: number, path: string) => void;
   selectedIndex: number | null;
+  cMinHeight: boolean;
+  setCMinHeight: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const ListBoxElement: React.FC<Props> = ({
   segment,
   handleSubmit,
   selectedIndex,
+  cMinHeight,
+  setCMinHeight,
 }) => {
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+    setCMinHeight(!cMinHeight);
+  };
+
   return (
-    <Accordion sx={{ all: "unset", color: "white" }}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
-        aria-controls={`${segment.id}-content`}
-        id={`${segment.id}-header`}
-        sx={{ p: 0 }}
+    <List
+      disablePadding
+      sx={{
+        width: "100%",
+      }}
+    >
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          "&:hover": { bgcolor: colors.gold[100] },
+          p: 0,
+          bgcolor:
+            segment.id === selectedIndex ? colors.gold[100] : "transparent",
+        }}
+        onClick={handleClick}
       >
-        <Typography component="span">{segment.label}</Typography>
-      </AccordionSummary>
-      <AccordionDetails sx={{ p: 0 }}>
-        {segment.children?.map((sub) => (
-          <ListItemButton
-            key={sub.id}
-            onClick={() => handleSubmit(sub.id, sub.path)}
-            sx={{
-              ":hover": { bgcolor: colors.gold[100] },
-              bgcolor:
-                sub.id === selectedIndex ? colors.gold[100] : "transparent",
-            }}
-          >
-            <ListItemText
+        <ListItemText
+          primary={segment.label}
+          sx={{
+            width: "100%",
+            py: 1,
+            pl: 2,
+          }}
+        />
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </Box>
+
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding sx={{ width: "100%" }}>
+          {segment.children?.map((sub) => (
+            <ListItemButton
+              key={sub.id}
+              onClick={() => handleSubmit(sub.id, sub.path)}
               sx={{
-                color: sub.id === selectedIndex ? colors.primary[300] : "white",
+                pl: 4,
+                width: "100%",
+                "&:hover": { bgcolor: colors.gold[100] },
+                bgcolor:
+                  sub.id === selectedIndex ? colors.gold[100] : "transparent",
               }}
-              primaryTypographyProps={{ fontSize: "17px" }}
-              primary={sub.subLabel}
-            />
-          </ListItemButton>
-        ))}
-      </AccordionDetails>
-    </Accordion>
+            >
+              <ListItemText
+                primary={sub.subLabel}
+                primaryTypographyProps={{ fontSize: "17px" }}
+                sx={{
+                  width: "100%",
+                  color:
+                    sub.id === selectedIndex ? colors.primary[300] : "white",
+                }}
+              />
+            </ListItemButton>
+          ))}
+        </List>
+      </Collapse>
+    </List>
   );
 };
 

@@ -1,16 +1,12 @@
 import { Box } from "@mui/material";
-import GoldSale from "./reports/GoldSaleTemp";
-import GoldBuy from "./reports/GoldBuyTemp";
-import Transactions from "./reports/TransactionsTemp";
+import { Outlet } from "react-router-dom";
 
 type Props = {};
 
 const ReportsTemp = (props: Props) => {
   return (
     <Box>
-      <Transactions />
-      <GoldBuy />
-      <GoldSale />
+      <Outlet />
     </Box>
   );
 };
