@@ -24,7 +24,8 @@ export const GoldBox = {
 export const TypographyStyle = (activeStep: number, index: number) => ({
   cursor: "pointer",
   pl: 2,
-  fontSize: "18px",
+  fontWeight:"400",
+  fontSize: "15px",
   textAlign: "justify",
   color: activeStep === index ? "#fff" : colors.gold[100],
 });

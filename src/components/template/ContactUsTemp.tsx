@@ -37,7 +37,7 @@ const ContactUsPage: React.FC = () => {
             border: "1px solid #2B2926",
             borderRadius: "20px",
             backgroundColor: "#2B2926",
-            width: "80%",
+            width: "86%",
             padding: "20px",
           }}
           container

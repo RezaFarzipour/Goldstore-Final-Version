@@ -99,7 +99,8 @@ const TabPrice = () => {
               variant="fullWidth"
               aria-label="full width tabs example"
             >
-              <Tab
+              <Tab 
+              
                 sx={TabItem(colorTab)}
                 onClick={() => handleTabClick(false)}
                 label="خرید"

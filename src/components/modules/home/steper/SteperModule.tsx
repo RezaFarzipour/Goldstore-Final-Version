@@ -70,7 +70,8 @@ const SteperStep: React.FC = () => {
                       cursor: "pointer",
                       pl: 2,
                       color: activeStep == index ? colors.gold[100] : "#fff",
-                      fontSize: "18px",
+                      fontWeight:"400",
+                      fontSize: "15px",
                     }}
                   >
                     {step.label}

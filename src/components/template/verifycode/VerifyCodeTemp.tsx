@@ -16,23 +16,17 @@ import { getCookie, setCookie } from "../../../utils/cookie";
 import { Rtl } from "../../element/rtl";
 
 const VerifyCodePage = () => {
-
   const [verifyCode, setVerifyCode] = React.useState<string>("");
   const [loading, setLoading] = React.useState(false);
 
- 
-  
   const navigate = useNavigate();
-  const token = getCookie("phone-number")
+  const token = getCookie("phone-number");
 
   const handleVerifyCode = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setLoading(true);
 
-    const { response, err } = await checkOtp(
-      token,
-      verifyCode
-    );
+    const { response, err } = await checkOtp(token, verifyCode);
     if (response) {
       setCookie("token", response.data.token);
       setCookie("user_type", response.data.user_type);
@@ -48,7 +42,7 @@ const VerifyCodePage = () => {
         response.data.user_type === "admin" &&
         !response.data.signup_require
       ) {
-        navigate("/CashAmountAdmin");
+        navigate("/admin/");
       }
     } else if (err) {
       setLoading(false);

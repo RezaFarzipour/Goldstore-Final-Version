@@ -23,7 +23,8 @@ export const PaperBox = {
 export const BuyTypo = {
   color: "#fff",
   textAlign: "center",
-  fontSize: { xs: "20px", md: "30px" },
+  fontWeight:"500",
+  fontSize: { xs: "17px", md: "20px" },
 
 };
 
@@ -44,7 +45,9 @@ export const RialTypo = {
 export const SellTypo = {
   color: "#fff",
   textAlign: "center",
-  fontSize: { xs: "20px", md: "30px" },
+  fontWeight:"500",
+  fontSize: { xs: "17px", md: "20px" },
+
 };
 
 export const SellBox = {
@@ -94,6 +97,7 @@ export const TabItem = (colorTab) => {
   const S4 = {
     bgcolor: colorTab ? null : `${colors.gold[100]} !important`,
     color: colorTab ? null : "#444 !important",
+    
   };
   return S4;
 };
