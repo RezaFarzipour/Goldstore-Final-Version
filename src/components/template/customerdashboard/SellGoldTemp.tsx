@@ -1,31 +1,75 @@
-import React from 'react'
-import BuyAndSellBox from '../../modules/customerDashboard/BuyAndSellBoxModule'
-import { Box } from '@mui/material'
-import { useQuery } from '@tanstack/react-query'
-import { walletdata } from '../../../services/customerDashboard'
-import { ErrorPendingHandler } from '../../../utils/ErrrorPendingHandler'
+import React from "react";
+import BuyAndSellBox from "../../modules/customerDashboard/BuyAndSellBoxModule";
+import { Box } from "@mui/material";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { sellgold, walletdata } from "../../../services/customerDashboard";
+import { ErrorPendingHandler } from "../../../utils/ErrrorPendingHandler";
+import Alerts from "../../element/AlertElement";
 
 const SellGold = () => {
 
-  const {data:walletData,error,isPending} = useQuery({
-    queryKey:["walletdata"],
-    queryFn:walletdata
-  })
+  const queryClient = useQueryClient()
 
-  ErrorPendingHandler(error?.message,isPending)
+  const {
+    data: walletData,
+    error,
+    isPending,
+  } = useQuery({
+    queryKey: ["walletdata"],
+    queryFn: walletdata,
+  });
 
-  
+  ErrorPendingHandler(error?.message, isPending);
 
-  const sellPrice = walletData?.sellPrice
+  const sellPrice = walletData?.sellPrice;
+
+
+  const {
+    mutate,
+    isPending: selling,
+    isError,
+    isSuccess,
+    
+    
+  } = useMutation({
+    mutationKey:["sellgold"],
+    mutationFn: sellgold,
+    onSuccess:()=>queryClient.invalidateQueries({queryKey:["walletdata"]})
+  });
 
 
   return (
+    <>
+
+{isError && (
+        <Alerts
+          severity="error"
+          text="خطایی پیش امده است دوباره تلاش کنید"
+        ></Alerts>
+      )}
+      {isSuccess && (
+        <Alerts
+          severity="success"
+          text="فروش با موفقیت انجام شد.منتظر تایید ادمین بمانید"
+        ></Alerts>
+      )}
+
     <Box
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
-      <BuyAndSellBox price={sellPrice} walletData={walletData}  headerLable='قیمت فروش' priceColor='red' buttonValue="فروش"/>
+      <BuyAndSellBox
+     
+        mutate={mutate}
+        isPending={selling}
+        price={sellPrice}
+        walletData={walletData}
+        headerLable="قیمت فروش"
+        priceColor="red"
+        buttonValue="فروش"
+      />
     </Box>
-  )
-}
+    </>
+  );
+};
 
-export default SellGold
+export default SellGold;

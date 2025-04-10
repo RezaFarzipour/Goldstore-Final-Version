@@ -1,17 +1,10 @@
 import api from "../configs/api";
 import { WalletDataResponse } from "../types";
 
-
-
-
 const walletdata = async (): Promise<WalletDataResponse> => {
   const [walletRes, priceRes] = await Promise.all([
-    api.get("UserDashboard-DeskPage/wallet-data/",
-
-  ),
-    api.get("UserDashboard-DeskPage/gold-stock-price/", 
-
-  ),
+    api.get("UserDashboard-DeskPage/wallet-data/"),
+    api.get("UserDashboard-DeskPage/gold-stock-price/"),
   ]);
 
   return {
@@ -27,11 +20,29 @@ const walletdata = async (): Promise<WalletDataResponse> => {
 const customerWithdraw = async (moneyAmount: string) => {
   const response = await api.post(
     "UserDashboard-GetRequest/get-request-money/",
-    { money_amount: moneyAmount },
-
+    { money_amount: moneyAmount }
   );
 
   return response.data;
 };
 
-export { walletdata, customerWithdraw };
+//buy gold api
+
+const buyGold = async (goldAmount: string) => {
+ 
+ await api.post("UserDashboard-GoldBuySale/buy-gold/", {
+    gold_amount: parseFloat(goldAmount),
+  });
+
+
+};
+
+
+
+const sellgold = async(goldAmount:string) =>{
+  await api.post("UserDashboard-GoldBuySale/sale-gold/",{
+    gold_amount: parseFloat(goldAmount),
+  })
+} 
+
+export { walletdata, customerWithdraw, buyGold ,sellgold};
