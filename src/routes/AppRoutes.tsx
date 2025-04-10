@@ -8,6 +8,7 @@ import VerifyCode from "../pages/VerifyCode";
 import SignupInfo from "../pages/SignupInfo";
 import CustomerDashboard from "../pages/CustomerDashboard";
 import AdminDashboard from "../pages/AdminDashboard";
+import NotFound from "../pages/404";
 
 const AppRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const AppRoutes = () => {
       <Route path="/signupinfo" element={<SignupInfo />} />
       <Route path="/customerdashboard/*" element={<CustomerDashboard />} />
       <Route path="/admin/*" element={<AdminDashboard />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
