@@ -4,7 +4,12 @@ import { colors } from "../../../styles/theme";
 import { getCustomerDashboardHomeData } from "../../../constants/data";
 
 type Props = {};
-
+const customerDashboardHomeData = getCustomerDashboardHomeData({
+  walletBalance: 0,
+  goldBalance: 0,
+  buyPrice: 0,
+  sellPrice: 0,
+});
 const HomeTemp = (props: Props) => {
   return (
     <Box>
@@ -26,7 +31,7 @@ const HomeTemp = (props: Props) => {
       </Box>
 
       <Grid2 container>
-        {getCustomerDashboardHomeData.map((obj) => {
+        {customerDashboardHomeData.map((obj) => {
           return <HomeBoxes obj={obj} />;
         })}
       </Grid2>

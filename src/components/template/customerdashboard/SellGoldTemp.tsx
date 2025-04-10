@@ -1,15 +1,12 @@
 import React from "react";
 import BuyAndSellBox from "../../modules/customerDashboard/BuyAndSellBoxModule";
 import { Box } from "@mui/material";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { sellgold, walletdata } from "../../../services/customerDashboard";
-import { ErrorPendingHandler } from "../../../utils/ErrrorPendingHandler";
+import { ErrorPendingHandler } from "../../element/ErrrorPendingHandler";
 import Alerts from "../../element/AlertElement";
 
 const SellGold = () => {
-
-  const queryClient = useQueryClient()
-
   const {
     data: walletData,
     error,
@@ -18,6 +15,10 @@ const SellGold = () => {
     queryKey: ["walletdata"],
     queryFn: walletdata,
   });
+
+
+
+
 
   ErrorPendingHandler(error?.message, isPending);
 
@@ -34,8 +35,9 @@ const SellGold = () => {
   } = useMutation({
     mutationKey:["sellgold"],
     mutationFn: sellgold,
-    onSuccess:()=>queryClient.invalidateQueries({queryKey:["walletdata"]})
+    
   });
+
 
 
   return (

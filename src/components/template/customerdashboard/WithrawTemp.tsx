@@ -7,7 +7,7 @@ import {
   customerWithdraw,
   walletdata,
 } from "../../../services/customerDashboard";
-import { ErrorPendingHandler } from "../../../utils/ErrrorPendingHandler";
+import { ErrorPendingHandler } from "../../element/ErrrorPendingHandler";
 import Alerts from "../../element/AlertElement";
 
 const Withdraw = () => {

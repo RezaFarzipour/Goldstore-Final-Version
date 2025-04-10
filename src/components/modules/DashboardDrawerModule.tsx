@@ -28,7 +28,7 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
 }) => {
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null);
-
+  const [cMinHeight, setCMinHeight] = React.useState<boolean>(false);
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
@@ -44,6 +44,7 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
 
     navigate("/");
   };
+  console.log("cMinHeight", cMinHeight);
 
   const renderDrawerList = () => (
     <Rtl>
@@ -52,7 +53,7 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
           width: 250,
           bgcolor: colors.grey[300],
           height: "100%",
-          minHeight: "110%",
+          minHeight: !cMinHeight ? "110%" : "100%",
         }}
         role="presentation"
       >
@@ -63,19 +64,19 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
           {drawerList.map((segment) => (
             <ListItem key={segment.id} disablePadding>
               {segment.children && segment.children.length > 0 ? (
-                <ListItemButton>
-                  <ListItemText
-                    sx={{ color: "white" }}
-                    primaryTypographyProps={{ fontSize: "17px" }}
-                    primary={
-                      <ListBoxElement
-                        segment={segment}
-                        handleSubmit={handleSubmit}
-                        selectedIndex={selectedIndex}
-                      />
-                    }
-                  />
-                </ListItemButton>
+                <ListItemText
+                  sx={{ color: "white" }}
+                  primaryTypographyProps={{ fontSize: "17px" }}
+                  primary={
+                    <ListBoxElement
+                      segment={segment}
+                      handleSubmit={handleSubmit}
+                      selectedIndex={selectedIndex}
+                      cMinHeight={cMinHeight}
+                      setCMinHeight={setCMinHeight}
+                    />
+                  }
+                />
               ) : (
                 <ListItemButton
                   onClick={() => handleSubmit(segment.id, segment.path)}
