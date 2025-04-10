@@ -14,9 +14,11 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { footerdata } from "../../../constants/data";
+import { colors } from "../../../styles/theme";
 
 const Footer = () => {
   return (
+    <Grid sx={{bgcolor: colors.grey[200]}}>
     <Grid sx={Footer_Grid}>
       {/* Footer Links */}
       <Grid
@@ -26,7 +28,8 @@ const Footer = () => {
         flexWrap="wrap"
         justifyContent={{ xs: "center", sm: "space-around" }}
         alignItems="center"
-        mt={4}
+     
+        mb={{xs:3,md:0}}
       >
         {footerdata.footerlinks1
           .concat(footerdata.footerlinks2)
@@ -60,7 +63,7 @@ const Footer = () => {
             key={index}
            
             color="white"
-            fontSize={20}
+            fontSize={15}
          
             textAlign="center"
             sx={{ whiteSpace: "nowrap", mb: 1 }}
@@ -75,7 +78,9 @@ const Footer = () => {
         </Box>
       </Grid>
 
-      <hr style={hr_style} />
+     
+    </Grid>
+     <hr style={hr_style} />
       <Typography sx={made_by_adlikara_typo} textAlign="center">
         ساخته شده توسط آدلی کارا
       </Typography>

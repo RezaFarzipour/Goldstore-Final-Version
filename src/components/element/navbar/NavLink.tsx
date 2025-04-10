@@ -27,6 +27,7 @@ const NavLink = ({ path, label, color, dimondDisplay }: NavLinkProps) => {
     <Button
       component={Link}
       to={path}
+      
       variant="text"
       sx={{
         pt: "8px",

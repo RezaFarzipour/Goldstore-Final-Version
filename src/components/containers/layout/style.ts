@@ -71,7 +71,7 @@ export const navlinks = {
     fontSize: "18px",
     backgroundColor: "none",
     border: "none",
-    fontWeight: "400",
+    fontWeight: "500",
    
     transition: "all ease-out .2s",
     "&:hover": {
@@ -82,11 +82,16 @@ export const navlinks = {
 
 export const Footer_Grid = {
     backgroundColor: colors.grey[200],
+    display:"flex",
+    flexDirection:{xs:"column",md:"row"},
+    justifyContent:{xs:"center",md:"space-around"},
+    alignItems:"center",
+    padding:4
 };
 
 export const Gridstyle = {
     marginLeft: { xs: "8%", sm: "0" },
-    marginTop: 6,
+     marginTop: {xs:4,md:1},
     alignItems: "center",
     display: "flex",
     flexDirection: "column"
