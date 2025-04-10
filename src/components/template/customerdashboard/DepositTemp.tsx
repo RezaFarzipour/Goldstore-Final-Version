@@ -27,6 +27,7 @@ const Deposit = () => {
             واریز
           </Typography>
           <DepositeBox
+          
             headerContent="مبلغ را وارد کنید"
             footerContent="موجود کیف پول"
             unit="ریال"

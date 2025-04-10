@@ -11,8 +11,12 @@ import {
   ButtononeSx,
   TextFildOneSx,
 } from "../../template/customerdashboard/style";
-import { priceSeptrator } from "../../../utils/numberFormatter";
+import {
+  FarsiToEnglishNumber,
+  priceSeptrator,
+} from "../../../utils/numberFormatter";
 import { colors } from "../../../styles/theme";
+import { WalletDataResponse } from "../../../types";
 
 type DepositeBoxProps = {
   buttonValue: string;
@@ -20,6 +24,11 @@ type DepositeBoxProps = {
   headerContent: string;
   footerContent: string;
   unit: string;
+  walletBalance?: number;
+  assetAmountChanger: (value: string) => void;
+  assetAmount: string;
+  submit: (assetAmount: string) => void;
+  isPending:boolean
 };
 
 const DepositeBox = ({
@@ -28,8 +37,19 @@ const DepositeBox = ({
   buttonValue,
   unit,
   display,
+  assetAmount,
+  assetAmountChanger,
+  submit,
+  isPending,
+  walletBalance = 0,
 }: DepositeBoxProps) => {
-  const [textFieldValue, setTextFieldValue] = React.useState("");
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/,/g, ""); // حذف کاماها از ورودی
+
+    const onlyEnglishDigits = FarsiToEnglishNumber(value);
+    assetAmountChanger(priceSeptrator(Number(onlyEnglishDigits)));
+  };
+
   return (
     <Paper
       sx={{
@@ -40,7 +60,9 @@ const DepositeBox = ({
         px: 10,
       }}
     >
-      <Typography sx={{ color: "#fff",textAlign:"start" ,fontSize: "20px", py: 3 }}>
+      <Typography
+        sx={{ color: "#fff", textAlign: "start", fontSize: "20px", py: 3 }}
+      >
         {headerContent}
       </Typography>
 
@@ -61,20 +83,21 @@ const DepositeBox = ({
             </InputAdornment>
           ),
         }}
-        onChange={(e) => {
-          const value = e.target.value.replace(/,/g, ""); // حذف کاماها از ورودی
-          setTextFieldValue(priceSeptrator(Number(value)));
-        }}
-        value={textFieldValue}
+        onChange={handleChange}
+        value={assetAmount}
       />
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Button variant="outlined" sx={ButtononeSx}>
-          {buttonValue}
+        <Button
+          variant="outlined"
+          sx={ButtononeSx}
+          onClick={() => submit(assetAmount)}
+        >
+           {isPending ? "در حال برداشت..." : buttonValue}
         </Button>
       </Box>
 
-      <Box display={display}>
+      <Box sx={{ display: "flex", justifyContent: "center" }} display={display}>
         <Typography
           sx={{
             color: colors.primary[400],
@@ -87,7 +110,7 @@ const DepositeBox = ({
           </span>
           <span>
             {/* {numeral(props.WalletData.wallet_money_data).format("0,0")} */}
-            {priceSeptrator(5657565)}
+            {priceSeptrator(walletBalance)}
             &nbsp;ریال
           </span>
         </Typography>

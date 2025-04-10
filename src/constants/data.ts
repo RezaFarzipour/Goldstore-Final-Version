@@ -34,17 +34,17 @@ export const footerdata: footerdatatypes = {
       text: "صفحه اصلی",
     },
     {
-      href: "/About",
+      href: "/aboutus",
       text: "درباره ما",
     },
   ],
   footerlinks2: [
     {
-      href: "/Faqs",
+      href: "/faqs",
       text: "سوالات متداول",
     },
     {
-      href: "/Contact",
+      href: "/contactus",
       text: "ارتباط با ما",
     },
   ],
