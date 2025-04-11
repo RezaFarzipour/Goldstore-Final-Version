@@ -12,9 +12,9 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <ScrollToTop/>
+        <ScrollToTop />
         <AppRoutes />
-       <ReactQueryDevtools initialIsOpen={true}  />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>
   );

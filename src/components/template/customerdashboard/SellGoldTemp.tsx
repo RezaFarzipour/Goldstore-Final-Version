@@ -3,8 +3,8 @@ import BuyAndSellBox from "../../modules/customerDashboard/BuyAndSellBoxModule";
 import { Box } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { sellgold, walletdata } from "../../../services/customerDashboard";
-import { ErrorPendingHandler } from "../../element/ErrrorPendingHandler";
 import Alerts from "../../element/AlertElement";
+import { ErrorPendingHandler } from "../../element/ErrrorPendingHandler";
 
 const SellGold = () => {
   const {
