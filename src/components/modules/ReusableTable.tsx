@@ -6,11 +6,12 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
-  IconButton,
   TablePagination,
+  IconButton,
+  Menu,
+  MenuItem,
 } from "@mui/material";
-import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
+import MoreVertIcon from "@mui/icons-material/MoreVert"; // آیکون سه‌نقطه‌ای
 import { colors } from "../../styles/theme";
 import { Rtl } from "../element/rtl";
 
@@ -25,8 +26,6 @@ interface ReusableTableProps<T> {
   columns: Column<T>[]; // لیست ستون‌ها و تنظیمات آن‌ها
   rows: T[]; // داده‌های جدول
   showActions?: boolean; // فلگ برای نمایش ستون عملیات
-  onEdit?: (row: T) => void; // تابع برای ویرایش
-  onDelete?: (row: T) => void; // تابع برای حذف
 }
 
 // کامپوننت جدول قابل استفاده مجدد
@@ -34,11 +33,15 @@ const ReusableTable = <T extends object>({
   columns,
   rows,
   showActions = false,
-  onEdit,
-  onDelete,
+  btnvalue1,
+  btnvalue2,
+  btnAction1,
+  btnAction2,
 }: ReusableTableProps<T>) => {
   const [page, setPage] = useState(0); // صفحه فعلی
   const [rowsPerPage, setRowsPerPage] = useState(5); // تعداد ردیف‌ها در هر صفحه
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // برای مدیریت منو
+  const [selectedRow, setSelectedRow] = useState<T | null>(null); // ردیف انتخاب‌شده
 
   // تغییر صفحه
   const handleChangePage = (_event: unknown, newPage: number) => {
@@ -59,23 +62,53 @@ const ReusableTable = <T extends object>({
     page * rowsPerPage + rowsPerPage
   );
 
+  // باز کردن منو
+  const handleOpenMenu = (event: React.MouseEvent<HTMLElement>, row: T) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedRow(row);
+  };
+
+  // بستن منو
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+    setSelectedRow(null);
+  };
+
   return (
     <Rtl>
-      <TableContainer sx={{ bgcolor: colors.gold[200], color: "#fff" }}>
+      <TableContainer
+        sx={{
+          bgcolor: colors.gold[200],
+          color: "#fff",
+          overflowX: "auto",
+        }}
+      >
         <Table>
           {/* سربرگ جدول */}
           <TableHead>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
+                  align="center"
                   key={String(column.id)}
-                  sx={{ color: "#fff", fontWeight: "bold" }}
+                  sx={{
+                    color: "#fff",
+                    fontWeight: "bold",
+                    fontSize: { xs: "0.8rem", sm: "1rem" },
+                  }}
                 >
                   {column.label}
                 </TableCell>
               ))}
               {showActions && (
-                <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+                <TableCell
+                  align="center"
+                  sx={{
+                    color: "#fff",
+                    fontWeight: "bold",
+                    fontSize: { xs: "0.8rem", sm: "1rem" },
+                  }}
+                >
                   عملیات
                 </TableCell>
               )}
@@ -90,25 +123,24 @@ const ReusableTable = <T extends object>({
                   if (column.id === "actions") return null; // ستون عملیات جداگانه مدیریت می‌شود
                   const value = row[column.id as keyof T];
                   return (
-                    <TableCell key={String(column.id)} sx={{ color: "#fff" }}>
+                    <TableCell
+                      align="center"
+                      key={String(column.id)}
+                      sx={{
+                        color: "#fff",
+                        fontSize: { xs: "0.8rem", sm: "1rem" },
+                      }}
+                    >
                       {column.format ? column.format(value) : value}
                     </TableCell>
                   );
                 })}
                 {showActions && (
-                  <TableCell>
-                    {/* دکمه ویرایش */}
-                    {onEdit && (
-                      <IconButton onClick={() => onEdit(row)} color="primary">
-                        <EditIcon />
-                      </IconButton>
-                    )}
-                    {/* دکمه حذف */}
-                    {onDelete && (
-                      <IconButton onClick={() => onDelete(row)} color="error">
-                        <DeleteIcon />
-                      </IconButton>
-                    )}
+                  <TableCell align="center">
+                    {/* آیکون سه‌نقطه‌ای */}
+                    <IconButton onClick={(e) => handleOpenMenu(e, row)}>
+                      <MoreVertIcon sx={{ color: "#fff" }} />
+                    </IconButton>
                   </TableCell>
                 )}
               </TableRow>
@@ -125,8 +157,57 @@ const ReusableTable = <T extends object>({
           page={page} // صفحه فعلی
           onPageChange={handleChangePage} // تغییر صفحه
           onRowsPerPageChange={handleChangeRowsPerPage} // تغییر تعداد ردیف‌ها
-          sx={{ color: "#fff", "& .MuiInputBase-input": { color: "#fff" } }}
+          sx={{
+            color: "#fff",
+            "& .MuiInputBase-input": {
+              color: "#fff",
+              fontSize: { xs: "0.8rem", sm: "1rem" },
+            },
+          }}
         />
+
+        {/* منوی کشویی */}
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleCloseMenu}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+        >
+          {/* گزینه ویرایش */}
+          {btnAction1 && (
+            <MenuItem
+              onClick={() => {
+                if (selectedRow) {
+                  btnAction1(selectedRow);
+                  handleCloseMenu();
+                }
+              }}
+            >
+              {btnvalue1}
+            </MenuItem>
+          )}
+
+          {/* گزینه حذف */}
+          {btnAction2 && (
+            <MenuItem
+              onClick={() => {
+                if (selectedRow) {
+                  btnAction2(selectedRow);
+                  handleCloseMenu();
+                }
+              }}
+            >
+              {btnvalue2}
+            </MenuItem>
+          )}
+        </Menu>
       </TableContainer>
     </Rtl>
   );
