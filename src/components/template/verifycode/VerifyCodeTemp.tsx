@@ -42,7 +42,7 @@ const VerifyCodePage = () => {
         response.data.user_type === "admin" &&
         !response.data.signup_require
       ) {
-        navigate("/admin/");
+        navigate("/admin/inventory");
       }
     } else if (err) {
       setLoading(false);

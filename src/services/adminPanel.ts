@@ -24,6 +24,10 @@ export const changeUserWalletGoldAmount = async (goldAmount: string, goldModalAm
 
 
 // Admin & Gold Withdraw: 
+export const goldGetRequestList = async () => {
+    const response = await api.get("AdminDashboard-GetRequest/gold-get-request-list/");
+    return response.data;
+};
 export const moneyGetRequestList = async () => {
     const response = await api.get("AdminDashboard-GetRequest/money-get-request-list/");
     return response.data;
@@ -72,6 +76,13 @@ export const proveSaleRequest = async (unAccCustomerId: string, type: string) =>
 //setting:
 export const settingData = async () => {
     const response = await api.get("AdminDashboard-Setting/setting-data/");
+    return response.data;
+
+};
+export const changeGoldPrice = async (addingPrice: string,) => {
+    const response = await api.post("AdminDashboard-Setting/change-gold-price/", {
+        gold_price: addingPrice,
+    });
     return response.data;
 };
 
