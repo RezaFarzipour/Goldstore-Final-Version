@@ -70,8 +70,11 @@ const SteperStep: React.FC = () => {
                       cursor: "pointer",
                       pl: 2,
                       color: activeStep == index ? colors.gold[100] : "#fff",
-                      fontWeight:"400",
-                      fontSize: "15px",
+                      fontWeight: "400",
+                      fontSize: {
+                        xs: "12px !important",
+                        md: "16px !important",
+                      },
                     }}
                   >
                     {step.label}
@@ -110,7 +113,12 @@ const SteperStep: React.FC = () => {
                         </Typography>
                       </Box>
                       <StepContent>
-                        <Typography sx={{ py: 1.5 }}>
+                        <Typography
+                          sx={{
+                            py: 1.5,
+                            fontSize: "12px !important",
+                          }}
+                        >
                           {step.description}
                         </Typography>
                       </StepContent>
