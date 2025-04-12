@@ -10,7 +10,7 @@ const DirectSignUp = () => {
         p: 1.5,
         bgcolor: "#F1AB1F",
         borderRadius: "10px",
-        "&:hover": { bgcolor: "#d3961b" },
+        "&:hover": { bgcolor:  colors.gold[100] },
       }}
     >
       <Link to="/signup">
