@@ -2,7 +2,7 @@ import React from 'react'
 import { Rtl } from '../../element/rtl'
 import { Box, Typography } from '@mui/material'
 import DepositeBox from '../../modules/customerDashboard/DepositeBoxModule'
-import { ErrorPendingHandler } from '../../../utils/ErrrorPendingHandler'
+import { ErrorPendingHandler } from '../../element/ErrrorPendingHandler'
 import { useQuery } from '@tanstack/react-query'
 import { walletdata } from '../../../services/customerDashboard'
 
