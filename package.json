@@ -25,7 +25,7 @@
     "react": "^19.0.0",
     "react-cookie": "^7.2.2",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.54.2",
+    "react-hook-form": "^7.55.0",
     "react-router-dom": "^7.2.0",
     "stylis": "^4.3.6",
     "stylis-plugin-rtl": "^2.1.1",
