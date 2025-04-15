@@ -14,6 +14,7 @@ const VerifyNumberPage: React.FC = () => {
   const navigate = useNavigate();
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  
 
   const submitHandler = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -21,13 +22,16 @@ const VerifyNumberPage: React.FC = () => {
 
     const { response, err } = await sendOtp(phoneNumber);
 
-    if (response) {
+    if (response && response.status === 200) {
       setCookie("phone-number", phoneNumber);
-      navigate("/verifycode");
+       navigate("/verifycode");
+      
+      
     }
 
     if (err) {
-      console.log(err);
+      setLoading(false)
+     
     }
   };
 

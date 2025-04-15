@@ -5,7 +5,7 @@ export const sendOtp = async (phoneNumber: string) => {
 
 
   try {
-    const response = api.get(
+    const response = await api.get(
       `Authentication/send-code/phone-number=${phoneNumber}/`
     );
 
@@ -21,6 +21,7 @@ interface CheckOtpResponse {
     user_type: string;
     signup_require: boolean;
   };
+  status:number
 }
 
 interface CheckOtpResult {

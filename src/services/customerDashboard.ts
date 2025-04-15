@@ -45,4 +45,10 @@ const sellgold = async(goldAmount:string) =>{
   })
 } 
 
-export { walletdata, customerWithdraw, buyGold ,sellgold};
+const receiveGold  = async(goldAmount:string)=>{
+  await api.post("UserDashboard-GetRequest/get-request-gold/",{
+    gold_amount: parseFloat(goldAmount),
+  })
+}
+
+export { walletdata, customerWithdraw, buyGold ,sellgold,receiveGold};
