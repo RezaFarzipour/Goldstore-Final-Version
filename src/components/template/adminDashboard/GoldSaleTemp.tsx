@@ -1,11 +1,10 @@
-import ReusableTable from "../../modules/ReusableTable";
-import { useQuery } from "@tanstack/react-query";
-import { SaleList } from "../../../services/adminPanel";
+import ReusableTable, { Column } from "../../modules/ReusableTable";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { proveSaleRequest, SaleList } from "../../../services/adminPanel";
 import { Box, Container } from "@mui/material";
 import SectionTitle from "../../modules/SectionTitle";
 import RequestTabs from "../../modules/RequestTabs";
 
-type Props = {};
 interface User {
   id: number;
   first_name: string;
@@ -14,47 +13,61 @@ interface User {
   gold_amount: string;
   sale_date: string;
   phone_number: string;
-  status: string;
+  request_status: string;
 }
-const GoldSaleTemp = (props: Props) => {
-  const { data, error, isLoading } = useQuery({
+
+// تعریف ستون‌ها
+const columns: Column<User>[] = [
+  { id: "id", label: "شناسه" },
+  { id: "first_name", label: "نام" },
+  { id: "last_name", label: "نام خانوادگی" },
+  { id: "phone_number", label: "شماره همراه" },
+  { id: "sale_date", label: "تاریخ" },
+  { id: "money_amount", label: "مبلغ" },
+  { id: "gold_amount", label: "مقدار طلا" },
+  { id: "request_status", label: "وضعیت" },
+];
+
+const GoldSaleTemp = () => {
+  // استفاده از useQuery برای دریافت داده‌ها
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["settingData"],
     queryFn: SaleList,
   });
 
-  console.log(data);
+  // تعریف موتیشن
+  const { mutateAsync } = useMutation({
+    mutationFn: ({
+      get_request_id,
+      request_type,
+    }: {
+      get_request_id: number;
+      request_type: string;
+    }) => proveSaleRequest(get_request_id, request_type),
+  });
 
-  // تعریف ستون‌ها
-  const columns: Column<User>[] = [
-    { id: "id", label: "شناسه" },
-    { id: "first_name", label: "نام" },
-    { id: "last_name", label: "نام خانوادگی" },
-    { id: "phone_number", label: "شماره همراه" },
-    { id: "sale_date", label: "تاریخ" },
-    { id: "money_amount", label: "مبلغ" },
-    { id: "gold_amount", label: "مقدار طلا" },
-    { id: "status", label: "وضعیت" },
-  ];
-  if (isLoading) {
-    return <div>در حال بارگذاری...</div>;
-  }
+  // تابع مدیریت تایید یا رد درخواست
+  const acceptrejectHandler = async (
+    action: "accept" | "reject",
+    selectedRow: User
+  ) => {
+    try {
+      const get_request_id = selectedRow.id;
+      const request_type = action;
 
-  // توابع عملیات
-  const acceptHandler = (user: User) => {
-    console.log("ویرایش کاربر:", user);
+      const response = await mutateAsync({ get_request_id, request_type });
+      console.log("پاسخ موفق:", response);
+
+      // به‌روزرسانی داده‌ها پس از موتیشن
+      await refetch();
+    } catch (error) {
+      console.error("خطا در انجام میوتیشن:", error);
+    }
   };
 
-  const rejectHabdler = (user: User) => {
-    console.log("حذف کاربر:", user);
-  };
   // بررسی وضعیت بارگذاری
   if (isLoading) {
     return <div>در حال بارگذاری...</div>;
-  }
-
-  // بررسی خطا
-  if (error) {
-    return <div>خطا در دریافت داده‌ها: {error.message}</div>;
   }
 
   // بررسی وجود داده‌ها
@@ -74,33 +87,42 @@ const GoldSaleTemp = (props: Props) => {
         <Box mb={4}>
           <SectionTitle title="فروش طلا" />
         </Box>
+
         <RequestTabs
           approvedRequests={
             <ReusableTable
               columns={columns}
-              rows={data.unacceptable_data.map((item) => ({
+              rows={data.unacceptable_data.map((item: User) => ({
                 ...item,
                 status: item.request_status,
               }))}
               showActions={true} // فعال کردن ستون عملیات
-              btnvalue1="تایید درخواست "
+              btnvalue1="تایید درخواست"
               btnvalue2="رد درخواست"
-              btnAction1={acceptHandler}
-              btnAction2={rejectHabdler}
+              btnAction1={(selectedRow) =>
+                acceptrejectHandler("accept", selectedRow)
+              }
+              btnAction2={(selectedRow) =>
+                acceptrejectHandler("reject", selectedRow)
+              }
             />
           }
           allRequests={
             <ReusableTable
               columns={columns}
-              rows={data.data.map((item) => ({
+              rows={data.data.map((item: User) => ({
                 ...item,
                 status: item.request_status,
               }))}
               showActions={true} // فعال کردن ستون عملیات
-              btnvalue1="تایید درخواست "
+              btnvalue1="تایید درخواست"
               btnvalue2="رد درخواست"
-              btnAction1={acceptHandler}
-              btnAction2={rejectHabdler}
+              btnAction1={(selectedRow) =>
+                acceptrejectHandler("accept", selectedRow)
+              }
+              btnAction2={(selectedRow) =>
+                acceptrejectHandler("reject", selectedRow)
+              }
             />
           }
         />

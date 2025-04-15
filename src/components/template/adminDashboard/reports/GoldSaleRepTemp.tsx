@@ -1,5 +1,5 @@
 import ReusableTable, { Column } from "../../../modules/ReusableTable";
-import { BuyList } from "../../../../services/adminPanel";
+import { SaleList } from "../../../../services/adminPanel";
 import { useQuery } from "@tanstack/react-query";
 import { Box, Container } from "@mui/material";
 import SectionTitle from "../../../modules/SectionTitle";
@@ -10,16 +10,26 @@ interface User {
   last_name: string;
   money_amount: string;
   gold_amount: string;
-  buy_date: string;
+  sale_date: string;
   phone_number: string;
-  status: string;
+  request_status: string; // توجه: فیلد request_status باید وجود داشته باشد
 }
-const GoldBuyTemp = () => {
+
+const GoldSaleRepTemp = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["settingData"],
-    queryFn: BuyList,
+    queryFn: SaleList,
   });
-  console.log(data);
+
+  // بررسی وضعیت بارگذاری
+  if (isLoading) {
+    return <div>در حال بارگذاری...</div>;
+  }
+
+  // بررسی وجود داده‌ها
+  if (!data || !data.data) {
+    return <div>داده‌ها در دسترس نیستند.</div>;
+  }
 
   // تعریف ستون‌ها
   const columns: Column<User>[] = [
@@ -27,14 +37,19 @@ const GoldBuyTemp = () => {
     { id: "first_name", label: "نام" },
     { id: "last_name", label: "نام خانوادگی" },
     { id: "phone_number", label: "شماره همراه" },
-    { id: "buy_date", label: "تاریخ" },
+    { id: "sale_date", label: "تاریخ" },
     { id: "money_amount", label: "مبلغ" },
     { id: "gold_amount", label: "مقدار طلا" },
-    { id: "status", label: "وضعیت" },
+    { id: "request_status", label: "وضعیت" }, // توجه: فیلد request_status
   ];
-  if (isLoading) {
-    return <div>در حال بارگذاری...</div>;
-  }
+
+  // فیلتر کردن داده‌ها بر اساس وضعیت
+  const filteredRows = data.data.filter(
+    (item) =>
+      item.request_status === "تایید درخواست" ||
+      item.request_status === "رد درخواست"
+  );
+
   return (
     <Box
       sx={{
@@ -45,19 +60,16 @@ const GoldBuyTemp = () => {
     >
       <Container maxWidth="lg" sx={{ padding: "20px" }}>
         <Box mb={4}>
-          <SectionTitle title="خرید طلا" />
+          <SectionTitle title="فروش طلا" />
         </Box>
         <ReusableTable
           columns={columns}
-          rows={data.data.map((item) => ({
-            ...item,
-            status: item.request_status,
-          }))}
-          showActions={false} // فعال کردن ستون عملیات
+          rows={filteredRows} // استفاده از داده‌های فیلترشده
+          showActions={false} // غیرفعال کردن ستون عملیات
         />
       </Container>
     </Box>
   );
 };
 
-export default GoldBuyTemp;
+export default GoldSaleRepTemp;

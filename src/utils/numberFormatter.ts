@@ -4,12 +4,8 @@ export function toPersianDigits(n: number | string): string {
 }
 
 
-export const priceSeptrator = (num: number |string ): string => {
+export const priceSeptrator = (num: number | string): string => {
   return num.toLocaleString("en-US");
-};
-
-export const deleteCookie = (name:string) => {
-  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 };
 
 

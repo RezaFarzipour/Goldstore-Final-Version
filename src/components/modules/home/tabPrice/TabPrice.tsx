@@ -84,7 +84,7 @@ const TabPrice = () => {
         <Box>
           <Typography sx={BuyTypo}>قیمت خرید</Typography>
           <Box sx={RialBox}>
-            {toPersianDigits(priceSeptrator(data.buy_price)) || 0}
+            {toPersianDigits(priceSeptrator(data?.buy_price)) || 0}
             <Typography sx={RialTypo}>ریال</Typography>
           </Box>
         </Box>
@@ -97,7 +97,7 @@ const TabPrice = () => {
         <Box>
           <Typography sx={SellTypo}>قیمت فروش</Typography>
           <Box sx={SellBox}>
-            {toPersianDigits(priceSeptrator(data.sale_price)) || 0}
+            {toPersianDigits(priceSeptrator(data?.sale_price)) || 0}
             <Typography sx={SellRial}>ریال</Typography>
           </Box>
         </Box>

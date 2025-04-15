@@ -12,8 +12,8 @@ import { DrawerItem } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { Rtl } from "../element/rtl";
 import { Button } from "@mui/material";
-import { deleteCookie } from "../../utils/numberFormatter";
 import ListBoxElement from "../element/ListBoxElement";
+import { deleteCookie } from "../../utils/cookie";
 
 type DashboardDrawerProps = {
   open: boolean;

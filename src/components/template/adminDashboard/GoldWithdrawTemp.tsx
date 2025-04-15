@@ -1,9 +1,11 @@
-import ReusableTable from "../../../modules/ReusableTable";
-import { moneyGetRequestList } from "../../../../services/adminPanel";
+
 import { useQuery } from "@tanstack/react-query";
-import SectionTitle from "../../../modules/SectionTitle";
 import { Box, Container } from "@mui/material";
-import RequestTabs from "../../../modules/RequestTabs";
+import { goldGetRequestList } from "../../../services/adminPanel";
+import ReusableTable, { Column } from "../../modules/ReusableTable";
+import SectionTitle from "../../modules/SectionTitle";
+import RequestTabs from "../../modules/RequestTabs";
+
 
 type Props = {};
 interface User {
@@ -11,16 +13,15 @@ interface User {
   first_name: string;
   last_name: string;
   phone_number: string;
-  money_amount: string;
+  gold_amount: string;
   request_date: string;
   status: string;
 }
-const CashWithdrawTemp = (props: Props) => {
+const GoldWithdrawTemp = (props: Props) => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["settingData"],
-    queryFn: moneyGetRequestList,
+    queryFn: goldGetRequestList,
   });
-  console.log(data);
 
   // تعریف ستون‌ها
   const columns: Column<User>[] = [
@@ -29,7 +30,7 @@ const CashWithdrawTemp = (props: Props) => {
     { id: "last_name", label: "نام خانوادگی" },
     { id: "phone_number", label: "شماره همراه" },
     { id: "request_date", label: "تاریخ" },
-    { id: "money_amount", label: "مقدار برداشت" },
+    { id: "gold_amount", label: "مقدار برداشت" },
     { id: "status", label: "وضعیت" },
   ];
 
@@ -38,16 +39,14 @@ const CashWithdrawTemp = (props: Props) => {
     return <div>در حال بارگذاری...</div>;
   }
 
-  // بررسی خطا
-  if (error) {
-    return <div>خطا در دریافت داده‌ها: {error.message}</div>;
-  }
-
   // بررسی وجود داده‌ها
-  if (!data) {
+  if (
+    !data ||
+    !Array.isArray(data.all_request) ||
+    !Array.isArray(data.un_accept_request)
+  ) {
     return <div>داده‌ها در دسترس نیستند.</div>;
   }
-
   return (
     <Box
       sx={{
@@ -58,7 +57,7 @@ const CashWithdrawTemp = (props: Props) => {
     >
       <Container maxWidth="lg" sx={{ padding: "20px" }}>
         <Box mb={4}>
-          <SectionTitle title="برداشت وجه" />
+          <SectionTitle title="برداشت طلا" />
         </Box>
         <RequestTabs
           allRequests={
@@ -87,4 +86,4 @@ const CashWithdrawTemp = (props: Props) => {
   );
 };
 
-export default CashWithdrawTemp;
+export default GoldWithdrawTemp;

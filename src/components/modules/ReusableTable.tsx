@@ -16,7 +16,7 @@ import { colors } from "../../styles/theme";
 import { Rtl } from "../element/rtl";
 
 // تعریف نوع داده‌های ورودی برای جدول
-interface Column<T> {
+export interface Column<T> {
   id: keyof T | "actions"; // اضافه کردن "actions" برای ستون عملیات
   label: string; // عنوان ستون
   format?: (value: any) => string; // فرمت‌دهی اختیاری برای داده‌ها
@@ -24,14 +24,18 @@ interface Column<T> {
 
 interface ReusableTableProps<T> {
   columns: Column<T>[]; // لیست ستون‌ها و تنظیمات آن‌ها
-  rows: T[]; // داده‌های جدول
+  rows?: T[]; // داده‌های جدول (اختیاری با مقدار پیش‌فرض [])
   showActions?: boolean; // فلگ برای نمایش ستون عملیات
+  btnvalue1?: string;
+  btnvalue2?: string;
+  btnAction1?: (row: T) => void;
+  btnAction2?: (row: T) => void;
 }
 
 // کامپوننت جدول قابل استفاده مجدد
 const ReusableTable = <T extends object>({
   columns,
-  rows,
+  rows = [], // مقدار پیش‌فرض
   showActions = false,
   btnvalue1,
   btnvalue2,
@@ -42,6 +46,17 @@ const ReusableTable = <T extends object>({
   const [rowsPerPage, setRowsPerPage] = useState(5); // تعداد ردیف‌ها در هر صفحه
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // برای مدیریت منو
   const [selectedRow, setSelectedRow] = useState<T | null>(null); // ردیف انتخاب‌شده
+
+  // بررسی وجود داده‌ها
+  if (!rows || rows.length === 0) {
+    return <div>داده‌ها در دسترس نیستند.</div>;
+  }
+
+  // محاسبه داده‌های نمایش داده شده در صفحه فعلی
+  const paginatedRows = rows.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
 
   // تغییر صفحه
   const handleChangePage = (_event: unknown, newPage: number) => {
@@ -55,12 +70,6 @@ const ReusableTable = <T extends object>({
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0); // با تغییر تعداد ردیف‌ها، به صفحه اول برگردانید
   };
-
-  // محاسبه داده‌های نمایش داده شده در صفحه فعلی
-  const paginatedRows = rows.slice(
-    page * rowsPerPage,
-    page * rowsPerPage + rowsPerPage
-  );
 
   // باز کردن منو
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>, row: T) => {
@@ -180,7 +189,6 @@ const ReusableTable = <T extends object>({
             horizontal: "right",
           }}
         >
-          {/* گزینه ویرایش */}
           {btnAction1 && (
             <MenuItem
               onClick={() => {
@@ -194,7 +202,6 @@ const ReusableTable = <T extends object>({
             </MenuItem>
           )}
 
-          {/* گزینه حذف */}
           {btnAction2 && (
             <MenuItem
               onClick={() => {

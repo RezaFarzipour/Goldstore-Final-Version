@@ -1,9 +1,7 @@
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
-type Props = {};
-
-const ReportsTemp = (props: Props) => {
+const ReportsTemp = () => {
   return (
     <Box>
       <Outlet />

@@ -11,15 +11,13 @@ import {
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
-type Props = {};
-
-const SettingTemp = (props: Props) => {
+const SettingTemp = () => {
   const [addingPrice, setAddingPrice] = useState<string>("");
   const [inventoryAmount, setInventoryAmount] = useState<string>("");
   const [priceDifference, setPriceDifference] = useState<string>("");
 
   // Fetch data using useQuery
-  const { data, error, isLoading, refetch } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["settingData"],
     queryFn: settingData,
   });
@@ -91,11 +89,6 @@ const SettingTemp = (props: Props) => {
   // Check loading state
   if (isLoading) {
     return <div>در حال بارگذاری...</div>;
-  }
-
-  // Check error state
-  if (error) {
-    return <div>خطا در دریافت داده‌ها: {(error as Error).message}</div>;
   }
 
   return (
