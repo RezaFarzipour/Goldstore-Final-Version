@@ -14,12 +14,14 @@ interface User {
   phone_number: string;
   status: string;
 }
+
 const GoldBuyTemp = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["settingData"],
     queryFn: BuyList,
   });
-  console.log(data);
+
+  console.log("داده‌های دریافتی:", data);
 
   // تعریف ستون‌ها
   const columns: Column<User>[] = [
@@ -32,9 +34,15 @@ const GoldBuyTemp = () => {
     { id: "gold_amount", label: "مقدار طلا" },
     { id: "status", label: "وضعیت" },
   ];
+
   if (isLoading) {
     return <div>در حال بارگذاری...</div>;
   }
+
+  if (!data || !data.data) {
+    return <div>داده‌ها در دسترس نیستند.</div>;
+  }
+
   return (
     <Box
       sx={{
@@ -49,7 +57,7 @@ const GoldBuyTemp = () => {
         </Box>
         <ReusableTable
           columns={columns}
-          rows={data.data.map((item) => ({
+          rows={(data?.data || []).map((item) => ({
             ...item,
             status: item.request_status,
           }))}

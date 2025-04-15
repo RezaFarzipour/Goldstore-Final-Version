@@ -31,7 +31,7 @@ const columns: Column<User>[] = [
 const GoldSaleTemp = () => {
   // استفاده از useQuery برای دریافت داده‌ها
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["settingData"],
+    queryKey: ["SaleList"],
     queryFn: SaleList,
   });
 

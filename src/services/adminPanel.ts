@@ -34,17 +34,17 @@ export const moneyGetRequestList = async () => {
     return response.data;
 };
 
-export const proveMoneyGetRequest = async (unAccCustomerId: string, type: string) => {
+export const proveMoneyGetRequest = async (get_request_id: string, request_type: string) => {
     const response = await api.post("AdminDashboard-GetRequest/prove-money-get-request/", {
-        get_request_id: unAccCustomerId,
-        request_type: type
+        get_request_id,
+        request_type
     });
     return response.data;
 };
-export const proveGoldGetRequest = async (unAccCustomerId: string, type: string) => {
+export const proveGoldGetRequest = async (get_request_id: string, request_type: string) => {
     const response = await api.post("AdminDashboard-GetRequest/prove-gold-get-request/", {
-        get_request_id: unAccCustomerId,
-        request_type: type
+        get_request_id,
+        request_type
     });
     return response.data;
 };
