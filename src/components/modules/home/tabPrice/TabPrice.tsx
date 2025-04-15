@@ -19,6 +19,12 @@ import {
 } from "./style";
 import TabsInputs from "./TabsInputs";
 import { Rtl } from "../../../element/rtl";
+import { useQuery } from "@tanstack/react-query";
+import { HomeGoldStockPrice } from "../../../../services/home";
+import {
+  priceSeptrator,
+  toPersianDigits,
+} from "../../../../utils/numberFormatter";
 
 const TabPrice = () => {
   const [value, setValue] = React.useState(0);
@@ -27,6 +33,12 @@ const TabPrice = () => {
   );
   const [goldTextField, setGoldTextField] = React.useState<string | number>(0);
   const [colorTab, setColorTab] = React.useState(false);
+
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["settingData"],
+    queryFn: HomeGoldStockPrice,
+  });
+  console.log(data);
 
   // Handle tab change
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
@@ -61,6 +73,10 @@ const TabPrice = () => {
 
   // Extracted form component
 
+  if (isLoading) {
+    return <div>در حال بارگذاری...</div>;
+  }
+
   return (
     <Paper sx={TabPricePaper}>
       {/* Top Section: Buy/Sell Prices */}
@@ -68,7 +84,7 @@ const TabPrice = () => {
         <Box>
           <Typography sx={BuyTypo}>قیمت خرید</Typography>
           <Box sx={RialBox}>
-            {textFieldValue || 0}
+            {toPersianDigits(priceSeptrator(data.buy_price)) || 0}
             <Typography sx={RialTypo}>ریال</Typography>
           </Box>
         </Box>
@@ -81,7 +97,7 @@ const TabPrice = () => {
         <Box>
           <Typography sx={SellTypo}>قیمت فروش</Typography>
           <Box sx={SellBox}>
-            {goldTextField || 0}
+            {toPersianDigits(priceSeptrator(data.sale_price)) || 0}
             <Typography sx={SellRial}>ریال</Typography>
           </Box>
         </Box>
@@ -99,8 +115,7 @@ const TabPrice = () => {
               variant="fullWidth"
               aria-label="full width tabs example"
             >
-              <Tab 
-              
+              <Tab
                 sx={TabItem(colorTab)}
                 onClick={() => handleTabClick(false)}
                 label="خرید"
