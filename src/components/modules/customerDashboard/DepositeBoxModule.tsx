@@ -48,6 +48,13 @@ const DepositeBox = ({
   walletBalance = 0,
   handleChange,
 }: DepositeBoxProps) => {
+
+const submitHandler = () => {
+   submit(assetAmount)
+   assetAmountChanger("")
+   
+}
+
   return (
     <Paper
       sx={{
@@ -89,7 +96,7 @@ const DepositeBox = ({
         <Button
           variant="outlined"
           sx={ButtononeSx}
-          onClick={() => submit(assetAmount)}
+          onClick={submitHandler}
         >
           {isPending ? "در حال برداشت..." : buttonValue}
         </Button>

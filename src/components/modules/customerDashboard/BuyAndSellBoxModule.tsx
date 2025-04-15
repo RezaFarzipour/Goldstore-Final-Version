@@ -46,6 +46,8 @@ const BuyAndSellBox = ({
     }
     setErrorMessage(null)
     mutate(goldTextField);
+    setTextFieldValue("")
+    setGoldTextField("")
   };
 
   //money onChange

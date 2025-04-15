@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import DepositeBox from "../../modules/customerDashboard/DepositeBoxModule";
 import { Rtl } from "../../element/rtl";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -34,14 +34,15 @@ const Withdraw = () => {
 
   const walletBalance = walletData?.walletBalance;
 
-  
-
   ErrorPendingHandler(error?.message, isPending);
 
   return (
     <>
       {isError && (
-        <Alerts severity="error" text="خطایی پیش امده است دوباره تلاش کنید"></Alerts>
+        <Alerts
+          severity="error"
+          text="خطایی پیش امده است دوباره تلاش کنید"
+        ></Alerts>
       )}
       {isSuccess && (
         <Alerts
@@ -72,6 +73,7 @@ const Withdraw = () => {
               برداشت
             </Typography>
             <DepositeBox
+              handleChange={(e) => setMoneyAmount(e.target.value)}
               isPending={isWithdrawing}
               submit={mutate}
               assetAmount={moneyAmount}

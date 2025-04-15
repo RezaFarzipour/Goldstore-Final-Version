@@ -16,33 +16,25 @@ const BuyGold = () => {
     queryFn: walletdata,
   });
 
-const queryClient = useQueryClient()
-
-
+  const queryClient = useQueryClient();
 
   const {
     mutate,
     isPending: buying,
     isError,
     isSuccess,
-    
-    
   } = useMutation({
-    mutationKey:["buygold"],
+    mutationKey: ["buygold"],
     mutationFn: buyGold,
-    onSuccess:()=>queryClient.invalidateQueries({queryKey:["walletdata"]})
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["walletdata"] }),
   });
-
- 
-  
 
   ErrorPendingHandler(error?.message, isPending);
 
   const buyPrice = walletData?.buyPrice;
 
   const walletBalance = walletData?.walletBalance;
-
-  
 
   return (
     <>
@@ -53,16 +45,13 @@ const queryClient = useQueryClient()
         ></Alerts>
       )}
       {isSuccess && (
-        <Alerts
-          severity="success"
-          text="خرید با موفقیت انجام شد"
-        ></Alerts>
+        <Alerts severity="success" text="خرید با موفقیت انجام شد"></Alerts>
       )}
       <Box
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <BuyAndSellBox
-        walletBalance={walletBalance}
+          walletBalance={walletBalance}
           mutate={mutate}
           isPending={buying}
           price={buyPrice}
