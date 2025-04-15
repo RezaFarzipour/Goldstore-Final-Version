@@ -14,6 +14,7 @@ import {
 import {
   FarsiToEnglishNumber,
   priceSeptrator,
+  toPersianDigits,
 } from "../../../utils/numberFormatter";
 import { colors } from "../../../styles/theme";
 import { WalletDataResponse } from "../../../types";
@@ -107,7 +108,7 @@ const DepositeBox = ({
           </span>
           <span>
             {/* {numeral(props.WalletData.wallet_money_data).format("0,0")} */}
-            {priceSeptrator(walletBalance)}
+            {toPersianDigits(priceSeptrator(walletBalance))}
             &nbsp;ریال
           </span>
         </Typography>

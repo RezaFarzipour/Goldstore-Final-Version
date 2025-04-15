@@ -79,6 +79,12 @@ export const settingData = async () => {
     return response.data;
 
 };
+
+export const switchData = async () => {
+    const response = await api.get("AdminDashboard-Setting/open-close-stock/");
+    return response.data;
+
+};
 export const changeGoldPrice = async (addingPrice: string,) => {
     const response = await api.post("AdminDashboard-Setting/change-gold-price/", {
         gold_price: addingPrice,

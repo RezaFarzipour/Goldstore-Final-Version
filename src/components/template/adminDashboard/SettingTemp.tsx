@@ -21,13 +21,8 @@ const SettingTemp = (props: Props) => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["settingData"],
     queryFn: settingData,
-    onError: (err: any) => {
-      console.log(err.message);
-    },
-    onSuccess: () => {
-      console.log(data);
-    },
   });
+  console.log(data);
 
   const { mutateAsync: mutateChangeGoldPrice } = useMutation({
     mutationFn: changeGoldPrice,
@@ -80,9 +75,16 @@ const SettingTemp = (props: Props) => {
     setPriceDifference(e.target.value);
   };
 
+  // بررسی وضعیت بارگذاری
   if (isLoading) {
     return <div>در حال بارگذاری...</div>;
   }
+
+  // بررسی خطا
+  if (error) {
+    return <div>خطا در دریافت داده‌ها: {error.message}</div>;
+  }
+
   return (
     <Rtl>
       <Box my={8}>
@@ -92,7 +94,7 @@ const SettingTemp = (props: Props) => {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <AdminPermission stock_status={true} />
+          <AdminPermission stock_status={data.data.stock_status} />
         </Box>
         <Box
           sx={{
@@ -107,6 +109,7 @@ const SettingTemp = (props: Props) => {
               headerContent="قیمت گذاری:"
               footerContent="قیمت قبلی"
               unit="ریال"
+              walletBalance={data.data.sale_price}
               buttonValue="تایید"
               display="flex"
               handleChange={handleAddingPriceChange}
@@ -118,6 +121,7 @@ const SettingTemp = (props: Props) => {
               headerContent="تغییر میزان موجودی:"
               footerContent="طلای موجود"
               unit="گرم"
+              walletBalance={data.data.total_gold_stock}
               buttonValue="تایید"
               display="flex"
               handleChange={handleInventoryChange}
@@ -129,6 +133,7 @@ const SettingTemp = (props: Props) => {
               headerContent="اختلاف قیمت خرید و فروش:"
               footerContent="اختلاف قیمت فعلی"
               unit="ریال"
+              walletBalance={data.data.price_difference}
               buttonValue="تایید"
               display="flex"
               handleChange={handlePriceDifferenceChange}

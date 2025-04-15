@@ -21,41 +21,8 @@ const InventoryTemp = (props: Props) => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["settingData"],
     queryFn: usersInformationList,
-    onError: (err: any) => {
-      console.error("خطا:", err.message);
-    },
-    onSuccess: () => {
-      console.log("داده‌ها با موفقیت دریافت شدند.");
-    },
   });
-
-  // داده‌های نمونه
-  const users: User[] = [
-    {
-      id: 1,
-      first_name: "علی",
-      last_name: "محمدی",
-      phone_number: "09123456789",
-      money_amount: "500000", // به ریال
-      gold_amount: "100", // به گرم
-    },
-    {
-      id: 2,
-      first_name: "فاطمه",
-      last_name: "احمدی",
-      phone_number: "09361234567",
-      money_amount: "300000",
-      gold_amount: "50",
-    },
-    {
-      id: 3,
-      first_name: "حسین",
-      last_name: "رضایی",
-      phone_number: "09198765432",
-      money_amount: "1000000",
-      gold_amount: "200",
-    },
-  ];
+  console.log(data);
 
   // تعریف ستون‌ها
   const columns: any[] = [
@@ -76,6 +43,21 @@ const InventoryTemp = (props: Props) => {
     console.log("حذف کاربر:", user);
   };
 
+  // بررسی وضعیت بارگذاری
+  if (isLoading) {
+    return <div>در حال بارگذاری...</div>;
+  }
+
+  // بررسی خطا
+  if (error) {
+    return <div>خطا در دریافت داده‌ها: {error.message}</div>;
+  }
+
+  // بررسی وجود داده‌ها
+  if (!data) {
+    return <div>داده‌ها در دسترس نیستند.</div>;
+  }
+
   return (
     <Box
       sx={{
@@ -90,7 +72,7 @@ const InventoryTemp = (props: Props) => {
         </Box>
         <ReusableTable
           columns={columns}
-          rows={users}
+          rows={data.data}
           showActions={true} // فعال کردن ستون عملیات
           btnvalue1="تغییر کیف پول"
           btnvalue2="تغییر کیف طلا"

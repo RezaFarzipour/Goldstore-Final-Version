@@ -12,7 +12,7 @@ interface User {
   last_name: string;
   money_amount: string;
   gold_amount: string;
-  payment_date: string;
+  buy_date: string;
   phone_number: string;
   status: string;
 }
@@ -20,46 +20,8 @@ const GoldBuyTemp = (props: Props) => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["settingData"],
     queryFn: BuyList,
-    onError: (err: any) => {
-      console.log(err.message);
-    },
-    onSuccess: () => {
-      console.log(data);
-    },
   });
-  // داده‌های نمونه
-  const users: User[] = [
-    {
-      id: 1,
-      first_name: "علی",
-      last_name: "محمدی",
-      money_amount: "500000",
-      gold_amount: "456789",
-      payment_date: "1402/07/15",
-      phone_number: "09123456789",
-      status: "موفق",
-    },
-    {
-      id: 2,
-      first_name: "فاطمه",
-      last_name: "احمدی",
-      money_amount: "300000",
-      gold_amount: "87654321",
-      payment_date: "1402/07/14",
-      phone_number: "09361234567",
-      status: "در حال پردازش",
-    },
-    {
-      id: 3,
-      first_name: "حسین",
-      last_name: "رضایی",
-      money_amount: "1000000",
-      gold_amount: "9123",
-      payment_date: "1402/07/13",
-      phone_number: "09198765432",
-      status: "ناموفق",
-    },
-  ];
+  console.log(data);
 
   // تعریف ستون‌ها
   const columns: Column<User>[] = [
@@ -67,7 +29,7 @@ const GoldBuyTemp = (props: Props) => {
     { id: "first_name", label: "نام" },
     { id: "last_name", label: "نام خانوادگی" },
     { id: "phone_number", label: "شماره همراه" },
-    { id: "payment_date", label: "تاریخ" },
+    { id: "buy_date", label: "تاریخ" },
     { id: "money_amount", label: "مبلغ" },
     { id: "gold_amount", label: "مقدار طلا" },
     { id: "status", label: "وضعیت" },
@@ -89,7 +51,10 @@ const GoldBuyTemp = (props: Props) => {
         </Box>
         <ReusableTable
           columns={columns}
-          rows={users}
+          rows={data.data.map((item) => ({
+            ...item,
+            status: item.request_status,
+          }))}
           showActions={false} // فعال کردن ستون عملیات
         />
       </Container>
