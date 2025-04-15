@@ -23,15 +23,15 @@ export const PaperBox = {
 export const BuyTypo = {
   color: "#fff",
   textAlign: "center",
-  fontWeight:"500",
-  fontSize: { xs: "17px", md: "20px" },
+  fontWeight: "500",
+  fontSize: { xs: "12px !important", md: "16px !important" },
 
 };
 
 export const RialBox = {
   color: "green",
   display: "flex",
-  fontSize: { xs: "15px", md: "20px" },
+  fontSize: { xs: "12px !important", md: "16px !important" },
   alignItems: "center",
   pr: { xs: 2, md: 1 },
 };
@@ -39,21 +39,21 @@ export const RialBox = {
 export const RialTypo = {
   color: "green",
   pr: 1,
-  fontSize: { xs: "14px", md: "20px" },
+  fontSize: { xs: "12px !important", md: "16px !important" },
 };
 
 export const SellTypo = {
   color: "#fff",
   textAlign: "center",
-  fontWeight:"500",
-  fontSize: { xs: "17px", md: "20px" },
+  fontWeight: "500",
+  fontSize: { xs: "12px !important", md: "16px !important" },
 
 };
 
 export const SellBox = {
   color: "red",
   display: "flex",
-  fontSize: { xs: "15px", md: "20px" },
+  fontSize: { xs: "12px !important", md: "16px !important" },
   alignItems: "center",
   pl: { xs: 2, md: 1 },
 };
@@ -61,7 +61,7 @@ export const SellBox = {
 export const SellRial = {
   color: "red",
   pr: 1,
-  fontSize: { xs: "14px", md: "20px" },
+  fontSize: { xs: "12px !important", md: "16px !important" },
 };
 
 export const PaperBox2 = {
@@ -75,7 +75,7 @@ export const TabPaper = {
   height: "250px",
   bgcolor: colors.gold[200],
   width: { xs: "100%", md: "100%" },
-  borderRadius: "30px",
+  borderRadius: "16px",
   boxShadow:
     "rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px",
   inset: "20px",
@@ -97,7 +97,8 @@ export const TabItem = (colorTab) => {
   const S4 = {
     bgcolor: colorTab ? null : `${colors.gold[100]} !important`,
     color: colorTab ? null : "#444 !important",
-    
+    fontSize: { xs: "12px !important", md: "16px !important" },
+
   };
   return S4;
 };
@@ -106,6 +107,8 @@ export const TabItem2 = (colorTab) => {
   const S5 = {
     bgcolor: colorTab ? `${colors.gold[100]} !important` : null,
     color: colorTab ? "#444 !important" : null,
+    fontSize: { xs: "12px !important", md: "16px !important" },
+
   };
   return S5;
 };

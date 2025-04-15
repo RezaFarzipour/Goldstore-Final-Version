@@ -38,7 +38,7 @@ const Header = () => {
             ? [1, 2, 3].map((index) => (
                 <Diamond key={index} position="top" startTime={0} />
               ))
-            : [1, 2, 3, 4].map((index) => (
+            : [1, 2, 3, ].map((index) => (
                 <Diamond key={index} position="top" startTime={0} />
               ))}
         </Box>
@@ -56,7 +56,7 @@ const Header = () => {
             ? [1, 2].map((index) => (
                 <Diamond key={index} position="bottom" startTime={4} />
               ))
-            : [1, 2, 3].map((index) => (
+            : [1, 2, ].map((index) => (
                 <Diamond key={index} position="bottom" startTime={4} />
               ))}
         </Box>

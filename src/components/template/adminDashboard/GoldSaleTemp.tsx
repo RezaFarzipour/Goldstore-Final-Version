@@ -1,7 +1,8 @@
-import React from "react";
-import ReusableTable from "../../../modules/ReusableTable";
+import ReusableTable from "../../modules/ReusableTable";
+import { useQuery } from "@tanstack/react-query";
+import { SaleList } from "../../../services/adminPanel";
 import { Box, Container } from "@mui/material";
-import SectionTitle from "../../../modules/SectionTitle";
+import SectionTitle from "../../modules/SectionTitle";
 
 type Props = {};
 interface User {
@@ -9,12 +10,22 @@ interface User {
   first_name: string;
   last_name: string;
   money_amount: string;
-  payment_id: string;
+  gold_amount: string;
   payment_date: string;
   phone_number: string;
   status: string;
 }
-const TransactionsTemp = (props: Props) => {
+const GoldSaleTemp = (props: Props) => {
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["settingData"],
+    queryFn: SaleList,
+    onError: (err: any) => {
+      console.log(err.message);
+    },
+    onSuccess: () => {
+      console.log(data);
+    },
+  });
   // داده‌های نمونه
   const users: User[] = [
     {
@@ -22,7 +33,7 @@ const TransactionsTemp = (props: Props) => {
       first_name: "علی",
       last_name: "محمدی",
       money_amount: "500000",
-      payment_id: "TXN123456789",
+      gold_amount: "456789",
       payment_date: "1402/07/15",
       phone_number: "09123456789",
       status: "موفق",
@@ -32,7 +43,7 @@ const TransactionsTemp = (props: Props) => {
       first_name: "فاطمه",
       last_name: "احمدی",
       money_amount: "300000",
-      payment_id: "TXN987654321",
+      gold_amount: "87654321",
       payment_date: "1402/07/14",
       phone_number: "09361234567",
       status: "در حال پردازش",
@@ -42,7 +53,7 @@ const TransactionsTemp = (props: Props) => {
       first_name: "حسین",
       last_name: "رضایی",
       money_amount: "1000000",
-      payment_id: "TXN456789123",
+      gold_amount: "9123",
       payment_date: "1402/07/13",
       phone_number: "09198765432",
       status: "ناموفق",
@@ -54,13 +65,24 @@ const TransactionsTemp = (props: Props) => {
     { id: "id", label: "شناسه" },
     { id: "first_name", label: "نام" },
     { id: "last_name", label: "نام خانوادگی" },
-    { id: "money_amount", label: "مبلغ" },
-    { id: "payment_id", label: "شناسه تراکنش" },
-    { id: "payment_date", label: "تاریخ" },
     { id: "phone_number", label: "شماره همراه" },
+    { id: "payment_date", label: "تاریخ" },
+    { id: "money_amount", label: "مبلغ" },
+    { id: "gold_amount", label: "مقدار طلا" },
     { id: "status", label: "وضعیت" },
   ];
+  if (isLoading) {
+    return <div>در حال بارگذاری...</div>;
+  }
 
+  // توابع عملیات
+  const acceptHandler = (user: User) => {
+    console.log("ویرایش کاربر:", user);
+  };
+
+  const rejectHabdler = (user: User) => {
+    console.log("حذف کاربر:", user);
+  };
   return (
     <Box
       sx={{
@@ -71,16 +93,20 @@ const TransactionsTemp = (props: Props) => {
     >
       <Container maxWidth="lg" sx={{ padding: "20px" }}>
         <Box mb={4}>
-          <SectionTitle title="تراکنش ها" />
+          <SectionTitle title="فروش طلا" />
         </Box>
         <ReusableTable
           columns={columns}
           rows={users}
-          showActions={false} // فعال کردن ستون عملیات
+          showActions={true} // فعال کردن ستون عملیات
+          btnvalue1="تایید درخواست "
+          btnvalue2="رد درخواست"
+          btnAction1={acceptHandler}
+          btnAction2={rejectHabdler}
         />
       </Container>
     </Box>
   );
 };
 
-export default TransactionsTemp;
+export default GoldSaleTemp;

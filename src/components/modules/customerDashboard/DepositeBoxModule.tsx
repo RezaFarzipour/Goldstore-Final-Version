@@ -28,7 +28,10 @@ type DepositeBoxProps = {
   assetAmountChanger: (value: string) => void;
   assetAmount: string;
   submit: (assetAmount: string) => void;
-  isPending:boolean
+  handleChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  isPending: boolean;
 };
 
 const DepositeBox = ({
@@ -42,14 +45,8 @@ const DepositeBox = ({
   submit,
   isPending,
   walletBalance = 0,
+  handleChange,
 }: DepositeBoxProps) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/,/g, ""); // حذف کاماها از ورودی
-
-    const onlyEnglishDigits = FarsiToEnglishNumber(value);
-    assetAmountChanger(priceSeptrator(Number(onlyEnglishDigits)));
-  };
-
   return (
     <Paper
       sx={{
@@ -93,7 +90,7 @@ const DepositeBox = ({
           sx={ButtononeSx}
           onClick={() => submit(assetAmount)}
         >
-           {isPending ? "در حال برداشت..." : buttonValue}
+          {isPending ? "در حال برداشت..." : buttonValue}
         </Button>
       </Box>
 

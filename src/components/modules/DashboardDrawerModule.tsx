@@ -41,10 +41,8 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
     deleteCookie("phone-number");
     deleteCookie("token");
     deleteCookie("user_type");
-
     navigate("/");
   };
-  console.log("cMinHeight", cMinHeight);
 
   const renderDrawerList = () => (
     <Rtl>

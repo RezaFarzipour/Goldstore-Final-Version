@@ -46,7 +46,7 @@ const ContactUsPage: React.FC = () => {
           mt={13}
           mb={15}
         >
-          <Box>
+          <Box >
             <img
               style={{ borderRadius: "40px" }}
               width={250}
@@ -57,21 +57,21 @@ const ContactUsPage: React.FC = () => {
 
           <Box>
             <Box mb={1} mt={1} display="flex" alignItems="center">
-              <PhoneEnabledIcon sx={{ color: "#FFC436", ml: 2, mt: 1 }} />
+              <PhoneEnabledIcon sx={{ color: "#FFC436", ml: 2 }} />
               <Typography fontFamily="Yekan" color="#fff" variant="h6">
                 09126411239
               </Typography>
             </Box>
 
             <Box mb={1} mt={1} display="flex" alignItems="center">
-              <AccessTimeIcon sx={{ color: "#FFC436", ml: 2, mt: 1 }} />
+              <AccessTimeIcon sx={{ color: "#FFC436", ml: 2 }} />
               <Typography fontFamily="Yekan" color="#fff" variant="h6">
                 در این فیلد زمان باز و بسته بودن مغازه و ساعات کاری درج خواهد شد
               </Typography>
             </Box>
 
             <Box display="flex" mt={2}>
-              <LocationOnIcon sx={{ color: "#FFC436", ml: 2, mt: 1 }} />
+              <LocationOnIcon sx={{ color: "#FFC436", ml: 2 }} />
               <Typography fontFamily="Yekan" color="#fff" variant="h6">
                 زنجان.اسلام آباد.جنب بانک سپه.طلای تهران
               </Typography>

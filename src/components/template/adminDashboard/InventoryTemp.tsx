@@ -1,34 +1,64 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ReusableTable from "../../modules/ReusableTable";
 import { usersInformationList } from "../../../services/adminPanel";
+import { useQuery } from "@tanstack/react-query";
+import { Box, Container, Typography } from "@mui/material";
+import SectionTitle from "../../modules/SectionTitle";
 
 type Props = {};
+
 // تعریف نوع داده‌ها
 interface User {
   id: number;
-  name: string;
-  age: number;
-  email: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  money_amount: string;
+  gold_amount: string;
 }
+
 const InventoryTemp = (props: Props) => {
-  const [data, setData] = useState<User[] | null>(null);
-  useEffect(() => {
-    const getData = async () => {
-      setData(usersInformationList);
-    };
-    getData(); // Call the async function to fetch data
-  }, []);
-  console.log(data);
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["settingData"],
+    queryFn: usersInformationList,
+    onError: (err: any) => {
+      console.error("خطا:", err.message);
+    },
+    onSuccess: () => {
+      console.log("داده‌ها با موفقیت دریافت شدند.");
+    },
+  });
 
   // داده‌های نمونه
   const users: User[] = [
-    { id: 1, name: "Ali", age: 25, email: "ali@example.com" },
-    { id: 2, name: "Reza", age: 30, email: "reza@example.com" },
-    { id: 3, name: "Fatemeh", age: 28, email: "fatemeh@example.com" },
+    {
+      id: 1,
+      first_name: "علی",
+      last_name: "محمدی",
+      phone_number: "09123456789",
+      money_amount: "500000", // به ریال
+      gold_amount: "100", // به گرم
+    },
+    {
+      id: 2,
+      first_name: "فاطمه",
+      last_name: "احمدی",
+      phone_number: "09361234567",
+      money_amount: "300000",
+      gold_amount: "50",
+    },
+    {
+      id: 3,
+      first_name: "حسین",
+      last_name: "رضایی",
+      phone_number: "09198765432",
+      money_amount: "1000000",
+      gold_amount: "200",
+    },
   ];
 
   // تعریف ستون‌ها
-  const columns: Column<User>[] = [
+  const columns: any[] = [
     { id: "id", label: "شناسه" },
     { id: "first_name", label: "نام" },
     { id: "last_name", label: "نام خانوادگی" },
@@ -38,25 +68,37 @@ const InventoryTemp = (props: Props) => {
   ];
 
   // توابع عملیات
-  const handleEdit = (user: User) => {
+  const updateCashAmount = (user: User) => {
     console.log("ویرایش کاربر:", user);
   };
 
-  const handleDelete = (user: User) => {
+  const updateGoldAmount = (user: User) => {
     console.log("حذف کاربر:", user);
   };
 
   return (
-    <div>
-      {" "}
-      <ReusableTable
-        columns={columns}
-        rows={users}
-        showActions={true} // فعال کردن ستون عملیات
-        onEdit={handleEdit} // تابع ویرایش
-        onDelete={handleDelete} // تابع حذف
-      />
-    </div>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Container maxWidth="lg" sx={{ padding: "20px" }}>
+        <Box mb={4}>
+          <SectionTitle title="موجودی حساب" />
+        </Box>
+        <ReusableTable
+          columns={columns}
+          rows={users}
+          showActions={true} // فعال کردن ستون عملیات
+          btnvalue1="تغییر کیف پول"
+          btnvalue2="تغییر کیف طلا"
+          btnAction1={updateCashAmount}
+          btnAction2={updateGoldAmount}
+        />
+      </Container>
+    </Box>
   );
 };
 

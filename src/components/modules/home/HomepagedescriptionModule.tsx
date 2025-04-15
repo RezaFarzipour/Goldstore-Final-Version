@@ -18,16 +18,15 @@ const HomePageDesc = () => {
           mt: {
             xs: "1px",
             sm: "20px",
-            md: "130px",
-            lg: "130px",
-            xl: "115px",
+            md: "70px",
+            lg: "70px",
+            xl: "80px",
           },
         }}
       >
         <Typography
           sx={{
             fontSize: {
-              
               xs: "25px",
               md: "28px",
               color: "#A87715",
@@ -64,8 +63,8 @@ const HomePageDesc = () => {
         <Typography
           sx={{
             fontSize: {
-              xs: "15px",
-              md: "20px",
+              xs: "12px",
+              md: "16px",
               color: "#9C9691",
             },
             mt: {

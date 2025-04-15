@@ -20,8 +20,6 @@ const EnterBtn = ({ px }: Props) => {
     setIsLoggedIn(!!token?.trim());
   }, []);
 
-
-
   if (isLoggedIn) {
     switch (userType) {
       case "customer":
@@ -29,7 +27,7 @@ const EnterBtn = ({ px }: Props) => {
         break;
 
       case "admin":
-        targetPath = "/admin";
+        targetPath = "/admin/inventory";
         break;
 
       default:
