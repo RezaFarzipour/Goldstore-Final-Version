@@ -13,7 +13,22 @@ const Homepage: React.FC = () => {
     <Layout>
       <Container maxWidth="xl">
         <Grid2 my={{ xs: 14, md: 19 }}>
-          <Header />
+          <Box sx={{ display: { xs: "block", md: "flex" } }}>
+            <Box width="100%">
+              <HomePageDesc />
+              <Box
+                sx={{
+                  width: "100%",
+                  mt: 5,
+                }}
+                display="flex"
+                justifyContent="center"
+              >
+                <DirectSignUp />
+              </Box>
+            </Box>
+            <Header />
+          </Box>
         </Grid2>
         <Box
           sx={{
@@ -26,26 +41,11 @@ const Homepage: React.FC = () => {
         >
           <ArrowBottom />
         </Box>
-        {/* home description */}
-        <Box sx={{ mt: { xs: -12, md: 10 } }} width="100%">
-          <HomePageDesc />
-          <Box
-            sx={{
-              width: "100%",
-              mt: 5,
-            }}
-            display="flex"
-            justifyContent="center"
-          >
-            <DirectSignUp />
-          </Box>
-        </Box>
 
         {/* tab price section */}
         <Grid2
           container
           sx={{
-            my: { xs: 6, md: 12 },
             flexDirection: { xs: "column-reverse", md: "row" },
             "@media (max-width:1116px) and (min-width:900px)": {
               flexDirection: "column",

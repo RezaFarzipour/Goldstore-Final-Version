@@ -42,7 +42,7 @@ export const Animate: React.FC = () => {
   return (
     <Box sx={BoxOneSX}>
       <Cotainer>
-        {Array.from({ length: 100 }).map((_, i) => (
+        {Array.from({ length: 90 }).map((_, i) => (
           <DivOne className="divs" key={i} />
         ))}
       </Cotainer>

@@ -23,9 +23,8 @@ export const GoldBox = {
 
 export const TypographyStyle = (activeStep: number, index: number) => ({
   cursor: "pointer",
-  pl: 2,
-  fontWeight:"400",
-  fontSize: "15px",
+  p: 4,
+  fontSize: { xs: "10px !important", md: "16px !important" },
   textAlign: "justify",
   color: activeStep === index ? "#fff" : colors.gold[100],
 });
@@ -52,11 +51,14 @@ export const FabStyle = (activeStep: number, index: number) => ({
   px: 1.8,
   color: activeStep === index ? "#111" : "#111",
   bgcolor: activeStep === index ? colors.gold[100] : "#fff",
+  fontSize: "12px !important",
+
 });
 
 export const TypographyStylemobile = (activeStep: number, index: number) => ({
   cursor: "pointer",
   pl: 2,
   textAlign: "justify",
+  fontSize: "12px !important",
   color: activeStep === index ? colors.gold[100] : "#fff",
 });

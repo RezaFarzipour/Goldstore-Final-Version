@@ -1,14 +1,37 @@
 import { Paper, Typography } from "@mui/material";
 import Switch from "@mui/material/Switch";
 import { colors } from "../../styles/theme";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { switchData } from "../../services/adminPanel";
 
 interface AdminPermissionProps {
-  stock_status?: boolean;
+  stock_status?: boolean; // Initial status from props
 }
 
 const AdminPermission: React.FC<AdminPermissionProps> = ({ stock_status }) => {
-  const switchHandler = async () => {
-    // Implement your switch handling logic here
+  // Local state to manage the switch status
+  const [currentStatus, setCurrentStatus] = useState(stock_status);
+
+  // Fetch data using useQuery
+  const { refetch } = useQuery({
+    queryKey: ["switchData"],
+    queryFn: switchData,
+  });
+
+  // Mutation for changing the status
+  const { mutate: changeStatus } = useMutation({
+    mutationFn: switchData,
+    onSuccess: () => {
+      // Update the local state after successful mutation
+      setCurrentStatus((prevStatus) => !prevStatus);
+      refetch(); // Optional: Refetch data if needed
+    },
+  });
+
+  // Handler for switch change
+  const handleSwitchChange = () => {
+    changeStatus(); // Trigger the mutation
   };
 
   return (
@@ -27,17 +50,20 @@ const AdminPermission: React.FC<AdminPermissionProps> = ({ stock_status }) => {
       }}
     >
       <Switch
-        onChange={switchHandler}
-        defaultChecked={stock_status}
+        onChange={handleSwitchChange} // Use the handler function
+        checked={currentStatus} // Use the local state for the switch
         sx={{
-          "& .MuiButtonBase-root ": {
-            color: `${colors.gold[100]} !important`,
+          "& .MuiSwitch-thumb": {
+            color: currentStatus ? "green" : "red",
+          },
+          "& .MuiSwitch-track": {
+            backgroundColor: currentStatus ? "green" : "red",
           },
         }}
       />
       <Typography
         whiteSpace="nowrap"
-        color={stock_status ? "orange" : "green"}
+        color={colors.gold[100]}
         fontWeight="bold"
         fontFamily="Yekan"
         variant="h6"
@@ -45,14 +71,14 @@ const AdminPermission: React.FC<AdminPermissionProps> = ({ stock_status }) => {
         وضعیت خرید فروش :
         <span
           style={{
-            color: stock_status ? "green" : "red",
+            color: currentStatus ? "green" : "red",
             fontWeight: "bold",
             fontFamily: "Yekan",
             fontSize: "22px",
             padding: "10px",
           }}
         >
-          {stock_status ? "فعال" : "غیر فعال"}
+          {currentStatus ? "فعال" : "غیر فعال"}
         </span>
       </Typography>
     </Paper>

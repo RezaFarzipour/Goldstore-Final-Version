@@ -1,25 +1,24 @@
-import React from "react";
 import ReusableTable from "../../../modules/ReusableTable";
-import { Box, Container } from "@mui/material";
-import SectionTitle from "../../../modules/SectionTitle";
-import { transactionList } from "../../../../services/adminPanel";
+import { moneyGetRequestList } from "../../../../services/adminPanel";
 import { useQuery } from "@tanstack/react-query";
+import SectionTitle from "../../../modules/SectionTitle";
+import { Box, Container } from "@mui/material";
+import RequestTabs from "../../../modules/RequestTabs";
 
 type Props = {};
 interface User {
   id: number;
   first_name: string;
   last_name: string;
-  money_amount: string;
-  payment_id: string;
-  payment_date: string;
   phone_number: string;
+  money_amount: string;
+  request_date: string;
   status: string;
 }
-const TransactionsTemp = (props: Props) => {
+const CashWithdrawTemp = (props: Props) => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["settingData"],
-    queryFn: transactionList,
+    queryFn: moneyGetRequestList,
   });
   console.log(data);
 
@@ -28,10 +27,9 @@ const TransactionsTemp = (props: Props) => {
     { id: "id", label: "شناسه" },
     { id: "first_name", label: "نام" },
     { id: "last_name", label: "نام خانوادگی" },
-    { id: "money_amount", label: "مبلغ" },
-    { id: "payment_id", label: "شناسه تراکنش" },
-    { id: "payment_date", label: "تاریخ" },
     { id: "phone_number", label: "شماره همراه" },
+    { id: "request_date", label: "تاریخ" },
+    { id: "money_amount", label: "مقدار برداشت" },
     { id: "status", label: "وضعیت" },
   ];
 
@@ -46,9 +44,10 @@ const TransactionsTemp = (props: Props) => {
   }
 
   // بررسی وجود داده‌ها
-  if (!data || !data.transaction_list) {
+  if (!data) {
     return <div>داده‌ها در دسترس نیستند.</div>;
   }
+
   return (
     <Box
       sx={{
@@ -59,16 +58,33 @@ const TransactionsTemp = (props: Props) => {
     >
       <Container maxWidth="lg" sx={{ padding: "20px" }}>
         <Box mb={4}>
-          <SectionTitle title="تراکنش ها" />
+          <SectionTitle title="برداشت وجه" />
         </Box>
-        <ReusableTable
-          columns={columns}
-          rows={data.transaction_list}
-          showActions={false} // فعال کردن ستون عملیات
+        <RequestTabs
+          allRequests={
+            <ReusableTable
+              columns={columns}
+              rows={data.all_request.map((item) => ({
+                ...item,
+                status: item.request_status,
+              }))}
+              showActions={false} // فعال کردن ستون عملیات
+            />
+          }
+          approvedRequests={
+            <ReusableTable
+              columns={columns}
+              rows={data.un_accept_request.map((item) => ({
+                ...item,
+                status: item.request_status,
+              }))}
+              showActions={false} // فعال کردن ستون عملیات
+            />
+          }
         />
       </Container>
     </Box>
   );
 };
 
-export default TransactionsTemp;
+export default CashWithdrawTemp;

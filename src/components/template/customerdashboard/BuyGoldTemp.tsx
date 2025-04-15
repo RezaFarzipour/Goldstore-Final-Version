@@ -2,9 +2,9 @@ import { Box } from "@mui/material";
 import BuyAndSellBox from "../../modules/customerDashboard/BuyAndSellBoxModule";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { buyGold, walletdata } from "../../../services/customerDashboard";
-import { ErrorPendingHandler } from "../../element/ErrrorPendingHandler"; 
 
 import Alerts from "../../element/AlertElement";
+import { ErrorPendingHandler } from "../../element/ErrrorPendingHandler";
 
 const BuyGold = () => {
   const {

@@ -20,7 +20,7 @@ export const BoxOneSX = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    mt: 12,
+    mt: 14,
 }
 
 
