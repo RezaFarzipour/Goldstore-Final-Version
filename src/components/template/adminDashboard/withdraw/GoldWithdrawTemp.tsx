@@ -1,4 +1,3 @@
-import React from "react";
 import ReusableTable from "../../../modules/ReusableTable";
 import { goldGetRequestList } from "../../../../services/adminPanel";
 import { useQuery } from "@tanstack/react-query";
@@ -44,7 +43,11 @@ const GoldWithdrawTemp = (props: Props) => {
   }
 
   // بررسی وجود داده‌ها
-  if (!data) {
+  if (
+    !data ||
+    !Array.isArray(data.all_request) ||
+    !Array.isArray(data.un_accept_request)
+  ) {
     return <div>داده‌ها در دسترس نیستند.</div>;
   }
   return (

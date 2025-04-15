@@ -1,8 +1,7 @@
-import React from "react";
 import ReusableTable from "../../modules/ReusableTable";
 import { usersInformationList } from "../../../services/adminPanel";
 import { useQuery } from "@tanstack/react-query";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import SectionTitle from "../../modules/SectionTitle";
 
 type Props = {};

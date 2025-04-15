@@ -18,49 +18,62 @@ const SettingTemp = (props: Props) => {
   const [inventoryAmount, setInventoryAmount] = useState<string>("");
   const [priceDifference, setPriceDifference] = useState<string>("");
 
-  const { data, error, isLoading } = useQuery({
+  // Fetch data using useQuery
+  const { data, error, isLoading, refetch } = useQuery({
     queryKey: ["settingData"],
     queryFn: settingData,
   });
-  console.log(data);
 
+  // Mutation for changing gold price
   const { mutateAsync: mutateChangeGoldPrice } = useMutation({
     mutationFn: changeGoldPrice,
-  });
-  const { mutateAsync: mutateChangeWarehouseGoldAmount } = useMutation({
-    mutationFn: changeWarehouseGoldAmount,
-  });
-  const { mutateAsync: mutateChangePriceDifference } = useMutation({
-    mutationFn: changePriceDifference,
+    onSuccess: async () => {
+      await refetch();
+    },
   });
 
+  // Mutation for changing warehouse gold amount
+  const { mutateAsync: mutateChangeWarehouseGoldAmount } = useMutation({
+    mutationFn: changeWarehouseGoldAmount,
+    onSuccess: async () => {
+      await refetch();
+    },
+  });
+
+  // Mutation for changing price difference
+  const { mutateAsync: mutateChangePriceDifference } = useMutation({
+    mutationFn: changePriceDifference,
+    onSuccess: async () => {
+      await refetch();
+    },
+  });
+
+  // Handlers for mutations
   const changeGoldPriceHandler = async () => {
     try {
-      const res = await mutateChangeGoldPrice(addingPrice);
-      console.log(res.data);
+      await mutateChangeGoldPrice(addingPrice);
     } catch (error) {
-      console.log(error);
+      console.error("Error changing gold price:", error);
     }
   };
 
   const changeInventoryHandler = async () => {
     try {
-      const res = await mutateChangeWarehouseGoldAmount(inventoryAmount);
-      console.log(res.data);
+      await mutateChangeWarehouseGoldAmount(inventoryAmount);
     } catch (error) {
-      console.log(error);
+      console.error("Error changing inventory amount:", error);
     }
   };
 
   const changePriceDifferenceHandler = async () => {
     try {
-      const res = await mutateChangePriceDifference(priceDifference);
-      console.log(res.data);
+      await mutateChangePriceDifference(priceDifference);
     } catch (error) {
-      console.log(error);
+      console.error("Error changing price difference:", error);
     }
   };
 
+  // Input change handlers
   const handleAddingPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddingPrice(e.target.value);
   };
@@ -75,27 +88,30 @@ const SettingTemp = (props: Props) => {
     setPriceDifference(e.target.value);
   };
 
-  // بررسی وضعیت بارگذاری
+  // Check loading state
   if (isLoading) {
     return <div>در حال بارگذاری...</div>;
   }
 
-  // بررسی خطا
+  // Check error state
   if (error) {
-    return <div>خطا در دریافت داده‌ها: {error.message}</div>;
+    return <div>خطا در دریافت داده‌ها: {(error as Error).message}</div>;
   }
 
   return (
     <Rtl>
       <Box my={8}>
+        {/* Admin Permission */}
         <Box
           my={2}
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <AdminPermission stock_status={data.data.stock_status} />
+          <AdminPermission stock_status={data?.data?.stock_status} />
         </Box>
+
+        {/* Boxes */}
         <Box
           sx={{
             display: { xs: "block", md: "flex" },
@@ -104,36 +120,41 @@ const SettingTemp = (props: Props) => {
             flexWrap: "wrap",
           }}
         >
+          {/* Gold Price Box */}
           <Box sx={{ maxWidth: "800px", flex: 1, m: 1 }}>
             <DepositeBox
               headerContent="قیمت گذاری:"
               footerContent="قیمت قبلی"
               unit="ریال"
-              walletBalance={data.data.sale_price}
+              walletBalance={data?.data?.sale_price}
               buttonValue="تایید"
               display="flex"
               handleChange={handleAddingPriceChange}
               submit={changeGoldPriceHandler}
             />
           </Box>
+
+          {/* Inventory Amount Box */}
           <Box sx={{ maxWidth: "800px", flex: 1, m: 1 }}>
             <DepositeBox
               headerContent="تغییر میزان موجودی:"
               footerContent="طلای موجود"
               unit="گرم"
-              walletBalance={data.data.total_gold_stock}
+              walletBalance={data?.data?.total_gold_stock}
               buttonValue="تایید"
               display="flex"
               handleChange={handleInventoryChange}
               submit={changeInventoryHandler}
             />
           </Box>
+
+          {/* Price Difference Box */}
           <Box sx={{ maxWidth: "800px", flex: 1, m: 1 }}>
             <DepositeBox
               headerContent="اختلاف قیمت خرید و فروش:"
               footerContent="اختلاف قیمت فعلی"
               unit="ریال"
-              walletBalance={data.data.price_difference}
+              walletBalance={data?.data?.price_difference}
               buttonValue="تایید"
               display="flex"
               handleChange={handlePriceDifferenceChange}
@@ -145,4 +166,5 @@ const SettingTemp = (props: Props) => {
     </Rtl>
   );
 };
+
 export default SettingTemp;

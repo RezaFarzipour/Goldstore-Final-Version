@@ -63,7 +63,7 @@ const RequestTabs = ({ approvedRequests, allRequests }: RequestTabsProps) => {
       >
         <Tab
           sx={{ color: "#efefef!important" }}
-          label="درخواست‌های تایید شده"
+          label="درخواست‌های تایید نشده"
         />
         <Tab sx={{ color: "#efefef!important" }} label="همه درخواست‌ها" />
       </Tabs>

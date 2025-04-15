@@ -1,9 +1,9 @@
 import { Paper, Typography } from "@mui/material";
 import Switch from "@mui/material/Switch";
 import { colors } from "../../styles/theme";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { switchData } from "../../services/adminPanel";
+import { useState } from "react";
 
 interface AdminPermissionProps {
   stock_status?: boolean; // Initial status from props
@@ -13,19 +13,11 @@ const AdminPermission: React.FC<AdminPermissionProps> = ({ stock_status }) => {
   // Local state to manage the switch status
   const [currentStatus, setCurrentStatus] = useState(stock_status);
 
-  // Fetch data using useQuery
-  const { refetch } = useQuery({
-    queryKey: ["switchData"],
-    queryFn: switchData,
-  });
-
   // Mutation for changing the status
   const { mutate: changeStatus } = useMutation({
     mutationFn: switchData,
     onSuccess: () => {
-      // Update the local state after successful mutation
       setCurrentStatus((prevStatus) => !prevStatus);
-      refetch(); // Optional: Refetch data if needed
     },
   });
 
