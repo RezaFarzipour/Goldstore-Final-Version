@@ -8,6 +8,7 @@ import GoldSaleRepTemp from "../components/template/adminDashboard/reports/GoldS
 import GoldSaleTemp from "../components/template/adminDashboard/GoldSaleTemp.tsx";
 import GoldWithdrawTemp from "../components/template/adminDashboard/withdraw/GoldWithdrawTemp.tsx";
 import CashWithdrawTemp from "../components/template/adminDashboard/withdraw/CashWithdrawTemp.tsx";
+import NotFound from "../pages/404.tsx";
 
 const AdminDashboardRoutes = () => {
   return (
@@ -22,6 +23,7 @@ const AdminDashboardRoutes = () => {
       </Route>
       <Route path="/gold-sale" element={<GoldSaleTemp />} />
       <Route path="/setting" element={<SettingTemp />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
