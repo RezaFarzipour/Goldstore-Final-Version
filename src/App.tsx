@@ -1,5 +1,6 @@
 import ScrollToTop from "./components/modules/ScrollToTop";
 import defaultOptions from "./configs/reactQuery";
+import { ToastProvider } from "./context/ToastProvider";
 import AppRoutes from "./routes/AppRoutes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -12,9 +13,11 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <ScrollToTop />
-        <AppRoutes />
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ToastProvider>
+          <ScrollToTop />
+          <AppRoutes />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </ToastProvider>
       </QueryClientProvider>
     </>
   );
