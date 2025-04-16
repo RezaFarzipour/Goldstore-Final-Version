@@ -1,21 +1,24 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Box, Container } from "@mui/material";
 import {
-  goldGetRequestList,
-  proveGoldGetRequest,
-} from "../../../services/adminPanel";
-import ReusableTable, { Column } from "../../modules/ReusableTable";
-import SectionTitle from "../../modules/SectionTitle";
-import RequestTabs from "../../modules/RequestTabs";
-import { toPersianDigits } from "../../../utils/numberFormatter";
-import { useToast } from "../../../context/ToastProvider";
+  moneyGetRequestList,
+  proveMoneyGetRequest,
+} from "../../../../services/adminPanel";
+import ReusableTable, { Column } from "../../../modules/ReusableTable";
+import SectionTitle from "../../../modules/SectionTitle";
+import RequestTabs from "../../../modules/RequestTabs";
+import {
+  priceSeptrator,
+  toPersianDigits,
+} from "../../../../utils/numberFormatter";
+import { useToast } from "../../../../context/ToastProvider";
 
 interface User {
   id: number;
   first_name: string;
   last_name: string;
   phone_number: string;
-  gold_amount: string;
+  money_amount: string;
   request_date: string;
   status: string;
 }
@@ -26,15 +29,15 @@ const columns: Column<User>[] = [
   { id: "last_name", label: "نام خانوادگی" },
   { id: "phone_number", label: "شماره همراه" },
   { id: "request_date", label: "تاریخ" },
-  { id: "gold_amount", label: "مقدار برداشت" },
+  { id: "money_amount", label: "مقدار برداشت" },
   { id: "status", label: "وضعیت" },
 ];
-const GoldWithdrawTemp = () => {
+const CashWithdrawTemp = () => {
   const { showToast } = useToast();
 
-  const { data, error, isLoading, refetch } = useQuery({
-    queryKey: ["settingData"],
-    queryFn: goldGetRequestList,
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["moneyGetRequestList"],
+    queryFn: moneyGetRequestList,
   });
 
   // تعریف موتیشن
@@ -45,7 +48,7 @@ const GoldWithdrawTemp = () => {
     }: {
       get_request_id: number;
       request_type: string;
-    }) => proveGoldGetRequest(get_request_id, request_type),
+    }) => proveMoneyGetRequest(get_request_id, request_type),
   });
 
   // تابع مدیریت تایید یا رد درخواست
@@ -84,13 +87,10 @@ const GoldWithdrawTemp = () => {
   }
 
   // بررسی وجود داده‌ها
-  if (
-    !data ||
-    !Array.isArray(data.all_request) ||
-    !Array.isArray(data.un_accept_request)
-  ) {
+  if (!data) {
     return <div>داده‌ها در دسترس نیستند.</div>;
   }
+
   return (
     <Box
       sx={{
@@ -101,7 +101,7 @@ const GoldWithdrawTemp = () => {
     >
       <Container maxWidth="lg" sx={{ padding: "20px" }}>
         <Box mb={4}>
-          <SectionTitle title="برداشت طلا" />
+          <SectionTitle title="برداشت وجه" />
         </Box>
         <RequestTabs
           allRequests={
@@ -113,7 +113,9 @@ const GoldWithdrawTemp = () => {
                 id: toPersianDigits(item.id),
                 phone_number: toPersianDigits(item.phone_number),
                 request_date: toPersianDigits(item.request_date),
-                gold_amount: toPersianDigits(item.gold_amount),
+                money_amount: toPersianDigits(
+                  priceSeptrator(item.money_amount)
+                ),
               }))}
               showActions={true} // فعال کردن ستون عملیات
               btnvalue1="تایید درخواست"
@@ -131,7 +133,9 @@ const GoldWithdrawTemp = () => {
                 id: toPersianDigits(item.id),
                 phone_number: toPersianDigits(item.phone_number),
                 request_date: toPersianDigits(item.request_date),
-                gold_amount: toPersianDigits(item.gold_amount),
+                money_amount: toPersianDigits(
+                  priceSeptrator(item.money_amount)
+                ),
               }))}
               showActions={true} // فعال کردن ستون عملیات
               btnvalue1="تایید درخواست"
@@ -146,4 +150,4 @@ const GoldWithdrawTemp = () => {
   );
 };
 
-export default GoldWithdrawTemp;
+export default CashWithdrawTemp;
