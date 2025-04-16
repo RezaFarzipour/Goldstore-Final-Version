@@ -7,6 +7,8 @@ import {
 import ReusableTable, { Column } from "../../modules/ReusableTable";
 import SectionTitle from "../../modules/SectionTitle";
 import RequestTabs from "../../modules/RequestTabs";
+import { toPersianDigits } from "../../../utils/numberFormatter";
+import { useToast } from "../../../context/ToastProvider";
 
 interface User {
   id: number;
@@ -27,7 +29,9 @@ const columns: Column<User>[] = [
   { id: "gold_amount", label: "مقدار برداشت" },
   { id: "status", label: "وضعیت" },
 ];
-const GoldWithdrawTemp = (props: Props) => {
+const GoldWithdrawTemp = () => {
+  const { showToast } = useToast();
+
   const { data, error, isLoading, refetch } = useQuery({
     queryKey: ["settingData"],
     queryFn: goldGetRequestList,
@@ -50,13 +54,13 @@ const GoldWithdrawTemp = (props: Props) => {
       const get_request_id = selectedRow.id;
       const request_type = "accept";
 
-      const response = await proveMoneyAsync({ get_request_id, request_type });
-      console.log("پاسخ موفق:", response);
+      await proveMoneyAsync({ get_request_id, request_type });
+      showToast("تایید درخواست با موفقیت انجام شد!", "success");
 
       // به‌روزرسانی داده‌ها پس از موتیشن
       await refetch();
-    } catch (error) {
-      console.error("خطا در انجام میوتیشن:", error);
+    } catch {
+      showToast("خطایی رخ داده است!", "error");
     }
   };
 
@@ -65,13 +69,13 @@ const GoldWithdrawTemp = (props: Props) => {
       const get_request_id = selectedRow.id;
       const request_type = "reject";
 
-      const response = await proveMoneyAsync({ get_request_id, request_type });
-      console.log("پاسخ موفق:", response);
+      await proveMoneyAsync({ get_request_id, request_type });
+      showToast("رد درخواست با موفقیت انجام شد!", "success");
 
       // به‌روزرسانی داده‌ها پس از موتیشن
       await refetch();
-    } catch (error) {
-      console.error("خطا در انجام میوتیشن:", error);
+    } catch {
+      showToast("خطایی رخ داده است!", "error");
     }
   };
   // بررسی وضعیت بارگذاری
@@ -106,6 +110,10 @@ const GoldWithdrawTemp = (props: Props) => {
               rows={data.all_request.map((item) => ({
                 ...item,
                 status: item.request_status,
+                id: toPersianDigits(item.id),
+                phone_number: toPersianDigits(item.phone_number),
+                request_date: toPersianDigits(item.request_date),
+                gold_amount: toPersianDigits(item.gold_amount),
               }))}
               showActions={true} // فعال کردن ستون عملیات
               btnvalue1="تایید درخواست"
@@ -120,6 +128,10 @@ const GoldWithdrawTemp = (props: Props) => {
               rows={data.un_accept_request.map((item) => ({
                 ...item,
                 status: item.request_status,
+                id: toPersianDigits(item.id),
+                phone_number: toPersianDigits(item.phone_number),
+                request_date: toPersianDigits(item.request_date),
+                gold_amount: toPersianDigits(item.gold_amount),
               }))}
               showActions={true} // فعال کردن ستون عملیات
               btnvalue1="تایید درخواست"

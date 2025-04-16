@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Modal,
   Box,
@@ -17,6 +17,7 @@ interface DynamicModalProps {
   title: string;
   inputLabel: string;
   inputValueState?: string;
+  setInputValueState?: (value: string) => void;
   onButtonClick: (value: string) => void;
   buttonLabel: string;
   dataAmount: string | number;
@@ -29,7 +30,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: { xs: "90%", sm: "400px" },
-  bgcolor: "background.paper",
+  bgcolor: "#efefef",
   boxShadow: 24,
   borderRadius: 2,
   p: 4,

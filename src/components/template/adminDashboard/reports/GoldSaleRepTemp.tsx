@@ -3,6 +3,10 @@ import { SaleList } from "../../../../services/adminPanel";
 import { useQuery } from "@tanstack/react-query";
 import { Box, Container } from "@mui/material";
 import SectionTitle from "../../../modules/SectionTitle";
+import {
+  priceSeptrator,
+  toPersianDigits,
+} from "../../../../utils/numberFormatter";
 
 interface User {
   id: number;
@@ -44,11 +48,20 @@ const GoldSaleRepTemp = () => {
   ];
 
   // فیلتر کردن داده‌ها بر اساس وضعیت
-  const filteredRows = data.data.filter(
-    (item) =>
-      item.request_status === "تایید درخواست" ||
-      item.request_status === "رد درخواست"
-  );
+  const filteredRows = data.data
+    .filter(
+      (item) =>
+        item.request_status === "تایید درخواست" ||
+        item.request_status === "رد درخواست"
+    )
+    .map((item) => ({
+      ...item,
+      id: toPersianDigits(item.id),
+      phone_number: toPersianDigits(item.phone_number),
+      sale_date: toPersianDigits(item.sale_date),
+      money_amount: toPersianDigits(priceSeptrator(item.money_amount)),
+      gold_amount: toPersianDigits(item.gold_amount),
+    }));
 
   return (
     <Box
@@ -64,7 +77,8 @@ const GoldSaleRepTemp = () => {
         </Box>
         <ReusableTable
           columns={columns}
-          rows={filteredRows} // استفاده از داده‌های فیلترشده
+          rows={filteredRows}
+          // استفاده از داده‌های فیلترشده
           showActions={false} // غیرفعال کردن ستون عملیات
         />
       </Container>

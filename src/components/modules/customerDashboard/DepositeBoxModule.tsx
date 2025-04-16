@@ -12,12 +12,10 @@ import {
   TextFildOneSx,
 } from "../../template/customerdashboard/style";
 import {
-  FarsiToEnglishNumber,
   priceSeptrator,
   toPersianDigits,
 } from "../../../utils/numberFormatter";
 import { colors } from "../../../styles/theme";
-import { WalletDataResponse } from "../../../types";
 
 type DepositeBoxProps = {
   buttonValue: string;
@@ -26,12 +24,11 @@ type DepositeBoxProps = {
   footerContent: string;
   unit: string;
   walletBalance?: number;
+  walletGoldBalance?: number;
   assetAmountChanger: (value: string) => void;
   assetAmount: string;
   submit: (assetAmount: string) => void;
-  handleChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   isPending: boolean;
 };
 
@@ -46,14 +43,13 @@ const DepositeBox = ({
   submit,
   isPending,
   walletBalance = 0,
+  walletGoldBalance,
   handleChange,
 }: DepositeBoxProps) => {
-
-const submitHandler = () => {
-   submit(assetAmount)
-   assetAmountChanger("")
-   
-}
+  const submitHandler = () => {
+    submit(assetAmount);
+    assetAmountChanger("");
+  };
 
   return (
     <Paper
@@ -93,11 +89,7 @@ const submitHandler = () => {
       />
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Button
-          variant="outlined"
-          sx={ButtononeSx}
-          onClick={submitHandler}
-        >
+        <Button variant="outlined" sx={ButtononeSx} onClick={submitHandler}>
           {isPending ? "در حال برداشت..." : buttonValue}
         </Button>
       </Box>
@@ -114,9 +106,11 @@ const submitHandler = () => {
             {footerContent}
           </span>
           <span>
-            {/* {numeral(props.WalletData.wallet_money_data).format("0,0")} */}
-            {toPersianDigits(priceSeptrator(walletBalance))}
-            &nbsp;ریال
+            {walletBalance !== undefined &&
+              toPersianDigits(priceSeptrator(walletBalance))}
+            {walletGoldBalance !== undefined &&
+              toPersianDigits(walletGoldBalance)}
+            &nbsp;{unit}
           </span>
         </Typography>
       </Box>

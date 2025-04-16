@@ -1,14 +1,18 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ReusableTable, { Column } from "../../modules/ReusableTable";
 import {
   changeUserWalletGoldAmount,
   changeUserWalletMoneyAmount,
   usersInformationList,
 } from "../../../services/adminPanel";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Box, Container } from "@mui/material";
 import SectionTitle from "../../modules/SectionTitle";
 import DynamicModal from "../../modules/DynamicModal";
+import {
+  priceSeptrator,
+  toPersianDigits,
+} from "../../../utils/numberFormatter";
 
 // تعریف نوع داده‌ها
 interface User {
@@ -31,63 +35,65 @@ const columns: Column<User>[] = [
 ];
 
 const InventoryTemp = () => {
-  const [modalState, setModalState] = useState<{
-    cashOpen: boolean;
-    goldOpen: boolean;
-    selectedUser: User | null;
-    cashAmount: string;
-    goldAmount: string;
-  }>({
-    cashOpen: false,
-    goldOpen: false,
-    selectedUser: null,
-    cashAmount: "",
-    goldAmount: "",
-  });
+  const [cashModalOpen, setCashModalOpen] = useState(false); // وضعیت مودال کیف پول
+  const [goldModalOpen, setGoldModalOpen] = useState(false); // وضعیت مودال کیف طلا
+  const [selectedUser, setSelectedUser] = useState<User | null>(null); // کاربر انتخاب‌شده
+  const [cashModalAmount, setCashModalAmount] = useState(""); // مقدار ورودی کیف پول
+  const [goldModalAmount, setGoldModalAmount] = useState(""); // مقدار ورودی کیف طلا
+  console.log(cashModalAmount);
 
-  // دسترسی به queryClient
-  const queryClient = useQueryClient();
-
-  // دریافت لیست کاربران
   const { data, isLoading } = useQuery({
-    queryKey: ["usersInformationList"],
+    queryKey: ["settingData"],
     queryFn: usersInformationList,
   });
+  console.log(data);
 
-  // میوتیشن برای تغییر موجودی کیف پول
-  const { mutateAsync: updateWallet } = useMutation({
-    mutationFn: async ({
-      type,
+  const { mutateAsync: cashAmountAsync } = useMutation({
+    mutationFn: ({
       phone_number,
-      amount,
+      money_amount,
     }: {
-      type: "cash" | "gold";
       phone_number: string;
-      amount: string;
-    }) => {
-      if (type === "cash") {
-        return changeUserWalletMoneyAmount(phone_number, amount);
-      } else {
-        return changeUserWalletGoldAmount(phone_number, amount);
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["usersInformationList"] });
-    },
+      money_amount: string;
+    }) => changeUserWalletMoneyAmount(phone_number, money_amount),
   });
 
-  // تابع عمومی برای بروزرسانی موجودی
-  const handleUpdateAmount = async (type: "cash" | "gold") => {
-    const { selectedUser, cashAmount, goldAmount } = modalState;
+  const { mutateAsync: goldAmountAsync } = useMutation({
+    mutationFn: ({
+      phone_number,
+      gold_amount,
+    }: {
+      phone_number: string;
+      gold_amount: string;
+    }) => changeUserWalletGoldAmount(phone_number, gold_amount),
+  });
 
+  // تابع برای تغییر موجودی کیف پول
+  const handleUpdateCashAmount = async () => {
     if (!selectedUser) return;
 
     try {
-      await updateWallet({
-        type,
+      const response = await cashAmountAsync({
         phone_number: selectedUser.phone_number,
-        amount: type === "cash" ? cashAmount : goldAmount,
+        money_amount: cashModalAmount,
       });
+      console.log("پاسخ موفق:", response);
+      setCashModalOpen(false);
+    } catch (error) {
+      console.error("خطا در انجام میوتیشن:", error);
+    }
+  };
+
+  // تابع برای تغییر موجودی کیف طلا
+  const handleUpdateGoldAmount = async () => {
+    if (!selectedUser) return;
+    try {
+      const response = await goldAmountAsync({
+        phone_number: selectedUser.phone_number,
+        gold_amount: goldModalAmount,
+      });
+      console.log("پاسخ موفق:", response);
+      setGoldModalOpen(false);
     } catch (error) {
       console.error("خطا در انجام میوتیشن:", error);
     }
@@ -119,59 +125,51 @@ const InventoryTemp = () => {
         {/* جدول */}
         <ReusableTable
           columns={columns}
-          rows={data.data}
-          showActions={true}
+          rows={(data?.data || []).map((item) => ({
+            ...item,
+            id: toPersianDigits(item.id),
+            phone_number: toPersianDigits(item.phone_number),
+            money_amount: toPersianDigits(priceSeptrator(item.money_amount)),
+            gold_amount: toPersianDigits(item.gold_amount),
+          }))}
+          showActions={true} // فعال کردن ستون عملیات
           btnvalue1="تغییر کیف پول"
           btnvalue2="تغییر کیف طلا"
-          btnAction1={(user) =>
-            setModalState((prev) => ({
-              ...prev,
-              cashOpen: true,
-              selectedUser: user,
-            }))
-          }
-          btnAction2={(user) =>
-            setModalState((prev) => ({
-              ...prev,
-              goldOpen: true,
-              selectedUser: user,
-            }))
-          }
+          btnAction1={(user) => {
+            setSelectedUser(user); // تنظیم کاربر انتخاب‌شده
+            setCashModalOpen(true); // باز کردن مودال کیف پول
+          }}
+          btnAction2={(user) => {
+            setSelectedUser(user); // تنظیم کاربر انتخاب‌شده
+            setGoldModalOpen(true); // باز کردن مودال کیف طلا
+          }}
         />
 
         {/* مودال تغییر کیف پول */}
         <DynamicModal
-          open={modalState.cashOpen}
-          onClose={() =>
-            setModalState((prev) => ({ ...prev, cashOpen: false }))
-          }
+          open={cashModalOpen}
+          onClose={() => setCashModalOpen(false)}
           title="تغییر موجودی کیف پول"
           inputLabel="مقدار جدید کیف پول"
-          dataAmount={modalState.selectedUser?.money_amount || "0"}
+          dataAmount={selectedUser?.money_amount || "0"}
           dataAmountType="ريال"
-          inputValueState={modalState.cashAmount}
-          setInputValueState={(value) =>
-            setModalState((prev) => ({ ...prev, cashAmount: value }))
-          }
-          onButtonClick={() => handleUpdateAmount("cash")}
+          inputValueState={cashModalAmount}
+          setInputValueState={setCashModalAmount}
+          onButtonClick={handleUpdateCashAmount}
           buttonLabel="ذخیره"
         />
 
         {/* مودال تغییر کیف طلا */}
         <DynamicModal
-          open={modalState.goldOpen}
-          onClose={() =>
-            setModalState((prev) => ({ ...prev, goldOpen: false }))
-          }
+          open={goldModalOpen}
+          onClose={() => setGoldModalOpen(false)}
           title="تغییر موجودی کیف طلا"
           inputLabel="مقدار جدید کیف طلا"
-          dataAmount={modalState.selectedUser?.gold_amount || "0"}
+          dataAmount={selectedUser?.gold_amount || "0"}
           dataAmountType="گرم"
-          inputValueState={modalState.goldAmount}
-          setInputValueState={(value) =>
-            setModalState((prev) => ({ ...prev, goldAmount: value }))
-          }
-          onButtonClick={() => handleUpdateAmount("gold")}
+          inputValueState={goldModalAmount}
+          setInputValueState={setGoldModalAmount}
+          onButtonClick={handleUpdateGoldAmount}
           buttonLabel="ذخیره"
         />
       </Container>

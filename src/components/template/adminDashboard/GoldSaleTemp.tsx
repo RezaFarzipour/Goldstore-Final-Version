@@ -4,6 +4,11 @@ import { proveSaleRequest, SaleList } from "../../../services/adminPanel";
 import { Box, Container } from "@mui/material";
 import SectionTitle from "../../modules/SectionTitle";
 import RequestTabs from "../../modules/RequestTabs";
+import {
+  priceSeptrator,
+  toPersianDigits,
+} from "../../../utils/numberFormatter";
+import { useToast } from "../../../context/ToastProvider";
 
 interface User {
   id: number;
@@ -29,6 +34,8 @@ const columns: Column<User>[] = [
 ];
 
 const GoldSaleTemp = () => {
+  const { showToast } = useToast();
+
   // استفاده از useQuery برای دریافت داده‌ها
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["SaleList"],
@@ -55,13 +62,13 @@ const GoldSaleTemp = () => {
       const get_request_id = selectedRow.id;
       const request_type = action;
 
-      const response = await mutateAsync({ get_request_id, request_type });
-      console.log("پاسخ موفق:", response);
+      await mutateAsync({ get_request_id, request_type });
+      showToast("تایید درخواست با موفقیت انجام شد!", "success");
 
       // به‌روزرسانی داده‌ها پس از موتیشن
       await refetch();
-    } catch (error) {
-      console.error("خطا در انجام میوتیشن:", error);
+    } catch {
+      showToast("خطایی رخ داده است!", "error");
     }
   };
 
@@ -95,6 +102,13 @@ const GoldSaleTemp = () => {
               rows={data.unacceptable_data.map((item: User) => ({
                 ...item,
                 status: item.request_status,
+                id: toPersianDigits(item.id),
+                phone_number: toPersianDigits(item.phone_number),
+                money_amount: toPersianDigits(
+                  priceSeptrator(item.money_amount)
+                ),
+                sale_date: toPersianDigits(item.sale_date),
+                gold_amount: toPersianDigits(item.gold_amount),
               }))}
               showActions={true} // فعال کردن ستون عملیات
               btnvalue1="تایید درخواست"
@@ -113,6 +127,13 @@ const GoldSaleTemp = () => {
               rows={data.data.map((item: User) => ({
                 ...item,
                 status: item.request_status,
+                id: toPersianDigits(item.id),
+                phone_number: toPersianDigits(item.phone_number),
+                money_amount: toPersianDigits(
+                  priceSeptrator(item.money_amount)
+                ),
+                sale_date: toPersianDigits(item.sale_date),
+                gold_amount: toPersianDigits(item.gold_amount),
               }))}
               showActions={true} // فعال کردن ستون عملیات
               btnvalue1="تایید درخواست"
