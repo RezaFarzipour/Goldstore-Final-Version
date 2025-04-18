@@ -2,11 +2,14 @@ import { Box } from "@mui/material";
 import BuyAndSellBox from "../../modules/customerDashboard/BuyAndSellBoxModule";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { buyGold, walletdata } from "../../../services/customerDashboard";
-
-import Alerts from "../../element/AlertElement";
 import { ErrorPendingHandler } from "../../element/ErrrorPendingHandler";
+import { useToast } from "../../../context/ToastProvider";
+import { useState } from "react";
 
 const BuyGold = () => {
+  const { showToast } = useToast();
+  const [textFieldValue, setTextFieldValue] = useState("");
+  const [goldTextField, setGoldTextField] = useState("");
   const {
     data: walletData,
     error,
@@ -18,39 +21,38 @@ const BuyGold = () => {
 
   const queryClient = useQueryClient();
 
-  const {
-    mutate,
-    isPending: buying,
-    isError,
-    isSuccess,
-  } = useMutation({
+  const { mutate, isPending: buying } = useMutation({
     mutationKey: ["buygold"],
     mutationFn: buyGold,
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["walletdata"] }),
+    onSuccess: (data) => {
+      if (data.status === 200) {
+        showToast("خرید با موفقیت انجام شد. ", "success");
+      }
+      setTextFieldValue("");
+      setGoldTextField("");
+      queryClient.invalidateQueries({ queryKey: ["walletdata"] });
+    },
+    onError: () => {
+      showToast("خطایی رخ داده است", "error");
+      setTextFieldValue("");
+      setGoldTextField("");
+    },
   });
 
   ErrorPendingHandler(error?.message, isPending);
-
   const buyPrice = walletData?.buyPrice;
-
   const walletBalance = walletData?.walletBalance;
 
   return (
     <>
-      {isError && (
-        <Alerts
-          severity="error"
-          text="خطایی پیش امده است دوباره تلاش کنید"
-        ></Alerts>
-      )}
-      {isSuccess && (
-        <Alerts severity="success" text="خرید با موفقیت انجام شد"></Alerts>
-      )}
       <Box
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <BuyAndSellBox
+          setGoldTextField={setGoldTextField}
+          setTextFieldValue={setTextFieldValue}
+          textFieldValue={textFieldValue}
+          goldTextField={goldTextField}
           walletBalance={walletBalance}
           mutate={mutate}
           isPending={buying}

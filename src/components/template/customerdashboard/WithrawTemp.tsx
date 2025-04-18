@@ -1,5 +1,5 @@
-import { Box, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import { Box } from "@mui/material";
+import React from "react";
 import DepositeBox from "../../modules/customerDashboard/DepositeBoxModule";
 import { Rtl } from "../../element/rtl";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -8,10 +8,17 @@ import {
   walletdata,
 } from "../../../services/customerDashboard";
 import { ErrorPendingHandler } from "../../element/ErrrorPendingHandler";
-import Alerts from "../../element/AlertElement";
+import { formatNumberWithCommas } from "../../../utils/numberFormatter";
+import SectionTitle from "../../modules/SectionTitle";
 
 const Withdraw = () => {
   const [moneyAmount, setMoneyAmount] = React.useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    const formatedNumber = formatNumberWithCommas(newValue);
+    setMoneyAmount(formatedNumber);
+  };
 
   const {
     data: walletData,
@@ -24,32 +31,23 @@ const Withdraw = () => {
 
   const {
     mutate,
+   error:widthrawError,
     isPending: isWithdrawing,
-    isError,
-
-    isSuccess,
   } = useMutation({
     mutationFn: customerWithdraw,
   });
 
   const walletBalance = walletData?.walletBalance;
 
+
+
+  
+
   ErrorPendingHandler(error?.message, isPending);
 
   return (
     <>
-      {isError && (
-        <Alerts
-          severity="error"
-          text="خطایی پیش امده است دوباره تلاش کنید"
-        ></Alerts>
-      )}
-      {isSuccess && (
-        <Alerts
-          severity="success"
-          text="برداشت موفق بود .منتظر تایید ادمین بمانید"
-        ></Alerts>
-      )}
+     
       <Rtl>
         <Box
           sx={{
@@ -59,21 +57,10 @@ const Withdraw = () => {
           }}
         >
           <div style={{ maxWidth: "800px" }}>
-            <Typography
-              variant="h3"
-              sx={{
-                color: "#fff",
-                fontWeight: "bold",
-                my: 5,
-                textAlign: "center",
-                fontFamily: "Yekan",
-                fontSize: { xs: "36px", md: "45px" },
-              }}
-            >
-              برداشت
-            </Typography>
+ <SectionTitle title="برداشت"/>
             <DepositeBox
-              handleChange={(e) => setMoneyAmount(e.target.value)}
+            error={widthrawError}
+              handleChange={handleChange}
               isPending={isWithdrawing}
               submit={mutate}
               assetAmount={moneyAmount}

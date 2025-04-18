@@ -1,11 +1,9 @@
-import { Box, Grid2, Typography } from "@mui/material";
-
-import { colors } from "../../../styles/theme";
-
+import { Box, Grid2 } from "@mui/material";
 import HomeBoxes from "../../modules/customerDashboard/HomeBoxesModule";
 import { getCustomerDashboardHomeData } from "../../../constants/data";
 import { walletdata } from "../../../services/customerDashboard";
 import { useQuery } from "@tanstack/react-query";
+import SectionTitle from "../../modules/SectionTitle";
 
 const DashboardHome = () => {
   const {
@@ -35,18 +33,7 @@ const DashboardHome = () => {
       <Box
         sx={{ margin: "auto", display: "block", textAlign: "center", mb: 10 }}
       >
-        <Typography
-          fontFamily="Yekan"
-          variant="h3"
-          sx={{
-            color: colors.primary[400],
-            fontFamily: "IRANYekan",
-            fontWeight: "500",
-            mt: 4,
-          }}
-        >
-          میز کار
-        </Typography>
+       <SectionTitle title="میز کار"/>
       </Box>
 
       <Grid2 container>

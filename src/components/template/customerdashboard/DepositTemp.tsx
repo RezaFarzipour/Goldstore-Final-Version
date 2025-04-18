@@ -1,6 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import DepositeBox from "../../modules/customerDashboard/DepositeBoxModule";
 import { Rtl } from "../../element/rtl";
+import SectionTitle from "../../modules/SectionTitle";
 
 const Deposit = () => {
   return (
@@ -13,21 +14,8 @@ const Deposit = () => {
         }}
       >
         <Box sx={{ maxWidth: "800px" }}>
-          <Typography
-            variant="h3"
-            sx={{
-              color: "#fff",
-              fontWeight: "bold",
-              fontFamily: "Yekan",
-              fontSize: { xs: "30px", md: "40px" },
-              textAlign: "center",
-              my: 6,
-            }}
-          >
-            واریز
-          </Typography>
+         <SectionTitle title="واریز"/>
           <DepositeBox
-          
             headerContent="مبلغ را وارد کنید"
             footerContent="موجود کیف پول"
             unit="ریال"

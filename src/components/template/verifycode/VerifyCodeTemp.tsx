@@ -5,15 +5,14 @@ import { getCookie, setCookie } from "../../../utils/cookie";
 import Alerts from "../../element/AlertElement";
 import AuthLayout from "../../containers/layout/authLayout";
 import VerifyCodeBoxInput from "../../modules/authModules/VerifyCodeBoxInput";
+import { useToast } from "../../../context/ToastProvider";
 
 
 const VerifyCodePage = () => {
   const [verifyCode, setVerifyCode] = React.useState<string>("");
   const [loading, setLoading] = React.useState(false);
-  const [alertHandler, setAlertHandler] = useState({
-    severity: "",
-    text: "",
-  });
+  const { showToast } = useToast();
+
 
   const navigate = useNavigate();
   const token = getCookie("phone-number");
@@ -25,12 +24,10 @@ const VerifyCodePage = () => {
     const { response, err } = await checkOtp(token, verifyCode);
 
     if (response && response.status === 200) {
+      showToast("به سامانه ی طلای تهران خوش آمدید","success")
       setCookie("token", response.data.token);
       setCookie("user_type", response.data.user_type);
-      setAlertHandler({
-        text: "ورود موفقیت آمیز ",
-        severity: "success",
-      });
+     
 
       if (response.data.signup_require) {
         navigate("/signupinfo");
@@ -46,11 +43,9 @@ const VerifyCodePage = () => {
         navigate("/admin/inventory");
       }
     } else if (err) {
+      showToast("خطایی رخ داده است","error")
       setLoading(false);
-      setAlertHandler({
-        text: "خطایی رخ داده است یا کد ورود  اشتباه است",
-        severity: "error",
-      });
+    
     }
   };
 
@@ -61,9 +56,7 @@ const VerifyCodePage = () => {
   return (
     <>
       <AuthLayout>
-        {!!alertHandler.text && (
-          <Alerts text={alertHandler.text} severity={alertHandler.severity} />
-        )}
+      
 
         <VerifyCodeBoxInput
           verifyCode={verifyCode}

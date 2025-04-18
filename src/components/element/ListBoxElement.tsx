@@ -49,6 +49,7 @@ const ListBoxElement: React.FC<Props> = ({
     >
       <Box
         sx={{
+    
           width: "100%",
           display: "flex",
           justifyContent: "space-between",
@@ -60,6 +61,9 @@ const ListBoxElement: React.FC<Props> = ({
         }}
         onClick={handleClick}
       >
+        <Box pl={2}>
+          {segment.icon}
+        </Box>
         <ListItemText
           primary={segment.label}
           sx={{
@@ -85,10 +89,12 @@ const ListBoxElement: React.FC<Props> = ({
                   sub.id === selectedIndex ? colors.gold[100] : "transparent",
               }}
             >
+         
               <ListItemText
                 primary={sub.subLabel}
                 primaryTypographyProps={{ fontSize: "17px" }}
                 sx={{
+               
                   width: "100%",
                   color:
                     sub.id === selectedIndex ? colors.primary[300] : "white",

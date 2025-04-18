@@ -86,16 +86,23 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
                         : "transparent",
                   }}
                 >
-                  <ListItemText
+                  <Box
                     sx={{
                       color:
                         segment.id === selectedIndex
                           ? colors.primary[300]
                           : "white",
                     }}
-                    primaryTypographyProps={{ fontSize: "17px" }}
-                    primary={segment.label}
-                  />
+                    display={"flex"}
+                    alignItems={"center"}
+                    gap={2}
+                  >
+                    {segment.icon}
+                    <ListItemText
+                      primaryTypographyProps={{ fontSize: "17px" }}
+                      primary={segment.label}
+                    />
+                  </Box>
                 </ListItemButton>
               )}
             </ListItem>

@@ -33,9 +33,11 @@ const TabPanel = (props: TabPanelProps) => {
 interface RequestTabsProps {
   approvedRequests: React.ReactNode; // محتوای تب "درخواست‌های تایید شده"
   allRequests: React.ReactNode; // محتوای تب "همه درخواست‌ها"
+  label1:string,
+  label2:string
 }
 
-const RequestTabs = ({ approvedRequests, allRequests }: RequestTabsProps) => {
+const RequestTabs = ({ approvedRequests, allRequests,label1,label2 }: RequestTabsProps) => {
   const [value, setValue] = useState(0);
 
   // تابع برای تغییر تب
@@ -63,9 +65,9 @@ const RequestTabs = ({ approvedRequests, allRequests }: RequestTabsProps) => {
       >
         <Tab
           sx={{ color: "#efefef!important" }}
-          label="درخواست‌های تایید نشده"
+          label={label1}
         />
-        <Tab sx={{ color: "#efefef!important" }} label="همه درخواست‌ها" />
+        <Tab sx={{ color: "#efefef!important" }} label={label2} />
       </Tabs>
 
       {/* محتوای تب‌ها */}

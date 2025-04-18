@@ -96,6 +96,8 @@ const GoldSaleTemp = () => {
         </Box>
 
         <RequestTabs
+        label1="درخواست‌های تایید نشده"
+        label2="همه ی درهواست ها"
           approvedRequests={
             <ReusableTable
               columns={columns}
