@@ -1,12 +1,12 @@
 import AuthLayout from "../containers/layout/authLayout";
 import { signupInputs } from "../../constants/data";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { signupinfostyle } from "./customerdashboard/style";
 import { colors } from "../../styles/theme";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { signupinfo } from "../../services/auth";
 import { useNavigate } from "react-router-dom";
+import { signupinfostyle } from "./signupInfoStyle";
 const SignupInfoTemp = () => {
 
 const navigate = useNavigate()
@@ -30,7 +30,7 @@ const navigate = useNavigate()
     setInputInfo({ ...inputInfo, [name]: value });
   };
 
-const {isError,isPending,mutateAsync ,error} = useMutation({
+const {mutateAsync ,error} = useMutation({
     mutationKey:["signupinfo"],
     mutationFn:signupinfo
 })
@@ -45,10 +45,6 @@ const submitHandler =async()=>{
    }
 
 }
-
-
-
-
 
   return (
     <AuthLayout>

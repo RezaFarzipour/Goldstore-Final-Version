@@ -1,13 +1,9 @@
 import { Box, Button, Grid2, Paper, Typography } from "@mui/material";
-import React from "react";
 import { priceSeptrator } from "../../../utils/numberFormatter";
-import {
-  buttononeSx,
-  PaperOneSx,
-} from "../../template/customerdashboard/style";
 import { useNavigate } from "react-router-dom";
 import { colors } from "../../../styles/theme";
 import { customerDashboardDataType } from "../../../types";
+import { buttononeSx, PaperOneSx } from "./HomeBoxStyle";
 
 
 const HomeBoxes = ({
