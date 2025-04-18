@@ -5,7 +5,6 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-
 import { colors } from "../../styles/theme";
 import Logo from "../element/Logo";
 import { DrawerItem } from "../../types";
@@ -55,7 +54,7 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
         }}
         role="presentation"
       >
-        <Box mb={4}>
+        <Box mb={4} ml={2}>
           <Logo display="" />
         </Box>
         <List>
