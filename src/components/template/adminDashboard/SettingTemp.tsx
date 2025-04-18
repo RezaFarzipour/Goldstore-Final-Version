@@ -15,7 +15,7 @@ import {
   formatNumberWithCommas,
   removeCommas,
 } from "../../../utils/numberFormatter";
-import CircularMini from "../../element/CircularMini";
+import CircularMini from "../../element/CircularLoading";
 
 const SettingTemp = () => {
   const [formValues, setFormValues] = useState({

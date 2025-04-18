@@ -14,7 +14,7 @@ import {
   toPersianDigits,
 } from "../../../utils/numberFormatter";
 import { BaseAdminPanelProps } from "../../../types";
-import CircularMini from "../../element/CircularMini";
+import CircularMini from "../../element/CircularLoading";
 
 // تعریف نوع داده‌ها
 type User = BaseAdminPanelProps & {

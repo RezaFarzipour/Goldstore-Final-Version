@@ -9,7 +9,7 @@ import {
 } from "../../../../utils/numberFormatter";
 import { BaseAdminPanelProps } from "../../../../types";
 import { useMemo } from "react";
-import CircularMini from "../../../element/CircularMini";
+import CircularMini from "../../../element/CircularLoading";
 
 type User = BaseAdminPanelProps & {
   money_amount: string;

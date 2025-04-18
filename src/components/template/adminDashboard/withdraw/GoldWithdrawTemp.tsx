@@ -11,7 +11,7 @@ import RequestTabs from "../../../modules/RequestTabs";
 import { toPersianDigits } from "../../../../utils/numberFormatter";
 import { BaseAdminPanelProps } from "../../../../types";
 import { useCallback } from "react";
-import CircularMini from "../../../element/CircularMini";
+import CircularMini from "../../../element/CircularLoading";
 
 // نوع داده‌ها
 type User = BaseAdminPanelProps & {

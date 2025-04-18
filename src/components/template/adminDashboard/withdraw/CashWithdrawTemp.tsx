@@ -14,7 +14,7 @@ import {
 } from "../../../../utils/numberFormatter";
 import { useToast } from "../../../../context/ToastProvider";
 import { BaseAdminPanelProps } from "../../../../types";
-import CircularMini from "../../../element/CircularMini";
+import CircularMini from "../../../element/CircularLoading";
 
 type User = BaseAdminPanelProps & {
   money_amount: string;

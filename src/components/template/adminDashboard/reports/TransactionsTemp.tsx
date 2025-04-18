@@ -4,7 +4,7 @@ import SectionTitle from "../../../modules/SectionTitle";
 import { transactionList } from "../../../../services/adminPanel";
 import { useQuery } from "@tanstack/react-query";
 import { BaseAdminPanelProps } from "../../../../types";
-import CircularMini from "../../../element/CircularMini";
+import CircularMini from "../../../element/CircularLoading";
 
 type User = BaseAdminPanelProps & {
   money_amount: string;

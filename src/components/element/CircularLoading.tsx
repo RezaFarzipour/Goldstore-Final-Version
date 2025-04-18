@@ -2,7 +2,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { Box } from "@mui/material";
 import { colors } from "../../styles/theme";
 
-const CircularMini = () => {
+const CircularLoading = () => {
   return (
     <Box
       sx={{
@@ -23,4 +23,4 @@ const CircularMini = () => {
   );
 };
 
-export default CircularMini;
+export default CircularLoading;
