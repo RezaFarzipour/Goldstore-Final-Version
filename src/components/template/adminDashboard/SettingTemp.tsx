@@ -72,6 +72,11 @@ const SettingTemp = () => {
           ? formValues[key]
           : removeCommas(formValues[key]);
 
+      if (!rawValue) {
+        showToast("لطفا مقداری وارد کنید!", "warning");
+        return;
+      }
+
       if (key === "addingPrice") await mutateChangeGoldPrice(rawValue);
       if (key === "inventoryAmount")
         await mutateChangeWarehouseGoldAmount(rawValue);

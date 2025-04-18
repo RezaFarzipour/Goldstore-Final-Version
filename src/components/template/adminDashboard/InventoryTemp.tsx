@@ -10,11 +10,14 @@ import { Box, Container } from "@mui/material";
 import SectionTitle from "../../modules/SectionTitle";
 import DynamicModal from "../../modules/DynamicModal";
 import {
+  FarsiToEnglishNumber,
   priceSeptrator,
+  removeCommas,
   toPersianDigits,
 } from "../../../utils/numberFormatter";
 import { BaseAdminPanelProps } from "../../../types";
 import CircularMini from "../../element/CircularLoading";
+import { useToast } from "../../../context/ToastProvider";
 
 // تعریف نوع داده‌ها
 type User = BaseAdminPanelProps & {
@@ -38,12 +41,12 @@ const InventoryTemp = () => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null); // کاربر انتخاب‌شده
   const [cashModalAmount, setCashModalAmount] = useState(""); // مقدار ورودی کیف پول
   const [goldModalAmount, setGoldModalAmount] = useState(""); // مقدار ورودی کیف طلا
+  const { showToast } = useToast();
 
   const { data, isLoading } = useQuery({
     queryKey: ["settingData"],
     queryFn: usersInformationList,
   });
-  console.log(data);
 
   const { mutateAsync: cashAmountAsync } = useMutation({
     mutationFn: ({
@@ -68,31 +71,39 @@ const InventoryTemp = () => {
   // تابع برای تغییر موجودی کیف پول
   const handleUpdateCashAmount = async () => {
     if (!selectedUser) return;
+    if (!cashModalAmount) {
+      showToast("لطفا مقداری وارد کنید!", "warning");
+      return;
+    }
 
     try {
-      const response = await cashAmountAsync({
-        phone_number: selectedUser.phone_number,
-        money_amount: cashModalAmount,
+      await cashAmountAsync({
+        phone_number: FarsiToEnglishNumber(selectedUser.phone_number),
+        money_amount: removeCommas(cashModalAmount),
       });
-      console.log("پاسخ موفق:", response);
+      showToast(" درخواست با موفقیت انجام شد!", "success");
       setCashModalOpen(false);
-    } catch (error) {
-      console.error("خطا در انجام میوتیشن:", error);
+    } catch {
+      showToast("خطایی رخ داده است!", "error");
     }
   };
 
   // تابع برای تغییر موجودی کیف طلا
   const handleUpdateGoldAmount = async () => {
     if (!selectedUser) return;
+    if (!goldModalAmount) {
+      showToast("لطفا مقداری وارد کنید!", "warning");
+      return;
+    }
     try {
-      const response = await goldAmountAsync({
-        phone_number: selectedUser.phone_number,
+      await goldAmountAsync({
+        phone_number: FarsiToEnglishNumber(selectedUser.phone_number),
         gold_amount: goldModalAmount,
       });
-      console.log("پاسخ موفق:", response);
+      showToast(" درخواست با موفقیت انجام شد!", "success");
       setGoldModalOpen(false);
-    } catch (error) {
-      console.error("خطا در انجام میوتیشن:", error);
+    } catch {
+      showToast("خطایی رخ داده است!", "error");
     }
   };
 
@@ -160,6 +171,7 @@ const InventoryTemp = () => {
           setInputValueState={setCashModalAmount}
           onButtonClick={handleUpdateCashAmount}
           buttonLabel="ذخیره"
+          comma={true}
         />
 
         {/* مودال تغییر کیف طلا */}
@@ -174,6 +186,7 @@ const InventoryTemp = () => {
           setInputValueState={setGoldModalAmount}
           onButtonClick={handleUpdateGoldAmount}
           buttonLabel="ذخیره"
+          comma={false}
         />
       </Container>
     </Box>

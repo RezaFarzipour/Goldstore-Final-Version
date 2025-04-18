@@ -9,7 +9,11 @@ import {
   useTheme,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { priceSeptrator, toPersianDigits } from "../../utils/numberFormatter";
+import {
+  formatNumberWithCommas,
+  priceSeptrator,
+  toPersianDigits,
+} from "../../utils/numberFormatter";
 import { colors } from "../../styles/theme";
 
 // تعریف نوع پراپس‌ها
@@ -24,6 +28,7 @@ interface DynamicModalProps {
   buttonLabel: string;
   dataAmount: string | number;
   dataAmountType: string;
+  comma: boolean;
 }
 
 const style = {
@@ -50,11 +55,17 @@ const DynamicModal: React.FC<DynamicModalProps> = ({
   buttonLabel,
   dataAmount,
   dataAmountType,
+  comma,
 }) => {
   const theme = useTheme();
   // تابع مدیریت تغییرات فیلد ورودی
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValueState?.(event.target.value);
+    const withComma = formatNumberWithCommas(event.target.value);
+    if (comma) {
+      setInputValueState?.(withComma);
+    } else {
+      setInputValueState?.(event.target.value);
+    }
   };
 
   // تابع مدیریت کلیک روی دکمه

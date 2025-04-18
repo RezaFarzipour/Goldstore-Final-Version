@@ -40,6 +40,7 @@ const ReusableTable = <T extends object>({
   btnAction1,
   btnAction2,
 }: ReusableTableProps<T>) => {
+  
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
