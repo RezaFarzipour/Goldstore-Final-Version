@@ -24,20 +24,32 @@ import {
   priceSeptrator,
   toPersianDigits,
 } from "../../../../utils/numberFormatter";
+import { useGoldConverter } from "../../../../hooks/useGoldConverter";
 
 const TabPrice = () => {
   const [value, setValue] = React.useState(0);
   const [textFieldValue, setTextFieldValue] = React.useState<string | number>(
-    0
+    ""
   );
-  const [goldTextField, setGoldTextField] = React.useState<string | number>(0);
+  const [goldTextField, setGoldTextField] = React.useState<string | number>("");
   const [colorTab, setColorTab] = React.useState(false);
-
-  const { data, error, isLoading } = useQuery({
+  const [isEditingGold, setIsEditingGold] = React.useState<boolean>(false);
+  const { data, isLoading } = useQuery({
     queryKey: ["settingData"],
     queryFn: HomeGoldStockPrice,
   });
-  console.log(data);
+
+  const buyPrice = data?.buy_price ? Number(data.buy_price) : 0;
+  const salePrice = data?.sale_price ? Number(data.sale_price) : 0;
+
+  useGoldConverter({
+    price: buyPrice,
+    isEditingGold,
+    goldInput: goldTextField,
+    moneyInput: textFieldValue,
+    setGoldInput: setGoldTextField,
+    setMoneyInput: setTextFieldValue,
+  });
 
   // Handle tab change
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
@@ -55,12 +67,23 @@ const TabPrice = () => {
   const handleTextFieldChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setTextFieldValue(event.target.value);
+    setIsEditingGold(false);
+    const raw = event.target.value.replace(/,/g, "");
+    if (raw === "") {
+      setTextFieldValue("");
+      return;
+    }
+
+    const num = Number(raw);
+    if (!isNaN(num)) {
+      setTextFieldValue(priceSeptrator(num));
+    }
   };
 
   const handleGoldTextFieldChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
+    setIsEditingGold(true);
     setGoldTextField(event.target.value);
   };
 
@@ -75,8 +98,6 @@ const TabPrice = () => {
   if (isLoading) {
     return <div>در حال بارگذاری...</div>;
   }
-  const buyPrice = data?.buy_price ? Number(data.buy_price) : 0;
-  const salePrice = data?.sale_price ? Number(data.sale_price) : 0;
 
   return (
     <Paper sx={TabPricePaper}>
