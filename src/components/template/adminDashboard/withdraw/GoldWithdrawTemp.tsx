@@ -1,11 +1,15 @@
-import ReusableTable from "../../../modules/ReusableTable";
-import { goldGetRequestList } from "../../../../services/adminPanel";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Box, Container } from "@mui/material";
+import ReusableTable, { Column } from "../../../modules/ReusableTable";
+import { useToast } from "../../../../context/ToastProvider";
+import {
+  goldGetRequestList,
+  proveGoldGetRequest,
+} from "../../../../services/adminPanel";
 import SectionTitle from "../../../modules/SectionTitle";
 import RequestTabs from "../../../modules/RequestTabs";
+import { toPersianDigits } from "../../../../utils/numberFormatter";
 
-type Props = {};
 interface User {
   id: number;
   first_name: string;
@@ -15,31 +19,68 @@ interface User {
   request_date: string;
   status: string;
 }
-const GoldWithdrawTemp = (props: Props) => {
-  const { data, error, isLoading } = useQuery({
+// تعریف ستون‌ها
+const columns: Column<User>[] = [
+  { id: "id", label: "شناسه" },
+  { id: "first_name", label: "نام" },
+  { id: "last_name", label: "نام خانوادگی" },
+  { id: "phone_number", label: "شماره همراه" },
+  { id: "request_date", label: "تاریخ" },
+  { id: "gold_amount", label: "مقدار برداشت" },
+  { id: "status", label: "وضعیت" },
+];
+const GoldWithdrawTemp = () => {
+  const { showToast } = useToast();
+
+  const { data, error, isLoading, refetch } = useQuery({
     queryKey: ["settingData"],
     queryFn: goldGetRequestList,
   });
 
-  // تعریف ستون‌ها
-  const columns: Column<User>[] = [
-    { id: "id", label: "شناسه" },
-    { id: "first_name", label: "نام" },
-    { id: "last_name", label: "نام خانوادگی" },
-    { id: "phone_number", label: "شماره همراه" },
-    { id: "request_date", label: "تاریخ" },
-    { id: "gold_amount", label: "مقدار برداشت" },
-    { id: "status", label: "وضعیت" },
-  ];
+  // تعریف موتیشن
+  const { mutateAsync: proveMoneyAsync } = useMutation({
+    mutationFn: ({
+      get_request_id,
+      request_type,
+    }: {
+      get_request_id: number;
+      request_type: string;
+    }) => proveGoldGetRequest(get_request_id, request_type),
+  });
 
+  // تابع مدیریت تایید یا رد درخواست
+  const acceptHandler = async (selectedRow: User) => {
+    try {
+      const get_request_id = selectedRow.id;
+      const request_type = "accept";
+
+      await proveMoneyAsync({ get_request_id, request_type });
+      showToast("تایید درخواست با موفقیت انجام شد!", "success");
+
+      // به‌روزرسانی داده‌ها پس از موتیشن
+      await refetch();
+    } catch {
+      showToast("خطایی رخ داده است!", "error");
+    }
+  };
+
+  const rejectHandler = async (selectedRow: User) => {
+    try {
+      const get_request_id = selectedRow.id;
+      const request_type = "reject";
+
+      await proveMoneyAsync({ get_request_id, request_type });
+      showToast("رد درخواست با موفقیت انجام شد!", "success");
+
+      // به‌روزرسانی داده‌ها پس از موتیشن
+      await refetch();
+    } catch {
+      showToast("خطایی رخ داده است!", "error");
+    }
+  };
   // بررسی وضعیت بارگذاری
   if (isLoading) {
     return <div>در حال بارگذاری...</div>;
-  }
-
-  // بررسی خطا
-  if (error) {
-    return <div>خطا در دریافت داده‌ها: {error.message}</div>;
   }
 
   // بررسی وجود داده‌ها
@@ -69,8 +110,16 @@ const GoldWithdrawTemp = (props: Props) => {
               rows={data.all_request.map((item) => ({
                 ...item,
                 status: item.request_status,
+                id: toPersianDigits(item.id),
+                phone_number: toPersianDigits(item.phone_number),
+                request_date: toPersianDigits(item.request_date),
+                gold_amount: toPersianDigits(item.gold_amount),
               }))}
-              showActions={false} // فعال کردن ستون عملیات
+              showActions={true} // فعال کردن ستون عملیات
+              btnvalue1="تایید درخواست"
+              btnvalue2="رد درخواست"
+              btnAction1={(selectedRow) => acceptHandler(selectedRow)}
+              btnAction2={(selectedRow) => rejectHandler(selectedRow)}
             />
           }
           approvedRequests={
@@ -79,8 +128,16 @@ const GoldWithdrawTemp = (props: Props) => {
               rows={data.un_accept_request.map((item) => ({
                 ...item,
                 status: item.request_status,
+                id: toPersianDigits(item.id),
+                phone_number: toPersianDigits(item.phone_number),
+                request_date: toPersianDigits(item.request_date),
+                gold_amount: toPersianDigits(item.gold_amount),
               }))}
-              showActions={false} // فعال کردن ستون عملیات
+              showActions={true} // فعال کردن ستون عملیات
+              btnvalue1="تایید درخواست"
+              btnvalue2="رد درخواست"
+              btnAction1={(selectedRow) => acceptHandler(selectedRow)}
+              btnAction2={(selectedRow) => rejectHandler(selectedRow)}
             />
           }
         />

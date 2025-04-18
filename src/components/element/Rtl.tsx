@@ -2,8 +2,8 @@ import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
 import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
-import { createTheme, useTheme ,ThemeProvider} from '@mui/material/styles';
-import * as locales from '@mui/material/locale';
+import { createTheme, useTheme, ThemeProvider } from "@mui/material/styles";
+import * as locales from "@mui/material/locale";
 import { useMemo, useState } from "react";
 
 // Create rtl cache
@@ -17,14 +17,9 @@ function Rtl({ children }: { children: React.ReactNode }) {
   return <CacheProvider value={rtlCache}> {children} </CacheProvider>;
 }
 
-
-
-
-
 //make tables rtl
 
-
-function TableRtl({ children }: { children: React.ReactNode }){
+function TableRtl({ children }: { children: React.ReactNode }) {
   const [locale] = useState<string>("faIR");
   const theme = useTheme();
   const themeWithLocale = useMemo(
@@ -32,9 +27,7 @@ function TableRtl({ children }: { children: React.ReactNode }){
     [locale, theme]
   );
 
-  return <ThemeProvider theme={themeWithLocale}>{children}</ThemeProvider>
-
+  return <ThemeProvider theme={themeWithLocale}>{children}</ThemeProvider>;
 }
 
-
-export {Rtl,TableRtl}
+export { Rtl, TableRtl };

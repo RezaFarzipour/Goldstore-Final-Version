@@ -1,16 +1,24 @@
+
+export const formatNumberWithCommas = (value: string): string => {
+  const numericValue = value.replace(/,/g, ""); // حذف ویرگول‌های موجود
+  return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // اضافه کردن ویرگول به صورت دستی
+};
+
+
+export const removeCommas = (value: string): string => {
+  return value.replace(/,/g, ""); // حذف ویرگول‌ها
+};
+
+
+export const priceSeptrator = (num: number | string): string => {
+  return num.toLocaleString("en-US");
+};
+
+
 export function toPersianDigits(n: number | string): string {
   const farsiDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
   return n.toString().replace(/\d/g, (x) => farsiDigits[parseInt(x, 10)]);
 }
-
-
-export const priceSeptrator = (num: number |string ): string => {
-  return num.toLocaleString("en-US");
-};
-
-export const deleteCookie = (name:string) => {
-  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-};
 
 
 export const FarsiToEnglishNumber = (str: string): string => {

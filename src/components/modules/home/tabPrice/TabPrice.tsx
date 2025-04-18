@@ -1,6 +1,5 @@
 import React from "react";
 import { AppBar, Tabs, Tab, Typography, Box, Paper } from "@mui/material";
-
 import DiamondIcon from "@mui/icons-material/Diamond";
 import {
   BuyTypo,
@@ -76,6 +75,8 @@ const TabPrice = () => {
   if (isLoading) {
     return <div>در حال بارگذاری...</div>;
   }
+  const buyPrice = data?.buy_price ? Number(data.buy_price) : 0;
+  const salePrice = data?.sale_price ? Number(data.sale_price) : 0;
 
   return (
     <Paper sx={TabPricePaper}>
@@ -84,7 +85,7 @@ const TabPrice = () => {
         <Box>
           <Typography sx={BuyTypo}>قیمت خرید</Typography>
           <Box sx={RialBox}>
-            {toPersianDigits(priceSeptrator(data.buy_price)) || 0}
+            {toPersianDigits(priceSeptrator(buyPrice)) || 0}
             <Typography sx={RialTypo}>ریال</Typography>
           </Box>
         </Box>
@@ -97,7 +98,7 @@ const TabPrice = () => {
         <Box>
           <Typography sx={SellTypo}>قیمت فروش</Typography>
           <Box sx={SellBox}>
-            {toPersianDigits(priceSeptrator(data.sale_price)) || 0}
+            {toPersianDigits(priceSeptrator(salePrice)) || 0}
             <Typography sx={SellRial}>ریال</Typography>
           </Box>
         </Box>

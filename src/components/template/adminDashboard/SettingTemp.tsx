@@ -10,16 +10,20 @@ import {
 } from "../../../services/adminPanel";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useToast } from "../../../context/ToastProvider";
+import {
+  formatNumberWithCommas,
+  removeCommas,
+} from "../../../utils/numberFormatter";
 
-type Props = {};
-
-const SettingTemp = (props: Props) => {
+const SettingTemp = () => {
   const [addingPrice, setAddingPrice] = useState<string>("");
   const [inventoryAmount, setInventoryAmount] = useState<string>("");
   const [priceDifference, setPriceDifference] = useState<string>("");
+  const { showToast } = useToast();
 
   // Fetch data using useQuery
-  const { data, error, isLoading, refetch } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["settingData"],
     queryFn: settingData,
   });
@@ -48,54 +52,58 @@ const SettingTemp = (props: Props) => {
     },
   });
 
-  // Handlers for mutations
-  const changeGoldPriceHandler = async () => {
-    try {
-      await mutateChangeGoldPrice(addingPrice);
-    } catch (error) {
-      console.error("Error changing gold price:", error);
-    }
-  };
-
-  const changeInventoryHandler = async () => {
-    try {
-      await mutateChangeWarehouseGoldAmount(inventoryAmount);
-    } catch (error) {
-      console.error("Error changing inventory amount:", error);
-    }
-  };
-
-  const changePriceDifferenceHandler = async () => {
-    try {
-      await mutateChangePriceDifference(priceDifference);
-    } catch (error) {
-      console.error("Error changing price difference:", error);
-    }
-  };
-
-  // Input change handlers
+  // Handlers for input changes
   const handleAddingPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAddingPrice(e.target.value);
+    const rawValue = e.target.value;
+    const formattedValue = formatNumberWithCommas(rawValue);
+    setAddingPrice(formattedValue);
   };
 
   const handleInventoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInventoryAmount(e.target.value);
+    setInventoryAmount(e.target.value); // No formatting needed for inventory amount
   };
 
   const handlePriceDifferenceChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setPriceDifference(e.target.value);
+    const rawValue = e.target.value;
+    const formattedValue = formatNumberWithCommas(rawValue);
+    setPriceDifference(formattedValue);
+  };
+
+  // Handlers for mutations
+  const changeGoldPriceHandler = async () => {
+    try {
+      const rawValue = removeCommas(addingPrice); // Remove commas before sending
+      await mutateChangeGoldPrice(rawValue);
+      showToast("عملیات با موفقیت انجام شد!", "success");
+    } catch {
+      showToast("خطایی رخ داده است!", "error");
+    }
+  };
+
+  const changeInventoryHandler = async () => {
+    try {
+      await mutateChangeWarehouseGoldAmount(inventoryAmount); // No need to remove commas
+      showToast("عملیات با موفقیت انجام شد!", "success");
+    } catch {
+      showToast("خطایی رخ داده است!", "error");
+    }
+  };
+
+  const changePriceDifferenceHandler = async () => {
+    try {
+      const rawValue = removeCommas(priceDifference); // Remove commas before sending
+      await mutateChangePriceDifference(rawValue);
+      showToast("عملیات با موفقیت انجام شد!", "success");
+    } catch {
+      showToast("خطایی رخ داده است!", "error");
+    }
   };
 
   // Check loading state
   if (isLoading) {
     return <div>در حال بارگذاری...</div>;
-  }
-
-  // Check error state
-  if (error) {
-    return <div>خطا در دریافت داده‌ها: {(error as Error).message}</div>;
   }
 
   return (
@@ -131,6 +139,9 @@ const SettingTemp = (props: Props) => {
               display="flex"
               handleChange={handleAddingPriceChange}
               submit={changeGoldPriceHandler}
+              isPending={false}
+              assetAmount={addingPrice}
+              assetAmountChanger={setAddingPrice}
             />
           </Box>
 
@@ -140,11 +151,14 @@ const SettingTemp = (props: Props) => {
               headerContent="تغییر میزان موجودی:"
               footerContent="طلای موجود"
               unit="گرم"
-              walletBalance={data?.data?.total_gold_stock}
+              walletGoldBalance={data?.data?.total_gold_stock}
               buttonValue="تایید"
               display="flex"
               handleChange={handleInventoryChange}
               submit={changeInventoryHandler}
+              isPending={false}
+              assetAmount={inventoryAmount}
+              assetAmountChanger={setInventoryAmount}
             />
           </Box>
 
@@ -159,6 +173,9 @@ const SettingTemp = (props: Props) => {
               display="flex"
               handleChange={handlePriceDifferenceChange}
               submit={changePriceDifferenceHandler}
+              isPending={false}
+              assetAmount={priceDifference}
+              assetAmountChanger={setPriceDifference}
             />
           </Box>
         </Box>

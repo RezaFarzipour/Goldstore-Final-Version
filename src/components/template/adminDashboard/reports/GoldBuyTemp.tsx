@@ -1,11 +1,13 @@
-import React from "react";
-import ReusableTable from "../../../modules/ReusableTable";
+import ReusableTable, { Column } from "../../../modules/ReusableTable";
 import { BuyList } from "../../../../services/adminPanel";
 import { useQuery } from "@tanstack/react-query";
 import { Box, Container } from "@mui/material";
 import SectionTitle from "../../../modules/SectionTitle";
+import {
+  priceSeptrator,
+  toPersianDigits,
+} from "../../../../utils/numberFormatter";
 
-type Props = {};
 interface User {
   id: number;
   first_name: string;
@@ -14,14 +16,16 @@ interface User {
   gold_amount: string;
   buy_date: string;
   phone_number: string;
-  status: string;
+  request_status: string; // توجه: این فیلد باید در داده‌ها وجود داشته باشد
 }
-const GoldBuyTemp = (props: Props) => {
-  const { data, error, isLoading } = useQuery({
+
+const GoldBuyTemp = () => {
+  const { data, isLoading } = useQuery({
     queryKey: ["settingData"],
     queryFn: BuyList,
   });
-  console.log(data);
+
+  console.log("داده‌های دریافتی:", data);
 
   // تعریف ستون‌ها
   const columns: Column<User>[] = [
@@ -32,11 +36,17 @@ const GoldBuyTemp = (props: Props) => {
     { id: "buy_date", label: "تاریخ" },
     { id: "money_amount", label: "مبلغ" },
     { id: "gold_amount", label: "مقدار طلا" },
-    { id: "status", label: "وضعیت" },
+    { id: "request_status", label: "وضعیت" },
   ];
+
   if (isLoading) {
     return <div>در حال بارگذاری...</div>;
   }
+
+  if (!data || !Array.isArray(data?.data)) {
+    return <div>داده‌ها در دسترس نیستند یا فرمت آن‌ها نادرست است.</div>;
+  }
+
   return (
     <Box
       sx={{
@@ -51,9 +61,14 @@ const GoldBuyTemp = (props: Props) => {
         </Box>
         <ReusableTable
           columns={columns}
-          rows={data.data.map((item) => ({
+          rows={(Array.isArray(data?.data) ? data.data : []).map((item) => ({
             ...item,
             status: item.request_status,
+            id: toPersianDigits(item.id),
+            phone_number: toPersianDigits(item.phone_number),
+            buy_date: toPersianDigits(item.buy_date),
+            money_amount: toPersianDigits(priceSeptrator(item.money_amount)),
+            gold_amount: toPersianDigits(item.gold_amount),
           }))}
           showActions={false} // فعال کردن ستون عملیات
         />

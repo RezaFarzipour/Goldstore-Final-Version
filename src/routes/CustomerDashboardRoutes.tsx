@@ -7,6 +7,7 @@ import SellGold from "../components/template/customerdashboard/SellGoldTemp.tsx"
 import Reports from "../components/template/customerdashboard/ReportsTemp.tsx";
 import ReceiveGold from "../components/template/customerdashboard/ReceiveGoldTemp.tsx";
 import DashboardHome from "../components/template/customerdashboard/DashboardHomeTemp.tsx";
+import NotFound from "../pages/404.tsx";
 
 const CustomerDashboardRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const CustomerDashboardRoutes = () => {
       <Route path="/sell-gold" element={<SellGold />} />
       <Route path="/reports" element={<Reports />} />
       <Route path="/receive-gold" element={<ReceiveGold />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

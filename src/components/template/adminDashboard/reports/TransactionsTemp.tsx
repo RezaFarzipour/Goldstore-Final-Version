@@ -1,11 +1,9 @@
-import React from "react";
-import ReusableTable from "../../../modules/ReusableTable";
+import ReusableTable, { Column } from "../../../modules/ReusableTable";
 import { Box, Container } from "@mui/material";
 import SectionTitle from "../../../modules/SectionTitle";
 import { transactionList } from "../../../../services/adminPanel";
 import { useQuery } from "@tanstack/react-query";
 
-type Props = {};
 interface User {
   id: number;
   first_name: string;
@@ -16,8 +14,8 @@ interface User {
   phone_number: string;
   status: string;
 }
-const TransactionsTemp = (props: Props) => {
-  const { data, error, isLoading } = useQuery({
+const TransactionsTemp = () => {
+  const { data, isLoading } = useQuery({
     queryKey: ["settingData"],
     queryFn: transactionList,
   });
@@ -38,11 +36,6 @@ const TransactionsTemp = (props: Props) => {
   // بررسی وضعیت بارگذاری
   if (isLoading) {
     return <div>در حال بارگذاری...</div>;
-  }
-
-  // بررسی خطا
-  if (error) {
-    return <div>خطا در دریافت داده‌ها: {error.message}</div>;
   }
 
   // بررسی وجود داده‌ها

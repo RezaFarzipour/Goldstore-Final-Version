@@ -6,18 +6,19 @@ export const usersInformationList = async () => {
     return response.data;
 };
 
-export const changeUserWalletMoneyAmount = async (cashAmount: string, cashModalAmount: string) => {
+export const changeUserWalletMoneyAmount = async (phone_number: string, money_amount: string) => {
     const response = await api.post("AdminDashboard-DeskPage/change-user-wallet-money-amount/", {
-        phone_number: cashAmount,
-        money_amount: cashModalAmount,
+
+        phone_number: phone_number,
+        money_amount: money_amount,
     });
     return response.data;
 };
 
-export const changeUserWalletGoldAmount = async (goldAmount: string, goldModalAmount: string) => {
+export const changeUserWalletGoldAmount = async (phone_number: string, gold_amount: string) => {
     const response = await api.post("AdminDashboard-DeskPage/change-user-wallet-gold-amount/", {
-        phone_number: goldAmount,
-        gold_amount: goldModalAmount,
+        phone_number,
+        gold_amount,
     });
     return response.data;
 };
@@ -33,17 +34,17 @@ export const moneyGetRequestList = async () => {
     return response.data;
 };
 
-export const proveMoneyGetRequest = async (unAccCustomerId: string, type: string) => {
+export const proveMoneyGetRequest = async (get_request_id: string, request_type: string) => {
     const response = await api.post("AdminDashboard-GetRequest/prove-money-get-request/", {
-        get_request_id: unAccCustomerId,
-        request_type: type
+        get_request_id,
+        request_type
     });
     return response.data;
 };
-export const proveGoldGetRequest = async (unAccCustomerId: string, type: string) => {
+export const proveGoldGetRequest = async (get_request_id: string, request_type: string) => {
     const response = await api.post("AdminDashboard-GetRequest/prove-gold-get-request/", {
-        get_request_id: unAccCustomerId,
-        request_type: type
+        get_request_id,
+        request_type
     });
     return response.data;
 };
@@ -65,10 +66,9 @@ export const SaleList = async () => {
     const response = await api.get("AdminDashboard-BuySale/sale-list/");
     return response.data;
 };
-export const proveSaleRequest = async (unAccCustomerId: string, type: string) => {
+export const proveSaleRequest = async (sale_request_id: string, prove_status: string) => {
     const response = await api.post("AdminDashboard-BuySale/prove-sale-request/", {
-        get_request_id: unAccCustomerId,
-        request_type: type
+        sale_request_id, prove_status
     });
     return response.data;
 };
@@ -77,7 +77,6 @@ export const proveSaleRequest = async (unAccCustomerId: string, type: string) =>
 export const settingData = async () => {
     const response = await api.get("AdminDashboard-Setting/setting-data/");
     return response.data;
-
 };
 
 export const switchData = async () => {

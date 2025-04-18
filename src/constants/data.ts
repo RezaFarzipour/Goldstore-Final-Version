@@ -215,51 +215,39 @@ export const CustomerdrawerList: DrawerItem[] = [
 ];
 export const AdmindrawerList: DrawerItem[] = [
   { id: 1, label: "موجودی حساب ها", path: "/admin/inventory", children: [] },
-  {
-    id: 2,
-    label: "برداشت ها",
-    path: "",
-    children: [
-      {
-        id: 21,
-        subLabel: "برداشت طلا",
-        path: "/admin/withdraw/gold-withdraw",
-        children: [],
-      },
-      {
-        id: 22,
-        subLabel: "برداشت وجه",
-        path: "/admin/withdraw/cash-withdraw",
-        children: [],
-      },
-    ],
-  },
-  {
-    id: 3,
-    label: "گزارش ها",
-    path: "",
-    children: [
-      {
-        id: 31,
-        subLabel: "خرید طلا",
-        path: "/admin/reports/gold-buy",
-        children: [],
-      },
-      {
-        id: 33,
-        subLabel: "تراکنش ها",
-        path: "/admin/reports/transactions",
-        children: [],
-      },
-    ],
-  },
+  { id: 2, label: 'برداشت طلا', path: "/admin/gold-withdraw" },
+  { id: 3, label: 'برداشت وجه', path: "/admin/cash-withdraw" },
+
   {
     id: 4,
     label: "فروش طلا",
     path: "/admin/gold-sale",
     children: [],
   },
-  { id: 5, label: "تنظیمات", path: "/admin/setting", children: [] },
+  {
+    id: 5, label: "گزارش ها", path: "", children: [
+      {
+        id: 51,
+        subLabel: 'خرید طلا',
+        path: "/admin/reports/gold-buy",
+        children: []
+      },
+      {
+        id: 52,
+        subLabel: 'فروش طلا',
+        path: "/admin/reports/gold-sale",
+        children: []
+      },
+      {
+        id: 53,
+        subLabel: 'تراکنش ها',
+        path: "/admin/reports/transactions",
+        children: []
+      },
+    ],
+  },
+
+  { id: 6, label: "تنظیمات", path: "/admin/setting", children: [] },
 ];
 
 export const getCustomerDashboardHomeData = (walletData: {
