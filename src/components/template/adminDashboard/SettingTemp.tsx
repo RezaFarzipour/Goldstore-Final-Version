@@ -1,6 +1,6 @@
 import { Rtl } from "../../element/rtl";
 import { Box } from "@mui/material";
-import DepositeBox from "../../modules/customerDashboard/DepositeBoxModule";
+import DepositeBox from "../../modules/DepositeBoxModule";
 import AdminPermission from "../../element/AdminPerrmishion";
 import {
   changeGoldPrice,
@@ -15,111 +15,86 @@ import {
   formatNumberWithCommas,
   removeCommas,
 } from "../../../utils/numberFormatter";
+import CircularMini from "../../element/CircularMini";
 
 const SettingTemp = () => {
-  const [addingPrice, setAddingPrice] = useState<string>("");
-  const [inventoryAmount, setInventoryAmount] = useState<string>("");
-  const [priceDifference, setPriceDifference] = useState<string>("");
+  const [formValues, setFormValues] = useState({
+    addingPrice: "",
+    inventoryAmount: "",
+    priceDifference: "",
+  });
+
   const { showToast } = useToast();
 
-  // Fetch data using useQuery
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["settingData"],
     queryFn: settingData,
   });
 
-  // Mutation for changing gold price
-  const { mutateAsync: mutateChangeGoldPrice } = useMutation({
-    mutationFn: changeGoldPrice,
-    onSuccess: async () => {
-      await refetch();
-    },
-  });
+  const { mutateAsync: mutateChangeGoldPrice, isPending: isPricePending } =
+    useMutation({
+      mutationFn: changeGoldPrice,
+      onSuccess: refetch,
+    });
 
-  // Mutation for changing warehouse gold amount
-  const { mutateAsync: mutateChangeWarehouseGoldAmount } = useMutation({
+  const {
+    mutateAsync: mutateChangeWarehouseGoldAmount,
+    isPending: isInventoryPending,
+  } = useMutation({
     mutationFn: changeWarehouseGoldAmount,
-    onSuccess: async () => {
-      await refetch();
-    },
+    onSuccess: refetch,
   });
 
-  // Mutation for changing price difference
-  const { mutateAsync: mutateChangePriceDifference } = useMutation({
-    mutationFn: changePriceDifference,
-    onSuccess: async () => {
-      await refetch();
-    },
-  });
+  const { mutateAsync: mutateChangePriceDifference, isPending: isDiffPending } =
+    useMutation({
+      mutationFn: changePriceDifference,
+      onSuccess: refetch,
+    });
 
-  // Handlers for input changes
-  const handleAddingPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value;
-    const formattedValue = formatNumberWithCommas(rawValue);
-    setAddingPrice(formattedValue);
-  };
+  const handleChange =
+    (name: keyof typeof formValues, format?: boolean) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = format
+        ? formatNumberWithCommas(e.target.value)
+        : e.target.value;
+      setFormValues((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    };
 
-  const handleInventoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInventoryAmount(e.target.value); // No formatting needed for inventory amount
-  };
-
-  const handlePriceDifferenceChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+  const handleSubmit = async (
+    key: "addingPrice" | "inventoryAmount" | "priceDifference"
   ) => {
-    const rawValue = e.target.value;
-    const formattedValue = formatNumberWithCommas(rawValue);
-    setPriceDifference(formattedValue);
-  };
-
-  // Handlers for mutations
-  const changeGoldPriceHandler = async () => {
     try {
-      const rawValue = removeCommas(addingPrice); // Remove commas before sending
-      await mutateChangeGoldPrice(rawValue);
+      const rawValue =
+        key === "inventoryAmount"
+          ? formValues[key]
+          : removeCommas(formValues[key]);
+
+      if (key === "addingPrice") await mutateChangeGoldPrice(rawValue);
+      if (key === "inventoryAmount")
+        await mutateChangeWarehouseGoldAmount(rawValue);
+      if (key === "priceDifference")
+        await mutateChangePriceDifference(rawValue);
+
       showToast("عملیات با موفقیت انجام شد!", "success");
     } catch {
       showToast("خطایی رخ داده است!", "error");
     }
   };
 
-  const changeInventoryHandler = async () => {
-    try {
-      await mutateChangeWarehouseGoldAmount(inventoryAmount); // No need to remove commas
-      showToast("عملیات با موفقیت انجام شد!", "success");
-    } catch {
-      showToast("خطایی رخ داده است!", "error");
-    }
-  };
-
-  const changePriceDifferenceHandler = async () => {
-    try {
-      const rawValue = removeCommas(priceDifference); // Remove commas before sending
-      await mutateChangePriceDifference(rawValue);
-      showToast("عملیات با موفقیت انجام شد!", "success");
-    } catch {
-      showToast("خطایی رخ داده است!", "error");
-    }
-  };
-
-  // Check loading state
   if (isLoading) {
-    return <div>در حال بارگذاری...</div>;
+    return <CircularMini />;
   }
 
   return (
     <Rtl>
       <Box my={8}>
-        {/* Admin Permission */}
-        <Box
-          my={2}
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
+        <Box my={2} display="flex" justifyContent="center" alignItems="center">
           <AdminPermission stock_status={data?.data?.stock_status} />
         </Box>
 
-        {/* Boxes */}
         <Box
           sx={{
             display: { xs: "block", md: "flex" },
@@ -128,7 +103,6 @@ const SettingTemp = () => {
             flexWrap: "wrap",
           }}
         >
-          {/* Gold Price Box */}
           <Box sx={{ maxWidth: "800px", flex: 1, m: 1 }}>
             <DepositeBox
               headerContent="قیمت گذاری:"
@@ -137,15 +111,16 @@ const SettingTemp = () => {
               walletBalance={data?.data?.sale_price}
               buttonValue="تایید"
               display="flex"
-              handleChange={handleAddingPriceChange}
-              submit={changeGoldPriceHandler}
-              isPending={false}
-              assetAmount={addingPrice}
-              assetAmountChanger={setAddingPrice}
+              handleChange={handleChange("addingPrice", true)}
+              submit={() => handleSubmit("addingPrice")}
+              isPending={isPricePending}
+              assetAmount={formValues.addingPrice}
+              assetAmountChanger={(val) =>
+                setFormValues((prev) => ({ ...prev, addingPrice: val }))
+              }
             />
           </Box>
 
-          {/* Inventory Amount Box */}
           <Box sx={{ maxWidth: "800px", flex: 1, m: 1 }}>
             <DepositeBox
               headerContent="تغییر میزان موجودی:"
@@ -154,15 +129,16 @@ const SettingTemp = () => {
               walletGoldBalance={data?.data?.total_gold_stock}
               buttonValue="تایید"
               display="flex"
-              handleChange={handleInventoryChange}
-              submit={changeInventoryHandler}
-              isPending={false}
-              assetAmount={inventoryAmount}
-              assetAmountChanger={setInventoryAmount}
+              handleChange={handleChange("inventoryAmount")}
+              submit={() => handleSubmit("inventoryAmount")}
+              isPending={isInventoryPending}
+              assetAmount={formValues.inventoryAmount}
+              assetAmountChanger={(val) =>
+                setFormValues((prev) => ({ ...prev, inventoryAmount: val }))
+              }
             />
           </Box>
 
-          {/* Price Difference Box */}
           <Box sx={{ maxWidth: "800px", flex: 1, m: 1 }}>
             <DepositeBox
               headerContent="اختلاف قیمت خرید و فروش:"
@@ -171,11 +147,13 @@ const SettingTemp = () => {
               walletBalance={data?.data?.price_difference}
               buttonValue="تایید"
               display="flex"
-              handleChange={handlePriceDifferenceChange}
-              submit={changePriceDifferenceHandler}
-              isPending={false}
-              assetAmount={priceDifference}
-              assetAmountChanger={setPriceDifference}
+              handleChange={handleChange("priceDifference", true)}
+              submit={() => handleSubmit("priceDifference")}
+              isPending={isDiffPending}
+              assetAmount={formValues.priceDifference}
+              assetAmountChanger={(val) =>
+                setFormValues((prev) => ({ ...prev, priceDifference: val }))
+              }
             />
           </Box>
         </Box>

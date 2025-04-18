@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import DepositeBox from "../../modules/customerDashboard/DepositeBoxModule";
+import DepositeBox from "../../modules/DepositeBoxModule";
 import { Rtl } from "../../element/rtl";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {

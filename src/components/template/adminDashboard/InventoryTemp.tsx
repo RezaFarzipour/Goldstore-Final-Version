@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useMemo, useState } from "react";
 import ReusableTable, { Column } from "../../modules/ReusableTable";
 import {
   changeUserWalletGoldAmount,
@@ -13,16 +13,14 @@ import {
   priceSeptrator,
   toPersianDigits,
 } from "../../../utils/numberFormatter";
+import { BaseAdminPanelProps } from "../../../types";
+import CircularMini from "../../element/CircularMini";
 
 // تعریف نوع داده‌ها
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  phone_number: string;
+type User = BaseAdminPanelProps & {
   money_amount: string;
   gold_amount: string;
-}
+};
 
 // تعریف ستون‌ها
 const columns: Column<User>[] = [
@@ -40,7 +38,6 @@ const InventoryTemp = () => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null); // کاربر انتخاب‌شده
   const [cashModalAmount, setCashModalAmount] = useState(""); // مقدار ورودی کیف پول
   const [goldModalAmount, setGoldModalAmount] = useState(""); // مقدار ورودی کیف طلا
-  console.log(cashModalAmount);
 
   const { data, isLoading } = useQuery({
     queryKey: ["settingData"],
@@ -99,9 +96,21 @@ const InventoryTemp = () => {
     }
   };
 
+  const rows: User[] = useMemo(() => {
+    if (!Array.isArray(data?.data)) return [];
+
+    return data.data.map((item: User) => ({
+      ...item,
+      id: toPersianDigits(item.id),
+      phone_number: toPersianDigits(item.phone_number),
+      money_amount: toPersianDigits(priceSeptrator(item.money_amount)),
+      gold_amount: toPersianDigits(item.gold_amount),
+    }));
+  }, [data]);
+
   // بررسی وضعیت بارگذاری
   if (isLoading) {
-    return <div>در حال بارگذاری...</div>;
+    return <CircularMini />;
   }
 
   // بررسی وجود داده‌ها
@@ -125,13 +134,7 @@ const InventoryTemp = () => {
         {/* جدول */}
         <ReusableTable
           columns={columns}
-          rows={(data?.data || []).map((item) => ({
-            ...item,
-            id: toPersianDigits(item.id),
-            phone_number: toPersianDigits(item.phone_number),
-            money_amount: toPersianDigits(priceSeptrator(item.money_amount)),
-            gold_amount: toPersianDigits(item.gold_amount),
-          }))}
+          rows={rows}
           showActions={true} // فعال کردن ستون عملیات
           btnvalue1="تغییر کیف پول"
           btnvalue2="تغییر کیف طلا"

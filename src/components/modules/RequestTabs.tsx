@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Tabs, Tab, Box, Typography, Paper } from "@mui/material";
+import { Tabs, Tab, Box, Typography } from "@mui/material";
 import { colors } from "../../styles/theme";
 
 interface TabPanelProps {
@@ -42,10 +42,13 @@ const RequestTabs = ({ approvedRequests, allRequests }: RequestTabsProps) => {
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
   return (
     <Box
-      sx={{ width: "100%", borderRadius: "10px", bgcolor: colors.gold[200] }}
+      sx={{
+        width: "100%",
+        borderRadius: "10px",
+        bgcolor: "#272727",
+      }}
     >
       {/* تب‌ها */}
       <Tabs
