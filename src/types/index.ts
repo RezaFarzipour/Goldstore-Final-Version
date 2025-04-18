@@ -66,9 +66,15 @@ export type BaseProps = {
   headerLable: string;
   priceColor: string;
   price: number | undefined;
-  walletData: WalletDataResponse | undefined
+  walletData:WalletDataResponse | undefined
 };
 
+
+export type signupinfoTypes = {
+  id:number,
+  label:string
+  name:string,
+}
 
 export type BaseAdminPanelProps = {
   id: string;

@@ -144,3 +144,25 @@ export const made_by_adlikara_typo = {
   
     py: 1,
 }
+
+
+export const MainGrid = () => ({
+    height: "100vh !important",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width:"100%",
+    background:
+      "linear-gradient(90deg,rgba(42, 44, 52, 1) 0%, rgba(55, 57, 67, 1) 72%)",
+  });
+  
+  export const ContentGrid = {
+    background: "linear-gradient(to top, rgba(42, 44, 52, 1) 7%, rgba(55, 57, 67, 1) 72%)",
+    borderRadius: "16px",
+    boxShadow: "0 0 30px rgba(0, 0, 0, 0.6)",
+    padding: "2rem",
+    width: {xs:"80%",md:"50%"},
+    maxWidth: "380px",
+    height:{xs:"auto"},
+   
+  };

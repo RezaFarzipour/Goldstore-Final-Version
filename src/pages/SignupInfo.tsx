@@ -1,8 +1,10 @@
-import React from 'react'
+
+import SignupInfoTemp from '../components/template/SignupInfo'
+
 
 const SignupInfo = () => {
   return (
-    <div>SignupInfo</div>
+<SignupInfoTemp/>
   )
 }
 

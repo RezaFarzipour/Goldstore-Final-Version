@@ -3,6 +3,7 @@ import {
   DrawerItem,
   FaqItem,
   NavLinks,
+  signupinfoTypes,
   stepstypes,
 } from "../types";
 import { footerdatatypes } from "../types";
@@ -180,12 +181,37 @@ export const faqsObject2: FaqItem[] = [
 
 export const CustomerdrawerList: DrawerItem[] = [
   { id: 1, label: "میز کار", path: "/customerdashboard", children: [] },
-  { id: 2, label: "واریز وجه", path: "/customerdashboard/deposit", children: [] },
-  { id: 3, label: "برداشت وجه", path: "/customerdashboard/withdraw", children: [] },
-  { id: 4, label: "خرید طلا", path: "/customerdashboard/buy-gold", children: [] },
-  { id: 5, label: "فروش طلا", path: "/customerdashboard/sell-gold", children: [] },
+  {
+    id: 2,
+    label: "واریز وجه",
+    path: "/customerdashboard/deposit",
+    children: [],
+  },
+  {
+    id: 3,
+    label: "برداشت وجه",
+    path: "/customerdashboard/withdraw",
+    children: [],
+  },
+  {
+    id: 4,
+    label: "خرید طلا",
+    path: "/customerdashboard/buy-gold",
+    children: [],
+  },
+  {
+    id: 5,
+    label: "فروش طلا",
+    path: "/customerdashboard/sell-gold",
+    children: [],
+  },
   { id: 6, label: "گزارش", path: "/customerdashboard/reports", children: [] },
-  { id: 7, label: "دریافت طلا", path: "/customerdashboard/receive-gold", children: [] },
+  {
+    id: 7,
+    label: "دریافت طلا",
+    path: "/customerdashboard/receive-gold",
+    children: [],
+  },
 ];
 export const AdmindrawerList: DrawerItem[] = [
   { id: 1, label: "موجودی حساب ها", path: "/admin/inventory", children: [] },
@@ -194,9 +220,9 @@ export const AdmindrawerList: DrawerItem[] = [
 
   {
     id: 4,
-    label: 'فروش طلا',
+    label: "فروش طلا",
     path: "/admin/gold-sale",
-    children: []
+    children: [],
   },
   {
     id: 5, label: "گزارش ها", path: "", children: [
@@ -278,3 +304,28 @@ export const getCustomerDashboardHomeData = (walletData: {
     },
   ];
 };
+
+export const signupInputs:signupinfoTypes[] = [
+  {
+    id: 1,
+    label: "نام",
+    name: "first_name",
+  },
+  {
+    id: 2,
+    label: "نام نام خانوادگی",
+    name: "last_name",
+  },
+  {
+    id: 3,
+    label: "کدملی",
+    name: "national_code",
+  },
+
+
+  {
+    id: 5,
+    label: "ایمیل",
+    name: "email",
+  },
+];

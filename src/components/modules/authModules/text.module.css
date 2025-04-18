@@ -1,0 +1,19 @@
+.goldText{
+    color: #FFD700;
+    animation: glowGold 2s ease-in-out infinite;
+  }
+  
+  @keyframes glowGold {
+    0% {
+      opacity: 0.6;
+      text-shadow: 0 0 5px #ffd700, 0 0 10px #ffcc00;
+    }
+    50% {
+      opacity: 1;
+      text-shadow: 0 0 15px #ffdd55, 0 0 25px #ffaa00;
+    }
+    100% {
+      opacity: 0.6;
+      text-shadow: 0 0 5px #ffd700, 0 0 10px #ffcc00;
+    }
+  }
