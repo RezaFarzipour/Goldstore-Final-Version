@@ -18,71 +18,66 @@ import { colors } from "../../../styles/theme";
 
 const Footer = () => {
   return (
-    <Grid sx={{bgcolor: colors.grey[200]}}>
-    <Grid sx={Footer_Grid}>
-      {/* Footer Links */}
-      <Grid
-        container
-        size={{ xs: 12, sm: 6 }}
-        display="flex"
-        flexWrap="wrap"
-        justifyContent={{ xs: "center", sm: "space-around" }}
-        alignItems="center"
-     
-        mb={{xs:3,md:0}}
-      >
-        {footerdata.footerlinks1
-          .concat(footerdata.footerlinks2)
-          .map((item, index) => (
-            <Grid
-              size={{ xs: 12, sm: 6 }}
+    <Grid sx={{ bgcolor: colors.grey[200] }}>
+      <Grid sx={Footer_Grid}>
+        {/* Footer Links */}
+        <Grid
+          container
+          size={{ xs: 12, sm: 6 }}
+          display="flex"
+          flexWrap="wrap"
+          justifyContent={{ xs: "center", sm: "space-around" }}
+          alignItems="center"
+          mb={{ xs: 3, md: 0 }}
+        >
+          {footerdata.footerlinks1
+            .concat(footerdata.footerlinks2)
+            .map((item, index) => (
+              <Grid
+                size={{ xs: 12, sm: 6 }}
+                key={index}
+                sx={Gridstyle}
+                textAlign="center"
+              >
+                <Box mb={2}>
+                  <Link to={item.href} style={footer_link}>
+                    <Button sx={navlinks}>{item.text}</Button>
+                  </Link>
+                </Box>
+              </Grid>
+            ))}
+        </Grid>
+
+        {/* Contact Info */}
+        <Grid
+          container
+          size={{ xs: 12, sm: 6 }}
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          my={4}
+        >
+          {footerdata.footerContactInfo.map((info, index) => (
+            <Typography
               key={index}
-              sx={Gridstyle}
+              color="white"
+              fontSize={15}
               textAlign="center"
+              sx={{ whiteSpace: "nowrap", mb: 1 }}
             >
-              <Box mb={2}>
-                <Link to={item.href} style={footer_link}>
-                  <Button sx={navlinks}>{item.text}</Button>
-                </Link>
-              </Box>
-            </Grid>
+              {info.label} : {info.text}
+            </Typography>
           ))}
+          <Box mt={1} display="flex" alignItems="center">
+            <TelegramIcon sx={footerIconStyles("skyblue")} />
+            <WhatsAppIcon sx={footerIconStyles("green")} />
+            <InstagramIcon sx={footerIconStyles("red")} />
+          </Box>
+        </Grid>
       </Grid>
-
-      {/* Contact Info */}
-      <Grid
-        container
-        size={{ xs: 12, sm: 6 }}
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        my={4}
-      >
-        {footerdata.footerContactInfo.map((info, index) => (
-          <Typography
-            key={index}
-           
-            color="white"
-            fontSize={15}
-         
-            textAlign="center"
-            sx={{ whiteSpace: "nowrap", mb: 1 }}
-          >
-            {info.label} : {info.text}
-          </Typography>
-        ))}
-        <Box mt={1} display="flex" alignItems="center">
-          <TelegramIcon sx={footerIconStyles("skyblue")} />
-          <WhatsAppIcon sx={footerIconStyles("green")} />
-          <InstagramIcon sx={footerIconStyles("red")} />
-        </Box>
-      </Grid>
-
-     
-    </Grid>
-     <hr style={hr_style} />
+      <hr style={hr_style} />
       <Typography sx={made_by_adlikara_typo} textAlign="center">
-        ساخته شده توسط آدلی کارا
+        ساخته شده توسط ❤️
       </Typography>
     </Grid>
   );

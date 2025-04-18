@@ -80,7 +80,7 @@ export const BoxOneSx = {
     placeItems: "center",
     mr: { xs: 20, sm: 16, md: 8, lg: 12, xl: 7.6 },
     mt: { xs: 10, md: 15, lg: 15, xl: 20 },
-    "@media (max-width:700px)": {
+    "@media (max-width:900px)": {
         display: "none",
     },
 };
