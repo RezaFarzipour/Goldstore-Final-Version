@@ -7,7 +7,15 @@ import {
   stepstypes,
 } from "../types";
 import { footerdatatypes } from "../types";
-
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import MoneyOffIcon from "@mui/icons-material/MoneyOff";
+import StorefrontIcon from "@mui/icons-material/Storefront";
+import SellIcon from "@mui/icons-material/Sell";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import SettingsIcon from "@mui/icons-material/Settings";
+import CallReceivedIcon from "@mui/icons-material/CallReceived";
 // LayoutData:
 export const navlinks: NavLinks[] = [
   {
@@ -180,74 +188,120 @@ export const faqsObject2: FaqItem[] = [
 ];
 
 export const CustomerdrawerList: DrawerItem[] = [
-  { id: 1, label: "میز کار", path: "/customerdashboard", children: [] },
+  {
+    id: 1,
+    icon: <DashboardIcon />,
+    label: "میز کار",
+    path: "/customerdashboard",
+    children: [],
+  },
   {
     id: 2,
+    icon: <AttachMoneyIcon />,
     label: "واریز وجه",
     path: "/customerdashboard/deposit",
     children: [],
   },
   {
     id: 3,
+    icon: <MoneyOffIcon />,
     label: "برداشت وجه",
     path: "/customerdashboard/withdraw",
     children: [],
   },
   {
     id: 4,
+    icon: <StorefrontIcon />,
     label: "خرید طلا",
     path: "/customerdashboard/buy-gold",
     children: [],
   },
   {
     id: 5,
+    icon: <SellIcon />,
     label: "فروش طلا",
     path: "/customerdashboard/sell-gold",
     children: [],
   },
-  { id: 6, label: "گزارش", path: "/customerdashboard/reports", children: [] },
+  {
+    id: 6,
+    icon: <AssessmentIcon />,
+    label: "گزارش",
+    path: "/customerdashboard/reports",
+    children: [],
+  },
   {
     id: 7,
+    icon: <CallReceivedIcon />,
     label: "دریافت طلا",
     path: "/customerdashboard/receive-gold",
     children: [],
   },
 ];
 export const AdmindrawerList: DrawerItem[] = [
-  { id: 1, label: "موجودی حساب ها", path: "/admin/inventory", children: [] },
-  { id: 2, label: 'برداشت طلا', path: "/admin/gold-withdraw" },
-  { id: 3, label: 'برداشت وجه', path: "/admin/cash-withdraw" },
+  {
+    id: 1,
+    icon: <AccountBalanceWalletIcon />,
+    label: "موجودی حساب ها",
+    path: "/admin/inventory",
+    children: [],
+  },
+  {
+    id: 2,
+    icon: <CallReceivedIcon />,
+    label: "برداشت طلا",
+    path: "/admin/gold-withdraw",
+  },
+  {
+    id: 3,
+    icon: <MoneyOffIcon />,
+    label: "برداشت وجه",
+    path: "/admin/cash-withdraw",
+  },
 
   {
     id: 4,
+    icon: <SellIcon />,
     label: "فروش طلا",
     path: "/admin/gold-sale",
     children: [],
   },
   {
-    id: 5, label: "گزارش ها", path: "", children: [
+    id: 5,
+    icon: <AssessmentIcon />,
+    label: "گزارش ها",
+    path: "",
+    children: [
       {
         id: 51,
-        subLabel: 'خرید طلا',
+        icon: <StorefrontIcon />,
+        subLabel: "خرید طلا",
         path: "/admin/reports/gold-buy",
-        children: []
+        children: [],
       },
       {
         id: 52,
-        subLabel: 'فروش طلا',
+        icon: <SellIcon />,
+        subLabel: "فروش طلا",
         path: "/admin/reports/gold-sale",
-        children: []
+        children: [],
       },
       {
         id: 53,
-        subLabel: 'تراکنش ها',
+        subLabel: "تراکنش ها",
         path: "/admin/reports/transactions",
-        children: []
+        children: [],
       },
     ],
   },
 
-  { id: 6, label: "تنظیمات", path: "/admin/setting", children: [] },
+  {
+    id: 6,
+    icon: <SettingsIcon />,
+    label: "تنظیمات",
+    path: "/admin/setting",
+    children: [],
+  },
 ];
 
 export const getCustomerDashboardHomeData = (walletData: {
@@ -305,7 +359,7 @@ export const getCustomerDashboardHomeData = (walletData: {
   ];
 };
 
-export const signupInputs:signupinfoTypes[] = [
+export const signupInputs: signupinfoTypes[] = [
   {
     id: 1,
     label: "نام",
@@ -321,7 +375,6 @@ export const signupInputs:signupinfoTypes[] = [
     label: "کدملی",
     name: "national_code",
   },
-
 
   {
     id: 5,
