@@ -1,5 +1,5 @@
 import api from "../configs/api";
-import { WalletDataResponse } from "../types";
+import { BuyGoldData, BuyGoldResult, WalletDataResponse } from "../types";
 
 const walletdata = async (): Promise<WalletDataResponse> => {
   const [walletRes, priceRes] = await Promise.all([
@@ -15,6 +15,23 @@ const walletdata = async (): Promise<WalletDataResponse> => {
   };
 };
 
+
+const customerReports = async()=>{
+  const [depositRep,widhrawRep,buyRep,sellRep] = await Promise.all([
+    api.get("UserDashboard-UserReporting/transaction-report/"),
+    api.get("UserDashboard-UserReporting/get-money-request-report/"),
+    api.get("UserDashboard-UserReporting/buy-gold-report/"),
+    api.get("UserDashboard-UserReporting/sale-gold-report/")
+  ])
+
+  return{
+    depositRep:depositRep.data,
+    widhrawRep:widhrawRep.data,
+    buyRep:buyRep.data,
+    sellRep:sellRep.data
+  }
+}
+
 //////////widhraw api///////////
 
 const customerWithdraw = async (moneyAmount: string) => {
@@ -28,21 +45,34 @@ const customerWithdraw = async (moneyAmount: string) => {
 
 //buy gold api
 
-const buyGold = async (goldAmount: string) => {
- 
- await api.post("UserDashboard-GoldBuySale/buy-gold/", {
+const buyGold = async (goldAmount: string):Promise<BuyGoldResult> => {
+
+  const response = await api.post<BuyGoldData>("UserDashboard-GoldBuySale/buy-gold/", {
     gold_amount: parseFloat(goldAmount),
   });
+
+
+  return{
+    data:response.data,
+    status:response.status
+  }
+ 
+
 
 
 };
 
 
 
-const sellgold = async(goldAmount:string) =>{
-  await api.post("UserDashboard-GoldBuySale/sale-gold/",{
+const sellgold = async(goldAmount:string):Promise<BuyGoldResult> =>{
+  const response =await api.post<BuyGoldData>("UserDashboard-GoldBuySale/sale-gold/",{
     gold_amount: parseFloat(goldAmount),
   })
+
+  return{
+    data:response.data,
+    status:response.status
+  }
 } 
 
 const receiveGold  = async(goldAmount:string)=>{
@@ -51,4 +81,4 @@ const receiveGold  = async(goldAmount:string)=>{
   })
 }
 
-export { walletdata, customerWithdraw, buyGold ,sellgold,receiveGold};
+export { walletdata, customerWithdraw, buyGold ,sellgold,receiveGold,customerReports};

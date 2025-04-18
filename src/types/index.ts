@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface NavLinks {
   id: number;
   path: string;
@@ -38,6 +40,7 @@ export type DrawerItem = {
   id: number;
   subLabel?: string;
   label?: string;
+  icon?: ReactNode;
   path: string;
   children?: DrawerItem[];
 };
@@ -75,4 +78,15 @@ export type signupinfoTypes = {
   id:number,
   label:string
   name:string,
+}
+
+
+ export interface BuyGoldData {
+  responseEN: string;
+  responseFA: string;
+}
+
+export interface BuyGoldResult {
+  data: BuyGoldData;
+  status: number;
 }
