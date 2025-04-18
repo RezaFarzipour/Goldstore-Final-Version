@@ -3,6 +3,7 @@ import {
   DrawerItem,
   FaqItem,
   NavLinks,
+  signupinfoTypes,
   stepstypes,
 } from "../types";
 import { footerdatatypes } from "../types";
@@ -180,53 +181,83 @@ export const faqsObject2: FaqItem[] = [
 
 export const CustomerdrawerList: DrawerItem[] = [
   { id: 1, label: "میز کار", path: "/customerdashboard", children: [] },
-  { id: 2, label: "واریز وجه", path: "/customerdashboard/deposit", children: [] },
-  { id: 3, label: "برداشت وجه", path: "/customerdashboard/withdraw", children: [] },
-  { id: 4, label: "خرید طلا", path: "/customerdashboard/buy-gold", children: [] },
-  { id: 5, label: "فروش طلا", path: "/customerdashboard/sell-gold", children: [] },
+  {
+    id: 2,
+    label: "واریز وجه",
+    path: "/customerdashboard/deposit",
+    children: [],
+  },
+  {
+    id: 3,
+    label: "برداشت وجه",
+    path: "/customerdashboard/withdraw",
+    children: [],
+  },
+  {
+    id: 4,
+    label: "خرید طلا",
+    path: "/customerdashboard/buy-gold",
+    children: [],
+  },
+  {
+    id: 5,
+    label: "فروش طلا",
+    path: "/customerdashboard/sell-gold",
+    children: [],
+  },
   { id: 6, label: "گزارش", path: "/customerdashboard/reports", children: [] },
-  { id: 7, label: "دریافت طلا", path: "/customerdashboard/receive-gold", children: [] },
+  {
+    id: 7,
+    label: "دریافت طلا",
+    path: "/customerdashboard/receive-gold",
+    children: [],
+  },
 ];
 export const AdmindrawerList: DrawerItem[] = [
   { id: 1, label: "موجودی حساب ها", path: "/admin/inventory", children: [] },
   {
-    id: 2, label: "برداشت ها", path: "", children: [
+    id: 2,
+    label: "برداشت ها",
+    path: "",
+    children: [
       {
         id: 21,
-        subLabel: 'برداشت طلا',
+        subLabel: "برداشت طلا",
         path: "/admin/withdraw/gold-withdraw",
-        children: []
+        children: [],
       },
       {
         id: 22,
-        subLabel: 'برداشت وجه',
+        subLabel: "برداشت وجه",
         path: "/admin/withdraw/cash-withdraw",
-        children: []
+        children: [],
       },
-
     ],
   },
   {
-    id: 3, label: "گزارش ها", path: "", children: [
+    id: 3,
+    label: "گزارش ها",
+    path: "",
+    children: [
       {
         id: 31,
-        subLabel: 'خرید طلا',
+        subLabel: "خرید طلا",
         path: "/admin/reports/gold-buy",
-        children: []
+        children: [],
       },
       {
         id: 33,
-        subLabel: 'تراکنش ها',
+        subLabel: "تراکنش ها",
         path: "/admin/reports/transactions",
-        children: []
+        children: [],
       },
     ],
   },
   {
     id: 4,
-    label: 'فروش طلا',
+    label: "فروش طلا",
     path: "/admin/gold-sale",
-    children: []
+    children: [],
   },
   { id: 5, label: "تنظیمات", path: "/admin/setting", children: [] },
 ];
@@ -285,3 +316,28 @@ export const getCustomerDashboardHomeData = (walletData: {
     },
   ];
 };
+
+export const signupInputs:signupinfoTypes[] = [
+  {
+    id: 1,
+    label: "نام",
+    name: "first_name",
+  },
+  {
+    id: 2,
+    label: "نام نام خانوادگی",
+    name: "last_name",
+  },
+  {
+    id: 3,
+    label: "کدملی",
+    name: "national_code",
+  },
+
+
+  {
+    id: 5,
+    label: "ایمیل",
+    name: "email",
+  },
+];

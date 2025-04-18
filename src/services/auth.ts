@@ -43,3 +43,12 @@ export const checkOtp = async (
     return { err };
   }
 };
+
+
+
+export const signupinfo = async(inputInfo:object) => {
+  return await api.post("Authentication/sign-up/",{
+    ...inputInfo,
+ 
+  })
+}

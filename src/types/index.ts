@@ -69,3 +69,10 @@ export type BaseProps = {
   price: number | undefined;
   walletData:WalletDataResponse | undefined
 };
+
+
+export type signupinfoTypes = {
+  id:number,
+  label:string
+  name:string,
+}
