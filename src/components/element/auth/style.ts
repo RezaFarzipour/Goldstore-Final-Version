@@ -1,5 +1,5 @@
 export const verifyNumber_style = {
-    width: "60%",
+    width: "100%",
     mt: 3,
     mb: 2,
     backgroundColor: "#FFC436",
@@ -13,7 +13,7 @@ export const verifyInput_style = {
     width: "100%",
 
     input: { color: "#fff", direction: "rtl", pr: 2 },
-    label: { color: "#fff", fontSize: "17px", fontFamily: "Yekan" },
+    label: { color: "#fff", fontSize: "15px", },
     "& label.Mui-focused": {
         color: "#FFC436",
         fontWeight: "bold",

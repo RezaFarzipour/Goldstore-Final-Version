@@ -1,15 +1,11 @@
-import React, { useState } from "react";
-import { Button, Paper, Box, Typography, Grid2 } from "@mui/material";
-import VerifyCodeImage from "../../../assets/images/pexels-michael-steinberg-321464.jpg";
-import { InnerGrid, MainVerifyBox, VerifyMainGrid } from "./style";
-import { Link, useNavigate } from "react-router-dom";
-import VerifyInput from "../../element/auth/verifyNumberCode-input";
-import VerifyButton from "../../element/auth/verifyNumberCode-button";
-import EditIcon from "@mui/icons-material/Edit";
+import React, {  useState } from "react";
+import {  useNavigate } from "react-router-dom";
 import { checkOtp } from "../../../services/auth";
 import { getCookie, setCookie } from "../../../utils/cookie";
-import { Rtl } from "../../element/rtl";
 import Alerts from "../../element/AlertElement";
+import AuthLayout from "../../containers/layout/authLayout";
+import VerifyCodeBoxInput from "../../modules/authModules/VerifyCodeBoxInput";
+
 
 const VerifyCodePage = () => {
   const [verifyCode, setVerifyCode] = React.useState<string>("");
@@ -58,72 +54,26 @@ const VerifyCodePage = () => {
     }
   };
 
+
+
+
+
   return (
-    <Rtl>
-      <Grid2 container sx={VerifyMainGrid(VerifyCodeImage)}>
+    <>
+      <AuthLayout>
         {!!alertHandler.text && (
           <Alerts text={alertHandler.text} severity={alertHandler.severity} />
         )}
-        <Grid2
-          sx={InnerGrid}
-          size={{ xs: 12, sm: 8, md: 5 }}
-          component={Paper}
-          elevation={6}
-          square
-        >
-          <Box sx={MainVerifyBox}>
-            <Box display={"flex"} alignItems={"center"} mb={5}>
-              <Typography fontSize={"13px"}  color="#fff">
-                کد تایید برای شماره موبایل{token} ارسال گردید
-              </Typography>
 
-              <Link  to="/signup">
-                <EditIcon sx={{fontSize:"16px",color:"#111"}}/>
-              </Link>
-            </Box>
-            <Typography color="#fff" component="h1">
-              کد تایید را وارد کنید
-            </Typography>
-            <Box
-              component="form"
-              noValidate
-              sx={{ mt: 1, width: { xs: "70%", md: "50%" } }}
-            >
-              <VerifyInput
-                label=" کد تایید "
-                onchangeHandler={(e) => setVerifyCode(e.target.value)}
-              />
-            </Box>
-
-            <Box width="30%" display="flex" justifyContent="center">
-              <VerifyButton
-                state={{ type: "code", value: verifyCode }}
-                submitHandler={handleVerifyCode}
-                loading={loading}
-              />
-            </Box>
-
-            {/* <Box
-              sx={{
-                mt: 2,
-                px: 1,
-                bgcolor: "#F1AB1F",
-                borderRadius: "10px",
-                "&:hover": { bgcolor: "#d3961b" },
-                width: { xs: "45%", md: "30%" },
-                textAlign: "center",
-              }}
-            >
-              <Link to="/signup">
-                <Button variant="text" sx={EditNumberBtn}>
-                  ویرایش شماره همراه
-                </Button>
-              </Link>
-            </Box> */}
-          </Box>
-        </Grid2>
-      </Grid2>
-    </Rtl>
+        <VerifyCodeBoxInput
+          verifyCode={verifyCode}
+          setVerifyCode={setVerifyCode}
+          token={token}
+          loading={loading}
+          handleVerifyCode={handleVerifyCode}
+        />
+      </AuthLayout>
+    </>
   );
 };
 
