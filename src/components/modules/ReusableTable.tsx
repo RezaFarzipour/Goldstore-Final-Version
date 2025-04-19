@@ -95,8 +95,9 @@ const ReusableTable = <T extends object>({
                   align="center"
                   sx={{
                     color: colors.gold[100],
-                    fontWeight: "bold",
-                    fontSize: { xs: "0.8rem", sm: "1rem" },
+                    fontWeight: "400",
+                    fontSize: { xs: "0.7rem", md: "1rem" },
+                    whiteSpace:"nowrap"
                   }}
                 >
                   {column.label}
@@ -107,8 +108,9 @@ const ReusableTable = <T extends object>({
                   align="center"
                   sx={{
                     color: colors.gold[100],
-                    fontWeight: "bold",
-                    fontSize: { xs: "0.8rem", sm: "1rem" },
+                    fontWeight: "500",
+                    fontSize: { xs: "0.7rem", md: "1rem" },
+                 
                   }}
                 >
                   عملیات
