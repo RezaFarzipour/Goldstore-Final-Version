@@ -9,8 +9,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import React from "react";
-import { priceSeptrator, toPersianDigits } from "../../utils/numberFormatter";
+import { priceSeptrator, removeCommas, toPersianDigits } from "../../utils/numberFormatter";
 import { colors } from "../../styles/theme";
+import { useToast } from "../../context/ToastProvider";
 
 type DepositeBoxProps = {
   buttonValue: string;
@@ -25,6 +26,7 @@ type DepositeBoxProps = {
   submit: (assetAmount: string) => void;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   isPending: boolean;
+  error?: Error |null;
 };
 
 const DepositeBox = ({
@@ -40,14 +42,22 @@ const DepositeBox = ({
   walletBalance,
   walletGoldBalance,
   handleChange,
+  error
 }: DepositeBoxProps) => {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const { showToast } = useToast();
   const submitHandler = async () => {
-    await submit(assetAmount);
+    const newValue = removeCommas(assetAmount);
+    await submit(newValue);
     assetAmountChanger("");
+    
+    if (error && error.status ===404) {
+      showToast("خحطایی رخ داده است", "error");
+      return;
+    }
+    showToast("درخواست برداشت موفق بود.منتظر تایید ادمین باشید", "success");
   };
 
   return (

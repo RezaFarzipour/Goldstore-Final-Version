@@ -1,7 +1,7 @@
 import ReusableTable, { Column } from "../../modules/ReusableTable";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { proveSaleRequest, SaleList } from "../../../services/adminPanel";
-import { Box, Container, CircularProgress } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import SectionTitle from "../../modules/SectionTitle";
 import RequestTabs from "../../modules/RequestTabs";
 import {
