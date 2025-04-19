@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useMemo, useState } from "react";
 import ReusableTable, { Column } from "../../modules/ReusableTable";
 import {
   changeUserWalletGoldAmount,
@@ -10,19 +10,20 @@ import { Box, Container } from "@mui/material";
 import SectionTitle from "../../modules/SectionTitle";
 import DynamicModal from "../../modules/DynamicModal";
 import {
+  FarsiToEnglishNumber,
   priceSeptrator,
+  removeCommas,
   toPersianDigits,
 } from "../../../utils/numberFormatter";
+import { BaseAdminPanelProps } from "../../../types";
+import CircularMini from "../../element/CircularLoading";
+import { useToast } from "../../../context/ToastProvider";
 
 // تعریف نوع داده‌ها
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  phone_number: string;
+type User = BaseAdminPanelProps & {
   money_amount: string;
   gold_amount: string;
-}
+};
 
 // تعریف ستون‌ها
 const columns: Column<User>[] = [
@@ -40,13 +41,12 @@ const InventoryTemp = () => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null); // کاربر انتخاب‌شده
   const [cashModalAmount, setCashModalAmount] = useState(""); // مقدار ورودی کیف پول
   const [goldModalAmount, setGoldModalAmount] = useState(""); // مقدار ورودی کیف طلا
-  console.log(cashModalAmount);
+  const { showToast } = useToast();
 
   const { data, isLoading } = useQuery({
     queryKey: ["settingData"],
     queryFn: usersInformationList,
   });
-  console.log(data);
 
   const { mutateAsync: cashAmountAsync } = useMutation({
     mutationFn: ({
@@ -71,37 +71,57 @@ const InventoryTemp = () => {
   // تابع برای تغییر موجودی کیف پول
   const handleUpdateCashAmount = async () => {
     if (!selectedUser) return;
+    if (!cashModalAmount) {
+      showToast("لطفا مقداری وارد کنید!", "warning");
+      return;
+    }
 
     try {
-      const response = await cashAmountAsync({
-        phone_number: selectedUser.phone_number,
-        money_amount: cashModalAmount,
+      await cashAmountAsync({
+        phone_number: FarsiToEnglishNumber(selectedUser.phone_number),
+        money_amount: removeCommas(cashModalAmount),
       });
-      console.log("پاسخ موفق:", response);
+      showToast(" درخواست با موفقیت انجام شد!", "success");
       setCashModalOpen(false);
-    } catch (error) {
-      console.error("خطا در انجام میوتیشن:", error);
+    } catch {
+      showToast("خطایی رخ داده است!", "error");
     }
   };
 
   // تابع برای تغییر موجودی کیف طلا
   const handleUpdateGoldAmount = async () => {
     if (!selectedUser) return;
+    if (!goldModalAmount) {
+      showToast("لطفا مقداری وارد کنید!", "warning");
+      return;
+    }
     try {
-      const response = await goldAmountAsync({
-        phone_number: selectedUser.phone_number,
+      await goldAmountAsync({
+        phone_number: FarsiToEnglishNumber(selectedUser.phone_number),
         gold_amount: goldModalAmount,
       });
-      console.log("پاسخ موفق:", response);
+      showToast(" درخواست با موفقیت انجام شد!", "success");
       setGoldModalOpen(false);
-    } catch (error) {
-      console.error("خطا در انجام میوتیشن:", error);
+    } catch {
+      showToast("خطایی رخ داده است!", "error");
     }
   };
 
+  const rows: User[] = useMemo(() => {
+    if (!Array.isArray(data?.data)) return [];
+
+    return data.data.map((item: User) => ({
+      ...item,
+      id: toPersianDigits(item.id),
+      phone_number: toPersianDigits(item.phone_number),
+      money_amount: toPersianDigits(priceSeptrator(item.money_amount)),
+      gold_amount: toPersianDigits(item.gold_amount),
+    }));
+  }, [data]);
+
   // بررسی وضعیت بارگذاری
   if (isLoading) {
-    return <div>در حال بارگذاری...</div>;
+    return <CircularMini />;
   }
 
   // بررسی وجود داده‌ها
@@ -125,13 +145,7 @@ const InventoryTemp = () => {
         {/* جدول */}
         <ReusableTable
           columns={columns}
-          rows={(data?.data || []).map((item) => ({
-            ...item,
-            id: toPersianDigits(item.id),
-            phone_number: toPersianDigits(item.phone_number),
-            money_amount: toPersianDigits(priceSeptrator(item.money_amount)),
-            gold_amount: toPersianDigits(item.gold_amount),
-          }))}
+          rows={rows}
           showActions={true} // فعال کردن ستون عملیات
           btnvalue1="تغییر کیف پول"
           btnvalue2="تغییر کیف طلا"
@@ -157,6 +171,7 @@ const InventoryTemp = () => {
           setInputValueState={setCashModalAmount}
           onButtonClick={handleUpdateCashAmount}
           buttonLabel="ذخیره"
+          comma={true}
         />
 
         {/* مودال تغییر کیف طلا */}
@@ -171,6 +186,7 @@ const InventoryTemp = () => {
           setInputValueState={setGoldModalAmount}
           onButtonClick={handleUpdateGoldAmount}
           buttonLabel="ذخیره"
+          comma={false}
         />
       </Container>
     </Box>

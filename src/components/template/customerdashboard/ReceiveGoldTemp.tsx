@@ -1,7 +1,10 @@
 import  { useState } from "react";
 import { Rtl } from "../../element/rtl";
+
+
 import { Box } from "@mui/material";
-import DepositeBox from "../../modules/customerDashboard/DepositeBoxModule";
+import DepositeBox from "../../modules/DepositeBoxModule";
+
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { receiveGold, walletdata } from "../../../services/customerDashboard";
 import { ErrorPendingHandler } from "../../element/ErrrorPendingHandler";

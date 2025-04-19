@@ -3,17 +3,15 @@ import { Box, Container } from "@mui/material";
 import SectionTitle from "../../../modules/SectionTitle";
 import { transactionList } from "../../../../services/adminPanel";
 import { useQuery } from "@tanstack/react-query";
+import { BaseAdminPanelProps } from "../../../../types";
+import CircularMini from "../../../element/CircularLoading";
 
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
+type User = BaseAdminPanelProps & {
   money_amount: string;
   payment_id: string;
   payment_date: string;
-  phone_number: string;
   status: string;
-}
+};
 const TransactionsTemp = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["settingData"],
@@ -35,7 +33,7 @@ const TransactionsTemp = () => {
 
   // بررسی وضعیت بارگذاری
   if (isLoading) {
-    return <div>در حال بارگذاری...</div>;
+    return <CircularMini />;
   }
 
   // بررسی وجود داده‌ها

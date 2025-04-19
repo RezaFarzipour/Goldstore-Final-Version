@@ -13,7 +13,13 @@ const Homepage: React.FC = () => {
     <Layout>
       <Container maxWidth="xl">
         <Grid2 my={{ xs: 14, md: 19 }}>
-          <Box sx={{ display: { xs: "block", md: "flex" } }}>
+          <Box
+            sx={{
+              display: { xs: "block", md: "flex" },
+              flexDirection: "row-reverse",
+            }}
+          >
+            <Header />
             <Box width="100%">
               <HomePageDesc />
               <Box
@@ -27,7 +33,6 @@ const Homepage: React.FC = () => {
                 <DirectSignUp />
               </Box>
             </Box>
-            <Header />
           </Box>
         </Grid2>
         <Box

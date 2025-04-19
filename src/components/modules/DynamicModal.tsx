@@ -6,9 +6,15 @@ import {
   TextField,
   Button,
   IconButton,
+  useTheme,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { priceSeptrator, toPersianDigits } from "../../utils/numberFormatter";
+import {
+  formatNumberWithCommas,
+  priceSeptrator,
+  toPersianDigits,
+} from "../../utils/numberFormatter";
+import { colors } from "../../styles/theme";
 
 // تعریف نوع پراپس‌ها
 interface DynamicModalProps {
@@ -22,6 +28,7 @@ interface DynamicModalProps {
   buttonLabel: string;
   dataAmount: string | number;
   dataAmountType: string;
+  comma: boolean;
 }
 
 const style = {
@@ -30,7 +37,8 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: { xs: "90%", sm: "400px" },
-  bgcolor: "#efefef",
+  bgcolor: "#212121",
+  color: "#fff",
   boxShadow: 24,
   borderRadius: 2,
   p: 4,
@@ -47,21 +55,35 @@ const DynamicModal: React.FC<DynamicModalProps> = ({
   buttonLabel,
   dataAmount,
   dataAmountType,
+  comma,
 }) => {
+  const theme = useTheme();
   // تابع مدیریت تغییرات فیلد ورودی
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValueState(event.target.value);
+    const withComma = formatNumberWithCommas(event.target.value);
+    if (comma) {
+      setInputValueState?.(withComma);
+    } else {
+      setInputValueState?.(event.target.value);
+    }
   };
 
   // تابع مدیریت کلیک روی دکمه
   const handleButtonClick = () => {
     onButtonClick(inputValueState); // ارسال مقدار ورودی به تابع پدر
-    onClose(); // بستن مودال پس از کلیک
+    onClose();
   };
-  console.log(dataAmount);
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal
+      open={open}
+      onClose={onClose}
+      sx={{
+        "& .css-53g0n7-MuiButtonBase-root-MuiIconButton-root": {
+          color: "#fff",
+        },
+      }}
+    >
       <Box sx={style}>
         {/* تایتل */}
         <Box
@@ -79,7 +101,6 @@ const DynamicModal: React.FC<DynamicModalProps> = ({
             <CloseIcon />
           </IconButton>
         </Box>
-
         {/* فیلد ورودی */}
         <TextField
           label={inputLabel}
@@ -88,17 +109,35 @@ const DynamicModal: React.FC<DynamicModalProps> = ({
           fullWidth
           margin="normal"
           variant="outlined"
+          sx={{
+            "& .MuiFormLabel-root": {
+              color: "#fff !important",
+            },
+            input: { color: "#fff" },
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 2,
+              bgcolor: theme.palette.grey[800],
+              color: "#fff",
+            },
+          }}
         />
         <Typography>
-          {toPersianDigits(priceSeptrator(dataAmount))}
+          {toPersianDigits(priceSeptrator(dataAmount))} &nbsp;
           {dataAmountType}
         </Typography>
         {/* دکمه */}
         <Button
-          variant="contained"
-          color="primary"
+          variant="outlined"
           fullWidth
-          sx={{ mt: 2 }}
+          sx={{
+            borderColor: colors.gold[100],
+            color: colors.gold[100],
+            fontWeight: "bold",
+            mt: 2,
+            "&:hover": {
+              borderColor: colors.gold[100],
+            },
+          }}
           onClick={handleButtonClick}
         >
           {buttonLabel}

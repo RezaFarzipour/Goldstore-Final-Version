@@ -1,7 +1,10 @@
+
 import { Box } from "@mui/material";
-import DepositeBox from "../../modules/customerDashboard/DepositeBoxModule";
+
+
 import { Rtl } from "../../element/rtl";
 import SectionTitle from "../../modules/SectionTitle";
+import DepositeBox from "../../modules/DepositeBoxModule";
 
 const Deposit = () => {
   return (

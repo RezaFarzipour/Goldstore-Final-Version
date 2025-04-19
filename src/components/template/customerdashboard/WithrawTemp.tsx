@@ -1,6 +1,8 @@
-import { Box } from "@mui/material";
-import React from "react";
-import DepositeBox from "../../modules/customerDashboard/DepositeBoxModule";
+
+import { Box  } from "@mui/material";
+import React  from "react";
+
+
 import { Rtl } from "../../element/rtl";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
@@ -10,6 +12,7 @@ import {
 import { ErrorPendingHandler } from "../../element/ErrrorPendingHandler";
 import { formatNumberWithCommas } from "../../../utils/numberFormatter";
 import SectionTitle from "../../modules/SectionTitle";
+import DepositeBox from "../../modules/DepositeBoxModule";
 
 const Withdraw = () => {
   const [moneyAmount, setMoneyAmount] = React.useState("");
@@ -59,7 +62,7 @@ const Withdraw = () => {
           <div style={{ maxWidth: "800px" }}>
  <SectionTitle title="برداشت"/>
             <DepositeBox
-            error={widthrawError}
+              error={widthrawError}
               handleChange={handleChange}
               isPending={isWithdrawing}
               submit={mutate}

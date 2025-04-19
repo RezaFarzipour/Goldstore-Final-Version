@@ -7,40 +7,50 @@ import {
   priceSeptrator,
   toPersianDigits,
 } from "../../../../utils/numberFormatter";
+import { BaseAdminPanelProps } from "../../../../types";
+import { useMemo } from "react";
+import CircularMini from "../../../element/CircularLoading";
 
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
+type User = BaseAdminPanelProps & {
   money_amount: string;
   gold_amount: string;
   buy_date: string;
-  phone_number: string;
-  request_status: string; // توجه: این فیلد باید در داده‌ها وجود داشته باشد
-}
+  request_status: string;
+};
+// تعریف ستون‌ها
+const columns: Column<User>[] = [
+  { id: "id", label: "شناسه" },
+  { id: "first_name", label: "نام" },
+  { id: "last_name", label: "نام خانوادگی" },
+  { id: "phone_number", label: "شماره همراه" },
+  { id: "buy_date", label: "تاریخ" },
+  { id: "money_amount", label: "مبلغ" },
+  { id: "gold_amount", label: "مقدار طلا" },
+  { id: "request_status", label: "وضعیت" },
+];
 
 const GoldBuyTemp = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ["settingData"],
+    queryKey: ["gold-buy"],
     queryFn: BuyList,
   });
 
-  console.log("داده‌های دریافتی:", data);
+  const rows: User[] = useMemo(() => {
+    if (!Array.isArray(data?.data)) return [];
 
-  // تعریف ستون‌ها
-  const columns: Column<User>[] = [
-    { id: "id", label: "شناسه" },
-    { id: "first_name", label: "نام" },
-    { id: "last_name", label: "نام خانوادگی" },
-    { id: "phone_number", label: "شماره همراه" },
-    { id: "buy_date", label: "تاریخ" },
-    { id: "money_amount", label: "مبلغ" },
-    { id: "gold_amount", label: "مقدار طلا" },
-    { id: "request_status", label: "وضعیت" },
-  ];
+    return data.data.map((item: User) => ({
+      ...item,
+      id: toPersianDigits(item.id),
+      phone_number: toPersianDigits(item.phone_number),
+      buy_date: toPersianDigits(item.buy_date),
+      money_amount: toPersianDigits(priceSeptrator(item.money_amount)),
+      gold_amount: toPersianDigits(item.gold_amount),
+      request_status: item.request_status,
+    }));
+  }, [data]);
 
   if (isLoading) {
-    return <div>در حال بارگذاری...</div>;
+    return <CircularMini />;
   }
 
   if (!data || !Array.isArray(data?.data)) {
@@ -61,15 +71,7 @@ const GoldBuyTemp = () => {
         </Box>
         <ReusableTable
           columns={columns}
-          rows={(Array.isArray(data?.data) ? data.data : []).map((item) => ({
-            ...item,
-            status: item.request_status,
-            id: toPersianDigits(item.id),
-            phone_number: toPersianDigits(item.phone_number),
-            buy_date: toPersianDigits(item.buy_date),
-            money_amount: toPersianDigits(priceSeptrator(item.money_amount)),
-            gold_amount: toPersianDigits(item.gold_amount),
-          }))}
+          rows={rows}
           showActions={false} // فعال کردن ستون عملیات
         />
       </Container>

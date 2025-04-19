@@ -34,7 +34,6 @@ export type FaqItem = {
   description: string;
 };
 
-declare module "stylis-plugin-rtl";
 
 export type DrawerItem = {
   id: number;
@@ -48,10 +47,10 @@ export type DrawerItem = {
 export type customerDashboardDataType = {
   id: number;
   title: string;
-  subtitle?: string;  
-  visibility?: "visable" | "hidden"; 
-  price?: number  
-  btn?: string; 
+  subtitle?: string;
+  visibility?: "visable" | "hidden";
+  price?: number
+  btn?: string;
   btnColor?: string;
   unit: string;
   displayBtn: "flex" | "none";
@@ -90,3 +89,9 @@ export interface BuyGoldResult {
   data: BuyGoldData;
   status: number;
 }
+export type BaseAdminPanelProps = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+};

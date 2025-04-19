@@ -1,5 +1,11 @@
 import api from "../configs/api";
 
+export const usersInfo = async () => {
+    const response = await api.get("UserDashboard-DeskPage/wallet-data/");
+    return response.data;
+};
+
+
 // Inventory:
 export const usersInformationList = async () => {
     const response = await api.get("AdminDashboard-DeskPage/users-information-list/");

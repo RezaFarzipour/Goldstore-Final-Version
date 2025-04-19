@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Box, Container } from "@mui/material";
+import { Box, Container, CircularProgress, Typography } from "@mui/material";
 import ReusableTable, { Column } from "../../../modules/ReusableTable";
 import { useToast } from "../../../../context/ToastProvider";
 import {
@@ -9,17 +9,17 @@ import {
 import SectionTitle from "../../../modules/SectionTitle";
 import RequestTabs from "../../../modules/RequestTabs";
 import { toPersianDigits } from "../../../../utils/numberFormatter";
+import { BaseAdminPanelProps } from "../../../../types";
+import { useCallback } from "react";
+import CircularMini from "../../../element/CircularLoading";
 
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  phone_number: string;
+// نوع داده‌ها
+type User = BaseAdminPanelProps & {
   gold_amount: string;
   request_date: string;
-  status: string;
-}
-// تعریف ستون‌ها
+  request_status: string;
+};
+
 const columns: Column<User>[] = [
   { id: "id", label: "شناسه" },
   { id: "first_name", label: "نام" },
@@ -27,8 +27,20 @@ const columns: Column<User>[] = [
   { id: "phone_number", label: "شماره همراه" },
   { id: "request_date", label: "تاریخ" },
   { id: "gold_amount", label: "مقدار برداشت" },
-  { id: "status", label: "وضعیت" },
+  { id: "request_status", label: "وضعیت" },
 ];
+
+// تابع کمکی برای فرمت کردن داده‌ها
+const formatRows = (items?: User[]) =>
+  (items ?? []).map((item) => ({
+    ...item,
+    status: item.request_status,
+    id: toPersianDigits(item.id),
+    phone_number: toPersianDigits(item.phone_number),
+    request_date: toPersianDigits(item.request_date),
+    gold_amount: toPersianDigits(item.gold_amount),
+  }));
+
 const GoldWithdrawTemp = () => {
   const { showToast } = useToast();
 
@@ -37,67 +49,66 @@ const GoldWithdrawTemp = () => {
     queryFn: goldGetRequestList,
   });
 
-  // تعریف موتیشن
-  const { mutateAsync: proveMoneyAsync } = useMutation({
+  const { mutateAsync: proveGoldAsync } = useMutation({
     mutationFn: ({
       get_request_id,
       request_type,
     }: {
-      get_request_id: number;
+      get_request_id: string;
       request_type: string;
     }) => proveGoldGetRequest(get_request_id, request_type),
   });
 
-  // تابع مدیریت تایید یا رد درخواست
-  const acceptHandler = async (selectedRow: User) => {
-    try {
-      const get_request_id = selectedRow.id;
-      const request_type = "accept";
+  const acceptHandler = useCallback(
+    async (selectedRow: User) => {
+      try {
+        await proveGoldAsync({
+          get_request_id: selectedRow.id,
+          request_type: "accept",
+        });
+        showToast("تایید درخواست با موفقیت انجام شد!", "success");
+        await refetch();
+      } catch {
+        showToast("خطایی رخ داده است!", "error");
+      }
+    },
+    [proveGoldAsync, showToast, refetch]
+  );
 
-      await proveMoneyAsync({ get_request_id, request_type });
-      showToast("تایید درخواست با موفقیت انجام شد!", "success");
+  const rejectHandler = useCallback(
+    async (selectedRow: User) => {
+      try {
+        await proveGoldAsync({
+          get_request_id: selectedRow.id,
+          request_type: "reject",
+        });
+        showToast("رد درخواست با موفقیت انجام شد!", "success");
+        await refetch();
+      } catch {
+        showToast("خطایی رخ داده است!", "error");
+      }
+    },
+    [proveGoldAsync, showToast, refetch]
+  );
 
-      // به‌روزرسانی داده‌ها پس از موتیشن
-      await refetch();
-    } catch {
-      showToast("خطایی رخ داده است!", "error");
-    }
-  };
-
-  const rejectHandler = async (selectedRow: User) => {
-    try {
-      const get_request_id = selectedRow.id;
-      const request_type = "reject";
-
-      await proveMoneyAsync({ get_request_id, request_type });
-      showToast("رد درخواست با موفقیت انجام شد!", "success");
-
-      // به‌روزرسانی داده‌ها پس از موتیشن
-      await refetch();
-    } catch {
-      showToast("خطایی رخ داده است!", "error");
-    }
-  };
-  // بررسی وضعیت بارگذاری
+  // وضعیت بارگذاری یا خطا
   if (isLoading) {
-    return <div>در حال بارگذاری...</div>;
+    return <CircularMini />;
   }
 
-  // بررسی وجود داده‌ها
-  if (
-    !data ||
-    !Array.isArray(data.all_request) ||
-    !Array.isArray(data.un_accept_request)
-  ) {
-    return <div>داده‌ها در دسترس نیستند.</div>;
+  if (error || !data) {
+    return (
+      <Box textAlign="center">
+        <Typography variant="body1" color="error">
+          داده‌ها در دسترس نیستند.
+        </Typography>
+      </Box>
+    );
   }
+
   return (
     <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <Container maxWidth="lg" sx={{ padding: "20px" }}>
         <Box mb={4}>
@@ -107,37 +118,23 @@ const GoldWithdrawTemp = () => {
           allRequests={
             <ReusableTable
               columns={columns}
-              rows={data.all_request.map((item) => ({
-                ...item,
-                status: item.request_status,
-                id: toPersianDigits(item.id),
-                phone_number: toPersianDigits(item.phone_number),
-                request_date: toPersianDigits(item.request_date),
-                gold_amount: toPersianDigits(item.gold_amount),
-              }))}
-              showActions={true} // فعال کردن ستون عملیات
+              rows={formatRows(data.all_request)}
+              showActions
               btnvalue1="تایید درخواست"
               btnvalue2="رد درخواست"
-              btnAction1={(selectedRow) => acceptHandler(selectedRow)}
-              btnAction2={(selectedRow) => rejectHandler(selectedRow)}
+              btnAction1={acceptHandler}
+              btnAction2={rejectHandler}
             />
           }
           approvedRequests={
             <ReusableTable
               columns={columns}
-              rows={data.un_accept_request.map((item) => ({
-                ...item,
-                status: item.request_status,
-                id: toPersianDigits(item.id),
-                phone_number: toPersianDigits(item.phone_number),
-                request_date: toPersianDigits(item.request_date),
-                gold_amount: toPersianDigits(item.gold_amount),
-              }))}
-              showActions={true} // فعال کردن ستون عملیات
+              rows={formatRows(data.un_accept_request)}
+              showActions
               btnvalue1="تایید درخواست"
               btnvalue2="رد درخواست"
-              btnAction1={(selectedRow) => acceptHandler(selectedRow)}
-              btnAction2={(selectedRow) => rejectHandler(selectedRow)}
+              btnAction1={acceptHandler}
+              btnAction2={rejectHandler}
             />
           }
         />
