@@ -50,7 +50,7 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
           width: 250,
           bgcolor: colors.grey[300],
           height: "100%",
-          minHeight: !cMinHeight ? "110%" : "100%",
+          minHeight: cMinHeight ? "110%" : "100%",
         }}
         role="presentation"
       >

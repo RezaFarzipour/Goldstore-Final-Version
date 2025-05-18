@@ -16,6 +16,7 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CallReceivedIcon from "@mui/icons-material/CallReceived";
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 // LayoutData:
 export const navlinks: NavLinks[] = [
   {
@@ -288,6 +289,7 @@ export const AdmindrawerList: DrawerItem[] = [
       },
       {
         id: 53,
+        icon:<ReceiptLongIcon/>,
         subLabel: "تراکنش ها",
         path: "/admin/reports/transactions",
         children: [],

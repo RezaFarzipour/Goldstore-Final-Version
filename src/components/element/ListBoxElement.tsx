@@ -33,11 +33,11 @@ const ListBoxElement: React.FC<Props> = ({
   cMinHeight,
   setCMinHeight,
 }) => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
     setOpen(!open);
-    setCMinHeight(!cMinHeight);
+    setCMinHeight(cMinHeight);
   };
 
   return (
@@ -89,8 +89,10 @@ const ListBoxElement: React.FC<Props> = ({
                   sub.id === selectedIndex ? colors.gold[100] : "transparent",
               }}
             >
-         
-              <ListItemText
+   <Box display={"flex"} alignItems={"center"} gap={2}>
+
+    {sub.icon}
+   <ListItemText
                 primary={sub.subLabel}
                 primaryTypographyProps={{ fontSize: "17px" }}
                 sx={{
@@ -100,6 +102,8 @@ const ListBoxElement: React.FC<Props> = ({
                     sub.id === selectedIndex ? colors.primary[300] : "white",
                 }}
               />
+   </Box>
+             
             </ListItemButton>
           ))}
         </List>
