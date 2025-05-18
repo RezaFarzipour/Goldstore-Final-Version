@@ -48,6 +48,7 @@ const DepositeBox = ({
 
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { showToast } = useToast();
+  
   const submitHandler = async () => {
     const newValue = removeCommas(assetAmount);
     await submit(newValue);
