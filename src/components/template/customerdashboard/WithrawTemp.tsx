@@ -1,7 +1,5 @@
-
-import { Box  } from "@mui/material";
-import React  from "react";
-
+import { Box } from "@mui/material";
+import React from "react";
 
 import { Rtl } from "../../element/rtl";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -11,7 +9,7 @@ import {
 } from "../../../services/customerDashboard";
 import { ErrorPendingHandler } from "../../element/ErrrorPendingHandler";
 import { formatNumberWithCommas } from "../../../utils/numberFormatter";
-import SectionTitle from "../../modules/SectionTitle";
+import SectionTitle from "../../element/SectionTitle";
 import DepositeBox from "../../modules/DepositeBoxModule";
 
 const Withdraw = () => {
@@ -34,7 +32,7 @@ const Withdraw = () => {
 
   const {
     mutate,
-   error:widthrawError,
+    error: widthrawError,
     isPending: isWithdrawing,
   } = useMutation({
     mutationFn: customerWithdraw,
@@ -42,15 +40,10 @@ const Withdraw = () => {
 
   const walletBalance = walletData?.walletBalance;
 
-
-
-  
-
   ErrorPendingHandler(error?.message, isPending);
 
   return (
     <>
-     
       <Rtl>
         <Box
           sx={{
@@ -60,7 +53,7 @@ const Withdraw = () => {
           }}
         >
           <div style={{ maxWidth: "800px" }}>
- <SectionTitle title="برداشت"/>
+            <SectionTitle title="برداشت" />
             <DepositeBox
               error={widthrawError}
               handleChange={handleChange}

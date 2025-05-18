@@ -47,7 +47,7 @@ export type DrawerItem = {
 export type customerDashboardDataType = {
   id: number;
   title: string;
-  subtitle?: string;
+  subtitle?: string | number | undefined;
   visibility?: "visable" | "hidden";
   price?: number
   btn?: string;
@@ -69,18 +69,18 @@ export type BaseProps = {
   headerLable: string;
   priceColor: string;
   price: number | undefined;
-  walletData:WalletDataResponse | undefined
+  walletData: WalletDataResponse | undefined
 };
 
 
 export type signupinfoTypes = {
-  id:number,
-  label:string
-  name:string,
+  id: number,
+  label: string
+  name: string,
 }
 
 
- export interface BuyGoldData {
+export interface BuyGoldData {
   responseEN: string;
   responseFA: string;
 }

@@ -2,7 +2,7 @@ import ReusableTable, { Column } from "../../../modules/ReusableTable";
 import { BuyList } from "../../../../services/adminPanel";
 import { useQuery } from "@tanstack/react-query";
 import { Box, Container } from "@mui/material";
-import SectionTitle from "../../../modules/SectionTitle";
+import SectionTitle from "../../../element/SectionTitle";
 import {
   priceSeptrator,
   toPersianDigits,

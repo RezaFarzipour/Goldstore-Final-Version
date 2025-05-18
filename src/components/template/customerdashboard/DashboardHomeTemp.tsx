@@ -3,7 +3,7 @@ import HomeBoxes from "../../modules/customerDashboard/HomeBoxesModule";
 import { getCustomerDashboardHomeData } from "../../../constants/data";
 import { walletdata } from "../../../services/customerDashboard";
 import { useQuery } from "@tanstack/react-query";
-import SectionTitle from "../../modules/SectionTitle";
+import SectionTitle from "../../element/SectionTitle";
 
 const DashboardHome = () => {
   const {
@@ -14,7 +14,6 @@ const DashboardHome = () => {
     queryKey: ["walletdata"],
     queryFn: walletdata,
   });
-
 
   const customerDashboardHomeData = getCustomerDashboardHomeData(
     walletData ?? {
@@ -33,7 +32,7 @@ const DashboardHome = () => {
       <Box
         sx={{ margin: "auto", display: "block", textAlign: "center", mb: 10 }}
       >
-       <SectionTitle title="میز کار"/>
+        <SectionTitle title="میز کار" />
       </Box>
 
       <Grid2 container>

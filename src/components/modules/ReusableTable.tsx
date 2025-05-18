@@ -15,6 +15,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { colors } from "../../styles/theme";
 import { Rtl } from "../element/rtl";
 import { ActionMenu } from "../element/ActionMenu";
+import EmptyPage from "../element/Empty";
 
 export interface Column<T> {
   id: keyof T | "actions";
@@ -40,7 +41,6 @@ const ReusableTable = <T extends object>({
   btnAction1,
   btnAction2,
 }: ReusableTableProps<T>) => {
-  
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -74,7 +74,7 @@ const ReusableTable = <T extends object>({
   };
 
   if (!rows || rows.length === 0) {
-    return <Box sx={{ color: "#999" }}>داده‌ ای در دسترس نیستند.</Box>;
+    return <EmptyPage message="هیچ داده ای یافت نشد!" />;
   }
   return (
     <Rtl>
@@ -97,7 +97,7 @@ const ReusableTable = <T extends object>({
                     color: colors.gold[100],
                     fontWeight: "400",
                     fontSize: { xs: "0.7rem", md: "1rem" },
-                    whiteSpace:"nowrap"
+                    whiteSpace: "nowrap",
                   }}
                 >
                   {column.label}
@@ -110,7 +110,6 @@ const ReusableTable = <T extends object>({
                     color: colors.gold[100],
                     fontWeight: "500",
                     fontSize: { xs: "0.7rem", md: "1rem" },
-                 
                   }}
                 >
                   عملیات
@@ -144,7 +143,7 @@ const ReusableTable = <T extends object>({
                 })}
                 {showActions && (
                   <TableCell align="center">
-                    <IconButton onClick={(e) => handleOpenMenu(e, row)} >
+                    <IconButton onClick={(e) => handleOpenMenu(e, row)}>
                       <MoreVertIcon sx={{ color: "#fff" }} />
                     </IconButton>
                   </TableCell>
