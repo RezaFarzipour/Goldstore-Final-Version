@@ -5,9 +5,9 @@ import {
   changeUserWalletMoneyAmount,
   usersInformationList,
 } from "../../../services/adminPanel";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Box, Container } from "@mui/material";
-import SectionTitle from "../../modules/SectionTitle";
+import SectionTitle from "../../element/SectionTitle";
 import DynamicModal from "../../modules/DynamicModal";
 import {
   FarsiToEnglishNumber,
@@ -42,9 +42,10 @@ const InventoryTemp = () => {
   const [cashModalAmount, setCashModalAmount] = useState(""); // مقدار ورودی کیف پول
   const [goldModalAmount, setGoldModalAmount] = useState(""); // مقدار ورودی کیف طلا
   const { showToast } = useToast();
+  const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["settingData"],
+    queryKey: ["InventoryData"],
     queryFn: usersInformationList,
   });
 
@@ -81,6 +82,8 @@ const InventoryTemp = () => {
         phone_number: FarsiToEnglishNumber(selectedUser.phone_number),
         money_amount: removeCommas(cashModalAmount),
       });
+      queryClient.invalidateQueries({ queryKey: ["InventoryData"] });
+
       showToast(" درخواست با موفقیت انجام شد!", "success");
       setCashModalOpen(false);
     } catch {
@@ -100,6 +103,7 @@ const InventoryTemp = () => {
         phone_number: FarsiToEnglishNumber(selectedUser.phone_number),
         gold_amount: goldModalAmount,
       });
+      queryClient.invalidateQueries({ queryKey: ["InventoryData"] });
       showToast(" درخواست با موفقیت انجام شد!", "success");
       setGoldModalOpen(false);
     } catch {
