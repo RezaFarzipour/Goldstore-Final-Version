@@ -4,17 +4,22 @@ import { setCookie } from "../../../utils/cookie";
 import { useNavigate } from "react-router-dom";
 import VerifyNumberBoxInput from "../../modules/authModules/VerifyNumberBoxInput";
 import AuthLayout from "../../containers/layout/authLayout";
+import { PhoneFormData } from "../../../schemas/phoneSchema";
+import { useToast } from "../../../context/ToastProvider";
+
 
 const VerifyNumberPage: React.FC = () => {
   const navigate = useNavigate();
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const { showToast } = useToast();
 
-  const submitHandler = async (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+
+
+
+  const onSubmit = async (data:PhoneFormData) => { 
     setLoading(true);
-
-    const { response, err } = await sendOtp(phoneNumber);
+    const { response, err } = await sendOtp(data.phone);
 
     if (response && response.status === 200) {
       setCookie("phone-number", phoneNumber);
@@ -23,13 +28,15 @@ const VerifyNumberPage: React.FC = () => {
 
     if (err) {
       setLoading(false);
+      showToast("خطایی رخ داده است", "error");
+      
     }
   };
 
   return (
     <AuthLayout>
       <VerifyNumberBoxInput
-        submitHandler={submitHandler}
+        onSubmit={onSubmit}
         setPhoneNumber={setPhoneNumber}
         phoneNumber={phoneNumber}
         loading={loading}

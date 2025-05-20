@@ -1,12 +1,11 @@
 import api from "../configs/api";
 
 
-export const sendOtp = async (phoneNumber: string) => {
-
+export const sendOtp = async (phone: string) => {
 
   try {
     const response = await api.get(
-      `Authentication/send-code/phone-number=${phoneNumber}/`
+      `Authentication/send-code/phone-number=${phone}/`
     );
 
     return { response };

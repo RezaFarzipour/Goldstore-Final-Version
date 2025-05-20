@@ -7,9 +7,11 @@ import { useMutation } from "@tanstack/react-query";
 import { signupinfo } from "../../services/auth";
 import { useNavigate } from "react-router-dom";
 import { signupinfostyle } from "./signupInfoStyle";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { SignupFormValues, signupSchema } from "../../schemas/signupInfoSchema";
 const SignupInfoTemp = () => {
-
-const navigate = useNavigate()
+  const navigate = useNavigate();
 
   interface inputStateProps {
     first_name: string;
@@ -30,21 +32,31 @@ const navigate = useNavigate()
     setInputInfo({ ...inputInfo, [name]: value });
   };
 
-const {mutateAsync ,error} = useMutation({
-    mutationKey:["signupinfo"],
-    mutationFn:signupinfo
-})
+  const { mutateAsync, error } = useMutation({
+    mutationKey: ["signupinfo"],
+    mutationFn: signupinfo,
+  });
 
-const submitHandler =async()=>{
-   const response = await mutateAsync(inputInfo);
-   if(response && response.status === 200){
-       console.log(response.data.responseFA);
-       navigate("/customerdashboard/")
-   }else{
-       console.log(error);
-   }
+  const submitHandler = async (data:SignupFormValues) => {
 
-}
+
+    const response = await mutateAsync(data);
+    if (response && response.status === 200) {
+      console.log(response.data.responseFA);
+      navigate("/customerdashboard/");
+    } else {
+      console.log(error);
+    }
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignupFormValues>({
+    resolver: zodResolver(signupSchema),
+    mode: "onTouched",
+  });
 
   return (
     <AuthLayout>
@@ -68,6 +80,11 @@ const submitHandler =async()=>{
         {signupInputs.map((item) => (
           <Box sx={{ p: 2 }} key={item.id}>
             <TextField
+              error={!!errors[item.name as keyof SignupFormValues]}
+              helperText={
+                errors[item.name as keyof SignupFormValues]?.message as string
+              }
+              {...register(item.name as keyof SignupFormValues)}
               onChange={changeHandler}
               variant="standard"
               sx={signupinfostyle}
@@ -88,7 +105,7 @@ const submitHandler =async()=>{
             fontWeight: "bold",
             "&:hover": { backgroundColor: "rgba(204, 163, 69,0.7)" },
           }}
-        onClick={submitHandler}
+          onClick={handleSubmit(submitHandler)}
         >
           تایید
         </Button>

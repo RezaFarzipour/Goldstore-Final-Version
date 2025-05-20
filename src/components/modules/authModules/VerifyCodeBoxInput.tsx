@@ -1,12 +1,11 @@
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import VerifyInput from "../../element/auth/verifyNumberCode-input";
-import VerifyButton from "../../element/auth/verifyNumberCode-button";
-
 import Logo from "../../../assets/images/logo.png";
 import { MainVerifyBox, textfeildStyle } from "./style";
 import { colors } from "../../../styles/theme";
+import { verifyInput_style, verifyNumber_style } from "../../element/auth/style";
+import CircularIndeterminate from "../../element/CircularProgress";
 type VerifyCodeBoxInputProps = {
   token: string | null;
   setVerifyCode: (value: string) => void;
@@ -67,6 +66,7 @@ const VerifyCodeBoxInput = ({
         </Box>
 
         <Typography
+          mb={2}
           color="#fff"
           fontSize={{ xs: "12px", md: "14px" }}
           fontWeight={200}
@@ -74,9 +74,10 @@ const VerifyCodeBoxInput = ({
           کد ارسال شده به تلفن همراهتان را وارد کنید
         </Typography>
 
-        <VerifyInput
+        <TextField
+          sx={verifyInput_style}
           label=" کد تایید "
-          onchangeHandler={(e) => setVerifyCode(e.target.value)}
+          onChange={(e) => setVerifyCode(e.target.value)}
         />
 
         <Box mt={1} textAlign={"left"}>
@@ -95,11 +96,15 @@ const VerifyCodeBoxInput = ({
       </Box>
 
       <Box width="100%" display="flex" justifyContent="center">
-        <VerifyButton
-          state={{ type: "code", value: verifyCode }}
-          submitHandler={handleVerifyCode}
-          loading={loading}
-        />
+        <Button
+        sx={verifyNumber_style}
+          variant="contained"
+          disabled={verifyCode.length < 6}
+          onClick={handleVerifyCode}
+         
+        >
+        {loading ? <CircularIndeterminate color="#222" /> : "ادامه"}
+        </Button>
       </Box>
     </Box>
   );
