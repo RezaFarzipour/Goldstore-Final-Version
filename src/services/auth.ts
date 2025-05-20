@@ -20,7 +20,7 @@ interface CheckOtpResponse {
     user_type: string;
     signup_require: boolean;
   };
-  status:number
+  status: number
 }
 
 interface CheckOtpResult {
@@ -45,9 +45,9 @@ export const checkOtp = async (
 
 
 
-export const signupinfo = async(inputInfo:object) => {
-  return await api.post("Authentication/sign-up/",{
+export const signupinfo = async (inputInfo: object) => {
+  return await api.post("Authentication/sign-up/", {
     ...inputInfo,
- 
+
   })
 }

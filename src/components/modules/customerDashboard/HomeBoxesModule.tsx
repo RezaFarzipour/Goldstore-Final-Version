@@ -1,20 +1,15 @@
 import { Box, Button, Grid2, Paper, Typography } from "@mui/material";
-import { priceSeptrator } from "../../../utils/numberFormatter";
+import {
+  priceSeptrator,
+  toPersianDigits,
+} from "../../../utils/numberFormatter";
 import { useNavigate } from "react-router-dom";
 import { colors } from "../../../styles/theme";
 import { customerDashboardDataType } from "../../../types";
 import { buttononeSx, PaperOneSx } from "./HomeBoxStyle";
 
-
-const HomeBoxes = ({
-  obj,
-}: {
-  obj: customerDashboardDataType;
-}) => {
+const HomeBoxes = ({ obj }: { obj: customerDashboardDataType }) => {
   const navigate = useNavigate();
-
-
-  
 
   return (
     <Grid2
@@ -35,14 +30,14 @@ const HomeBoxes = ({
             {obj.title} :
           </Typography>
           <Typography sx={{ color: colors.grey[800] }}>
-            {obj.subtitle}
+            {toPersianDigits(obj.subtitle ?? "")}
           </Typography>
         </Box>
         <Typography
           sx={{ color: colors.primary[400], textAlign: "end", py: 3 }}
           variant="h5"
         >
-          {priceSeptrator(obj.price??0)} &nbsp;{obj.unit}
+          {toPersianDigits(priceSeptrator(obj.price ?? 0))} &nbsp;{obj.unit}
         </Typography>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Button

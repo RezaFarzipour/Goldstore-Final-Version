@@ -6,7 +6,7 @@ import {
   proveMoneyGetRequest,
 } from "../../../../services/adminPanel";
 import ReusableTable, { Column } from "../../../modules/ReusableTable";
-import SectionTitle from "../../../modules/SectionTitle";
+import SectionTitle from "../../../element/SectionTitle";
 import RequestTabs from "../../../modules/RequestTabs";
 import {
   priceSeptrator,

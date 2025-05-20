@@ -2,7 +2,7 @@ import ReusableTable, { Column } from "../../modules/ReusableTable";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { proveSaleRequest, SaleList } from "../../../services/adminPanel";
 import { Box, Container } from "@mui/material";
-import SectionTitle from "../../modules/SectionTitle";
+import SectionTitle from "../../element/SectionTitle";
 import RequestTabs from "../../modules/RequestTabs";
 import {
   priceSeptrator,
@@ -106,8 +106,8 @@ const GoldSaleTemp = () => {
           <SectionTitle title="فروش طلا" />
         </Box>
         <RequestTabs
-        label1="درخواست‌های تایید نشده"
-        label2="همه ی درهواست ها"
+          label1="درخواست‌های تایید نشده"
+          label2="همه ی درهواست ها"
           approvedRequests={renderTable(data?.unacceptable_data || [])}
           allRequests={renderTable(data?.data || [])}
         />

@@ -1,12 +1,12 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Box, Container, CircularProgress, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import ReusableTable, { Column } from "../../../modules/ReusableTable";
 import { useToast } from "../../../../context/ToastProvider";
 import {
   goldGetRequestList,
   proveGoldGetRequest,
 } from "../../../../services/adminPanel";
-import SectionTitle from "../../../modules/SectionTitle";
+import SectionTitle from "../../../element/SectionTitle";
 import RequestTabs from "../../../modules/RequestTabs";
 import { toPersianDigits } from "../../../../utils/numberFormatter";
 import { BaseAdminPanelProps } from "../../../../types";

@@ -16,7 +16,7 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CallReceivedIcon from "@mui/icons-material/CallReceived";
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 // LayoutData:
 export const navlinks: NavLinks[] = [
   {
@@ -289,7 +289,7 @@ export const AdmindrawerList: DrawerItem[] = [
       },
       {
         id: 53,
-        icon:<ReceiptLongIcon/>,
+        icon: <ReceiptLongIcon />,
         subLabel: "تراکنش ها",
         path: "/admin/reports/transactions",
         children: [],
@@ -320,7 +320,7 @@ export const getCustomerDashboardHomeData = (walletData: {
       visibility: "visable",
       price: walletData.buyPrice,
       btn: "خرید",
-      btnColor: "#41B62A",
+      btnColor: "#23fd5534",
       unit: "ریال",
       displayBtn: "flex",
       path: "/customerdashboard/buy-gold",
@@ -332,7 +332,7 @@ export const getCustomerDashboardHomeData = (walletData: {
       visibility: "visable",
       price: walletData.sellPrice,
       btn: "فروش",
-      btnColor: "#FF3F3F",
+      btnColor: "#aF1F1F",
       unit: "ریال",
       displayBtn: "flex",
       path: "/customerdashboard/sell-gold",
@@ -344,7 +344,7 @@ export const getCustomerDashboardHomeData = (walletData: {
       visibility: "hidden",
       price: walletData.walletBalance,
       btn: "افزایش موجودی",
-      btnColor: "skyblue",
+      btnColor: "#93672A",
       unit: "ریال",
       displayBtn: "flex",
       path: "/customerdashboard/deposit",

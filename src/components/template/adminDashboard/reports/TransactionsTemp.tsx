@@ -1,6 +1,6 @@
 import ReusableTable, { Column } from "../../../modules/ReusableTable";
 import { Box, Container } from "@mui/material";
-import SectionTitle from "../../../modules/SectionTitle";
+import SectionTitle from "../../../element/SectionTitle";
 import { transactionList } from "../../../../services/adminPanel";
 import { useQuery } from "@tanstack/react-query";
 import { BaseAdminPanelProps } from "../../../../types";
@@ -38,7 +38,7 @@ const TransactionsTemp = () => {
 
   // بررسی وجود داده‌ها
   if (!data || !data.transaction_list) {
-    return <div>داده‌ها در دسترس نیستند.</div>;
+    return <div> در دسترس نیستند.</div>;
   }
   return (
     <Box

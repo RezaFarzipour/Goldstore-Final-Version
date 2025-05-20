@@ -1,9 +1,6 @@
-
 import { Box } from "@mui/material";
-
-
 import { Rtl } from "../../element/rtl";
-import SectionTitle from "../../modules/SectionTitle";
+import SectionTitle from "../../element/SectionTitle";
 import DepositeBox from "../../modules/DepositeBoxModule";
 
 const Deposit = () => {
@@ -17,7 +14,7 @@ const Deposit = () => {
         }}
       >
         <Box sx={{ maxWidth: "800px" }}>
-         <SectionTitle title="واریز"/>
+          <SectionTitle title="واریز" />
           <DepositeBox
             headerContent="مبلغ را وارد کنید"
             footerContent="موجود کیف پول"
