@@ -13,6 +13,7 @@ import { Rtl } from "../element/rtl";
 import { Button } from "@mui/material";
 import ListBoxElement from "../element/ListBoxElement";
 import { deleteCookie } from "../../utils/cookie";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 type DashboardDrawerProps = {
   open: boolean;
@@ -106,12 +107,15 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
               )}
             </ListItem>
           ))}
+          <Box sx={{ width: "100%",display:"flex",justifyContent:"center" }}>
           <Button
-            sx={{ mt: 2, color: "red", fontWeight: "400", fontSize: "17px" }}
+          startIcon={<ExitToAppIcon/>}
+            sx={{ mt: 2, color: "#111",bgcolor:"red",  width: "50%",fontWeight: "400", fontSize: "17px", }}
             onClick={handleLogout}
           >
             خروج
           </Button>
+          </Box>
         </List>
       </Box>
     </Rtl>
