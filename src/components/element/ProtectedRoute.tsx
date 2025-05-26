@@ -3,7 +3,7 @@ import { useAuthorize } from "../../hooks/useAuthorize";
 
 interface ProtectedRouteProps {
   children: JSX.Element;
-  allowedUserType?: "admin" | "customer"; // اختیاری
+  allowedUserType?: "admin" | "customer";
   redirectTo?: string; // مسیر ریدایرکت وقتی userType اشتباهه یا کاربر لاگین هست اما نباید به صفحه مهمان بره
   guestOnly?: boolean; // اگر true بود یعنی صفحه فقط برای مهمان‌هاست (مثلا signup)
 }
@@ -11,14 +11,13 @@ interface ProtectedRouteProps {
 const ProtectedRoute = ({
   children,
   allowedUserType,
-  redirectTo = "/", // مسیر پیش‌فرض ریدایرکت
+  redirectTo = "/",
   guestOnly = false,
 }: ProtectedRouteProps) => {
-  const { isAuthenticated, userType } = useAuthorize();
+  const { isAuthenticated, userType, isFullyRegistered } = useAuthorize();
 
   if (guestOnly) {
-    // صفحه مخصوص مهمان‌ها (login/signup)
-    if (isAuthenticated) {
+    if (isAuthenticated && isFullyRegistered) {
       // اگر کاربر لاگین کرده، ریدایرکت کن به داشبوردش
       const dashboardPath =
         userType === "admin" ? "/admin" : "/customerdashboard";

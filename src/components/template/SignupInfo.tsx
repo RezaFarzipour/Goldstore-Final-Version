@@ -12,7 +12,10 @@ import { useForm } from "react-hook-form";
 import { SignupFormValues, signupSchema } from "../../schemas/signupInfoSchema";
 const SignupInfoTemp = () => {
   const navigate = useNavigate();
-
+  document.cookie =
+    "is_fully_registered=true; path=/; max-age=" +
+    60 * 60 * 24 * 7 +
+    "; Secure; SameSite=Strict";
   interface inputStateProps {
     first_name: string;
     last_name: string;
@@ -37,9 +40,7 @@ const SignupInfoTemp = () => {
     mutationFn: signupinfo,
   });
 
-  const submitHandler = async (data:SignupFormValues) => {
-
-
+  const submitHandler = async (data: SignupFormValues) => {
     const response = await mutateAsync(data);
     if (response && response.status === 200) {
       console.log(response.data.responseFA);
