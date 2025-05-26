@@ -13,7 +13,7 @@ import { Rtl } from "../element/rtl";
 import { Button } from "@mui/material";
 import ListBoxElement from "../element/ListBoxElement";
 import { deleteCookie } from "../../utils/cookie";
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 type DashboardDrawerProps = {
   open: boolean;
@@ -51,72 +51,90 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
           width: 250,
           bgcolor: colors.grey[300],
           height: "100%",
-          overflowY: cMinHeight ? "hidden" : "auto",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
         }}
         role="presentation"
       >
-        <Box mb={4} ml={2}>
-          <Logo display="" />
-        </Box>
-        <List>
-          {drawerList.map((segment) => (
-            <ListItem key={segment.id} disablePadding>
-              {segment.children && segment.children.length > 0 ? (
-                <ListItemText
-                  sx={{ color: "white" }}
-                  primaryTypographyProps={{ fontSize: "17px" }}
-                  primary={
-                    <ListBoxElement
-                      segment={segment}
-                      handleSubmit={handleSubmit}
-                      selectedIndex={selectedIndex}
-                      cMinHeight={cMinHeight}
-                      setCMinHeight={setCMinHeight}
-                    />
-                  }
-                />
-              ) : (
-                <ListItemButton
-                  onClick={() => handleSubmit(segment.id, segment.path)}
-                  sx={{
-                    ":hover": { bgcolor: colors.gold[100] },
-                    bgcolor:
-                      segment.id === selectedIndex
-                        ? colors.gold[100]
-                        : "transparent",
-                  }}
-                >
-                  <Box
+        <Box>
+          <Box mb={4} ml={2}>
+            <Logo display="" />
+          </Box>
+          <List>
+            {drawerList.map((segment) => (
+              <ListItem key={segment.id} disablePadding>
+                {segment.children && segment.children.length > 0 ? (
+                  <ListItemText
+                    sx={{ color: "white" }}
+                    primaryTypographyProps={{ fontSize: "17px" }}
+                    primary={
+                      <ListBoxElement
+                        segment={segment}
+                        handleSubmit={handleSubmit}
+                        selectedIndex={selectedIndex}
+                        cMinHeight={cMinHeight}
+                        setCMinHeight={setCMinHeight}
+                      />
+                    }
+                  />
+                ) : (
+                  <ListItemButton
+                    onClick={() => handleSubmit(segment.id, segment.path)}
                     sx={{
-                      color:
+                      ":hover": { bgcolor: colors.gold[100] },
+                      bgcolor:
                         segment.id === selectedIndex
-                          ? colors.primary[300]
-                          : "white",
+                          ? colors.gold[100]
+                          : "transparent",
                     }}
-                    display={"flex"}
-                    alignItems={"center"}
-                    gap={2}
                   >
-                    {segment.icon}
-                    <ListItemText
-                      primaryTypographyProps={{ fontSize: "17px" }}
-                      primary={segment.label}
-                    />
-                  </Box>
-                </ListItemButton>
-              )}
-            </ListItem>
-          ))}
-          <Box sx={{ width: "100%",display:"flex",justifyContent:"center" }}>
+                    <Box
+                      sx={{
+                        color:
+                          segment.id === selectedIndex
+                            ? colors.primary[300]
+                            : "white",
+                      }}
+                      display={"flex"}
+                      alignItems={"center"}
+                      gap={2}
+                    >
+                      {segment.icon}
+                      <ListItemText
+                        primaryTypographyProps={{ fontSize: "17px" }}
+                        primary={segment.label}
+                      />
+                    </Box>
+                  </ListItemButton>
+                )}
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+
+        {/* Logout Button */}
+        <Box sx={{ px: 2, pb: 3 }}>
           <Button
-          startIcon={<ExitToAppIcon/>}
-            sx={{ mt: 2, color: "#111",bgcolor:"red",  width: "50%",fontWeight: "400", fontSize: "17px", }}
+            fullWidth
+            startIcon={<ExitToAppIcon />}
             onClick={handleLogout}
+            sx={{
+              color: "#fff",
+              fontWeight: 400,
+              fontSize: "17px",
+              ":hover": {
+                color: "#f44336", // red
+                "& svg": {
+                  color: "#f44336",
+                },
+              },
+              justifyContent: "flex-start",
+            }}
           >
             خروج
           </Button>
-          </Box>
-        </List>
+        </Box>
       </Box>
     </Rtl>
   );
