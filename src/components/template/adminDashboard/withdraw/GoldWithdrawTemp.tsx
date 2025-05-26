@@ -115,6 +115,8 @@ const GoldWithdrawTemp = () => {
           <SectionTitle title="برداشت طلا" />
         </Box>
         <RequestTabs
+        label1="درخواست های تایید نشده"
+        label2="همه ی درخواست ها"
           allRequests={
             <ReusableTable
               columns={columns}

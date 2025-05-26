@@ -143,6 +143,8 @@ const CashWithdrawTemp = () => {
         </Box>
 
         <RequestTabs
+                label1="درخواست های تایید نشده"
+        label2="همه ی درخواست ها"
           allRequests={
             <RequestTable
               rows={data.all_request}
