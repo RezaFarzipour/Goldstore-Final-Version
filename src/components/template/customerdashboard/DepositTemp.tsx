@@ -11,9 +11,10 @@ const Deposit = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          width: "100%",
         }}
       >
-        <Box sx={{ maxWidth: "800px" }}>
+        <Box sx={{ width: "100%", maxWidth: { xs: "90%", md: "40%" } }}>
           <SectionTitle title="واریز" />
           <DepositeBox
             headerContent="مبلغ را وارد کنید"

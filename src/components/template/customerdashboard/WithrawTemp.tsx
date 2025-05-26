@@ -50,9 +50,10 @@ const Withdraw = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            width: "100%",
           }}
         >
-          <div style={{ maxWidth: "800px" }}>
+          <Box sx={{ width: "100%", maxWidth: { xs: "90%", md: "40%" } }}>
             <SectionTitle title="برداشت" />
             <DepositeBox
               error={widthrawError}
@@ -68,7 +69,7 @@ const Withdraw = () => {
               buttonValue="برداشت"
               display="flex"
             />
-          </div>
+          </Box>
         </Box>
       </Rtl>
     </>

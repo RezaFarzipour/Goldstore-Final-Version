@@ -22,6 +22,7 @@ const VerifyCodePage = () => {
     setLoading(true);
 
     const { response, err } = await checkOtp(token, verifyCode);
+    console.log("res",response);
 
     if (response && response.status === 200) {
       showToast("به سامانه ی طلای تهران خوش آمدید","success")
@@ -31,20 +32,24 @@ const VerifyCodePage = () => {
 
       if (response.data.signup_require) {
         navigate("/signupinfo");
+        return;
       } else if (
         response.data.user_type === "customer" &&
         !response.data.signup_require
       ) {
         navigate("/customerdashboard/");
+        return;
       } else if (
         response.data.user_type === "admin" &&
         !response.data.signup_require
       ) {
         navigate("/admin/inventory");
+        return;
       }
     } else if (err) {
       showToast("خطایی رخ داده است","error")
       setLoading(false);
+      return;
     
     }
   };
