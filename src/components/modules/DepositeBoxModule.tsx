@@ -13,6 +13,8 @@ import { priceSeptrator, removeCommas, toPersianDigits } from "../../utils/numbe
 import { colors } from "../../styles/theme";
 import { useToast } from "../../context/ToastProvider";
 
+
+
 type DepositeBoxProps = {
   buttonValue: string;
   display?: "flex" | "none";
@@ -21,12 +23,12 @@ type DepositeBoxProps = {
   unit: string;
   walletBalance?: number;
   walletGoldBalance?: number;
-  assetAmountChanger: (value: string) => void;
-  assetAmount: string;
-  submit: (assetAmount: string) => void;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  isPending: boolean;
-  error?: Error |null;
+  assetAmountChanger?: (value: string) => void;
+  assetAmount?: string;
+  submit?: (assetAmount: string ) => void;
+  handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  isPending?: boolean;
+  error?: Error & { status?: number } | null;
 };
 
 const DepositeBox = ({
@@ -50,9 +52,14 @@ const DepositeBox = ({
   const { showToast } = useToast();
   
   const submitHandler = async () => {
-    const newValue = removeCommas(assetAmount);
-    await submit(newValue);
-    assetAmountChanger("");
+    
+    if (assetAmount !== undefined && submit) {
+      const newValue = removeCommas(assetAmount);
+      await submit(newValue);
+    }
+    if (assetAmountChanger) {
+      assetAmountChanger("");
+    }
     
     if (error && error.status ===404) {
       showToast("خحطایی رخ داده است", "error");
@@ -60,6 +67,7 @@ const DepositeBox = ({
     }
     showToast("درخواست برداشت موفق بود.منتظر تایید ادمین باشید", "success");
   };
+  
 
   return (
     <Paper
@@ -81,7 +89,6 @@ const DepositeBox = ({
       <TextField
         type="text"
         inputMode="numeric"
-        pattern="\d*"
         placeholder="مقدار را وارد کنید"
         sx={{
           input: { color: "#fff" },
