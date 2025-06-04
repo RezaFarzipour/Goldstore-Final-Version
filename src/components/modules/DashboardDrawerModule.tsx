@@ -50,7 +50,7 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
         sx={{
           width: 250,
           bgcolor: colors.grey[300],
-          height: "100%",
+          minHeight: "100dvh",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -58,7 +58,7 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
         role="presentation"
       >
         <Box>
-          <Box mb={4} ml={2}>
+          <Box pb={1} ml={2}>
             <Logo display="" />
           </Box>
           <List>

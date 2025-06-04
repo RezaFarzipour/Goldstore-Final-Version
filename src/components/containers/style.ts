@@ -2,9 +2,8 @@ import { colors } from "../../styles/theme";
 
 export const svgcontainer = {
   width: "100%",
-  minHeight: "100vh",
+  minHeight: "100dvh",
   height: "auto",
-
   textAlign: "center",
   backgroundPosition: "center",
   backgroundSize: "100% 100%",
