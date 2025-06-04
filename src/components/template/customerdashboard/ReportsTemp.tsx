@@ -1,12 +1,17 @@
-import { Box, Container } from "@mui/material";
-import { colors } from "../../../styles/theme";
+import { Box, Container, Tab, Tabs } from "@mui/material";
 import RequestTabs from "../../modules/RequestTabs";
 import ReusableTable from "../../modules/ReusableTable";
 import { useQuery } from "@tanstack/react-query";
 import { customerReports } from "../../../services/customerDashboard";
-import SectionTitle from "../../element/SectionTitle";
+import { useState } from "react";
 
 const Reports = () => {
+  const [mainTab, setMainTab] = useState(0);
+
+  const handleMainTabChange = (_: React.SyntheticEvent, newValue: number) => {
+    setMainTab(newValue);
+  };
+
   interface transactionType {
     money_amount: string;
     requested_date: string;
@@ -54,87 +59,94 @@ const Reports = () => {
   if (!data) {
     return <div>داده‌ها در دسترس نیستند.</div>;
   }
+
   return (
-    <>
-      <Box sx={{ my: 4 }}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            color: colors.primary[400],
-          }}
+    <Box sx={{ pt: 4 }}>
+      {/* تب‌های اصلی */}
+      <Container maxWidth="lg">
+        <Tabs
+          value={mainTab}
+          onChange={handleMainTabChange}
+          centered
+          textColor="primary"
+          indicatorColor="primary"
         >
-          <SectionTitle title="واریز و برداشت وجه" />
-        </Box>
+          <Tab label="واریز و برداشت وجه" />
+          <Tab label="خرید و فروش طلا" />
+        </Tabs>
+      </Container>
 
-        {/* table1 */}
-        <Container maxWidth="lg" sx={{ padding: "20px" }}>
-          <RequestTabs
-            label1="واریز"
-            label2="برداشت"
-            approvedRequests={
-              <ReusableTable
-                columns={columns}
-                rows={data?.depositRep.data.map((item: transactionType) => ({
-                  ...item,
-                  money_amount: item.money_amount,
-                  requested_date: item.requested_date,
-                  requested_status: item.requested_status,
-                }))}
-                showActions={false}
-              />
-            }
-            allRequests={
-              <ReusableTable
-                columns={columns}
-                rows={data?.widhrawRep.data.map((item: transactionType) => ({
-                  ...item,
-                  money_amount: item.money_amount,
-                  requested_date: item.requested_date,
-                  requested_status: item.requested_status,
-                }))}
-              />
-            }
-          ></RequestTabs>
-        </Container>
-      </Box>
+      {/* محتوای تب اول: واریز و برداشت وجه */}
+      {mainTab === 0 && (
+        <>
+          <Container maxWidth="lg" sx={{ padding: "20px" }}>
+            <RequestTabs
+              label1="واریز"
+              label2="برداشت"
+              approvedRequests={
+                <ReusableTable
+                  columns={columns}
+                  rows={data?.depositRep.data.map((item: transactionType) => ({
+                    ...item,
+                    money_amount: item.money_amount,
+                    requested_date: item.requested_date,
+                    requested_status: item.requested_status,
+                  }))}
+                  showActions={false}
+                />
+              }
+              allRequests={
+                <ReusableTable
+                  columns={columns}
+                  rows={data?.widhrawRep.data.map((item: transactionType) => ({
+                    ...item,
+                    money_amount: item.money_amount,
+                    requested_date: item.requested_date,
+                    requested_status: item.requested_status,
+                  }))}
+                />
+              }
+            />
+          </Container>
+        </>
+      )}
 
-      {/* table2 */}
-
-      <Box sx={{ my: 6 }}>
-        <SectionTitle title="خرید و فروش(طلا)" />
-        <Container maxWidth="lg" sx={{ padding: "20px" }}>
-          <RequestTabs
-            label1="خرید"
-            label2="فروش"
-            approvedRequests={
-              <ReusableTable
-                columns={buycolumn}
-                rows={data?.buyRep.data.map((item) => ({
-                  ...item,
-                  money_amount: item.money_amount,
-                  sale_date: item.sale_date,
-                  gold_amount: item.gold_amount,
-                  request_status: item.request_status,
-                }))}
-              />
-            }
-            allRequests={
-              <ReusableTable
-                columns={column2}
-                rows={data?.sellRep.data.map((item: GoldTransaction) => ({
-                  ...item,
-                  money_amount: item.money_amount,
-                  sale_date: item.sale_date,
-                  gold_amount: item.gold_amount,
-                  request_status: item.request_status,
-                }))}
-              />
-            }
-          ></RequestTabs>
-        </Container>
-      </Box>
-    </>
+      {/* محتوای تب دوم: خرید و فروش طلا */}
+      {mainTab === 1 && (
+        <>
+          <Container maxWidth="lg" sx={{ padding: "20px" }}>
+            <RequestTabs
+              label1="خرید"
+              label2="فروش"
+              approvedRequests={
+                <ReusableTable
+                  columns={buycolumn}
+                  rows={data?.buyRep.data.map((item: GoldTransaction) => ({
+                    ...item,
+                    money_amount: item.money_amount,
+                    buy_date: item.buy_date,
+                    gold_amount: item.gold_amount,
+                    request_status: item.request_status,
+                  }))}
+                />
+              }
+              allRequests={
+                <ReusableTable
+                  columns={column2}
+                  rows={data?.sellRep.data.map((item: GoldTransaction) => ({
+                    ...item,
+                    money_amount: item.money_amount,
+                    sale_date: item.sale_date,
+                    gold_amount: item.gold_amount,
+                    request_status: item.request_status,
+                  }))}
+                />
+              }
+            />
+          </Container>
+        </>
+      )}
+    </Box>
   );
 };
 
