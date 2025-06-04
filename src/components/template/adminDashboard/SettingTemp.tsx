@@ -95,8 +95,8 @@ const SettingTemp = () => {
 
   return (
     <Rtl>
-      <Box my={8}>
-        <Box my={2} display="flex" justifyContent="center" alignItems="center">
+      <Box py={4} px={2}>
+        <Box display="flex" justifyContent="center" alignItems="center">
           <AdminPermission stock_status={data?.data?.stock_status} />
         </Box>
 

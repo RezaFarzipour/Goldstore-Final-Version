@@ -30,7 +30,7 @@ const DashboardHome = () => {
   return (
     <Box>
       <Box
-        sx={{ margin: "auto", display: "block", textAlign: "center", mb: 10 }}
+        sx={{ margin: "auto", display: "block", textAlign: "center", mb: 5 }}
       >
         <SectionTitle title="میز کار" />
       </Box>
