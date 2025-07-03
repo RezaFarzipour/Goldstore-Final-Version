@@ -77,7 +77,7 @@ const Footer = () => {
       </Grid>
       <hr style={hr_style} />
       <Typography sx={made_by_adlikara_typo} textAlign="center">
-        ساخته شده توسط ❤️
+        ساخته شده توسط آدلی کارا
       </Typography>
     </Grid>
   );

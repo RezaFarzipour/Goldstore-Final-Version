@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useAuthorize } from "../../hooks/useAuthorize";
+import { JSX } from "react";
 
 interface ProtectedRouteProps {
   children: JSX.Element;
