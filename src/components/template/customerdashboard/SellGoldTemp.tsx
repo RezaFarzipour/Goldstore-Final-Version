@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { sellgold, walletdata } from "../../../services/customerDashboard";
 import { ErrorPendingHandler } from "../../element/ErrrorPendingHandler";
 import { useToast } from "../../../context/ToastProvider";
+import SectionTitle from "../../element/SectionTitle";
 
 const SellGold = () => {
   const [textFieldValue, setTextFieldValue] = React.useState("");
@@ -48,8 +49,9 @@ const SellGold = () => {
   return (
     <>
       <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center",flexDirection:"column" }}
       >
+        <SectionTitle title="فروش طلا" />
         <BuyAndSellBox
         setGoldTextField={setGoldTextField}
         setTextFieldValue={setTextFieldValue}

@@ -14,7 +14,7 @@ const Deposit = () => {
           width: "100%",
         }}
       >
-        <Box sx={{ width: "100%", maxWidth: { xs: "90%", md: "40%" } }}>
+        <Box sx={{ width: "100%", maxWidth: { xs: "90%", md: "35%" } }}>
           <SectionTitle title="واریز" />
           <DepositeBox
             headerContent="مبلغ را وارد کنید"

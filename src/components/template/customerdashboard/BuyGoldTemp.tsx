@@ -5,6 +5,7 @@ import { buyGold, walletdata } from "../../../services/customerDashboard";
 import { ErrorPendingHandler } from "../../element/ErrrorPendingHandler";
 import { useToast } from "../../../context/ToastProvider";
 import { useState } from "react";
+import SectionTitle from "../../element/SectionTitle";
 
 const BuyGold = () => {
   const { showToast } = useToast();
@@ -46,8 +47,14 @@ const BuyGold = () => {
   return (
     <>
       <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
       >
+        <SectionTitle title=" خرید طلا" />
         <BuyAndSellBox
           setGoldTextField={setGoldTextField}
           setTextFieldValue={setTextFieldValue}

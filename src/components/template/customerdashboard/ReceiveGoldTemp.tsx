@@ -37,7 +37,7 @@ const ReceiveGold = () => {
             alignItems: "center",
           }}
         >
-          <div style={{ maxWidth: "800px" }}>
+          <Box sx={{ width: "100%", maxWidth: { xs: "90%", md: "35%" } }}>
             <SectionTitle title="دریافت طلا" />
             <DepositeBox
               isPending={receiving}
@@ -52,7 +52,7 @@ const ReceiveGold = () => {
               buttonValue="دریافت"
               display="flex"
             />
-          </div>
+          </Box>
         </Box>
       </Rtl>
     </>
