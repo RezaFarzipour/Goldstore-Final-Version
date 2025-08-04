@@ -8,23 +8,28 @@ import ListItemText from "@mui/material/ListItemText";
 import { colors } from "../../styles/theme";
 import Logo from "../element/Logo";
 import { DrawerItem } from "../../types";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Rtl } from "../element/rtl";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import ListBoxElement from "../element/ListBoxElement";
 import { deleteCookie } from "../../utils/cookie";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-
+import EditIcon from "@mui/icons-material/Edit";
 type DashboardDrawerProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
   drawerList: DrawerItem[];
+  data?: {
+    first_name: string;
+    last_name: string;
+  };
 };
 
 const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
   open,
   setOpen,
   drawerList,
+  data,
 }) => {
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null);
@@ -111,29 +116,64 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
               </ListItem>
             ))}
           </List>
+
+          {/* Logout Button */}
+          <Box sx={{ px: 2, pb: 3 }}>
+            <Button
+              fullWidth
+              startIcon={<ExitToAppIcon />}
+              onClick={handleLogout}
+              sx={{
+                color: "#fff",
+                fontWeight: 400,
+                fontSize: "17px",
+                ":hover": {
+                  color: "#f44336", // red
+                  "& svg": {
+                    color: "#f44336",
+                  },
+                },
+                justifyContent: "flex-start",
+              }}
+            >
+              خروج
+            </Button>
+          </Box>
         </Box>
 
-        {/* Logout Button */}
-        <Box sx={{ px: 2, pb: 3 }}>
-          <Button
-            fullWidth
-            startIcon={<ExitToAppIcon />}
-            onClick={handleLogout}
-            sx={{
-              color: "#fff",
-              fontWeight: 400,
-              fontSize: "17px",
-              ":hover": {
-                color: "#f44336", // red
-                "& svg": {
-                  color: "#f44336",
-                },
-              },
-              justifyContent: "flex-start",
-            }}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+
+            my: 2,
+          }}
+        >
+          <Typography
+            sx={{ color: "#ddd", fontWeight: "semibold", fontSize: "16px" }}
+            className="text-secondary-800 text-sm font-bold"
           >
-            خروج
-          </Button>
+            {data ? `${data.first_name} ${data.last_name}` : "نام و نام خانوادگی"}
+          </Typography>
+          <Link to={"/customerdashboard/edit-profile"}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                p: 2.2,
+                height: 30,
+                width: 30,
+                borderRadius: "50%",
+                border: "2px solid #ddd",
+                cursor: "pointer",
+              }}
+            >
+              {" "}
+              <EditIcon sx={{ color: "white", fontSize: 17 }} />
+            </Box>
+          </Link>
         </Box>
       </Box>
     </Rtl>

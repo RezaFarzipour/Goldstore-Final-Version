@@ -5,18 +5,19 @@ import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { menuButtonStyle, navbar } from "../containers/style";
 import { Button, Typography } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
-import { usersInfo } from "../../services/adminPanel";
+
 
 type DashboardAppbarProps = {
   setOpen: (open: boolean) => void;
+  data?: {
+    first_name: string;
+    last_name: string;
+  };
 };
-export default function DashboardAppbar({ setOpen }: DashboardAppbarProps) {
-  const { data } = useQuery({
-    queryKey: ["usersInfo"],
-    queryFn: usersInfo,
-  });
-
+export default function DashboardAppbar({
+  setOpen,
+  data,
+}: DashboardAppbarProps) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={navbar}>
@@ -36,7 +37,7 @@ export default function DashboardAppbar({ setOpen }: DashboardAppbarProps) {
             }}
           >
             <Typography sx={{ color: "#fff" }}>
-              {data ? data.name : "user"}
+            {data ? `${data.first_name} ${data.last_name}` : "کاربر"}
             </Typography>
             <IconButton color="inherit">
               <AccountCircle sx={{ fontSize: "30px" }} />
