@@ -9,13 +9,15 @@ import {
   TablePagination,
   IconButton,
   useTheme,
-  Box,
+
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { colors } from "../../styles/theme";
 import { Rtl } from "../element/rtl";
 import { ActionMenu } from "../element/ActionMenu";
 import EmptyPage from "../element/Empty";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { faIR } from "@mui/material/locale";
 
 export interface Column<T> {
   id: keyof T | "actions";
@@ -52,6 +54,14 @@ const ReusableTable = <T extends object>({
     page * rowsPerPage + rowsPerPage
   );
 
+  const theme2 = React.useMemo(
+    () =>
+      createTheme({}, faIR, theme, {
+        direction: "rtl",
+      }),
+    [theme]
+  );
+
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -76,8 +86,11 @@ const ReusableTable = <T extends object>({
   if (!rows || rows.length === 0) {
     return <EmptyPage message="هیچ داده ای یافت نشد!" />;
   }
+
+
   return (
     <Rtl>
+      <ThemeProvider theme={theme2}>
       <TableContainer
         sx={{
           bgcolor: theme.palette.grey[900],
@@ -181,6 +194,7 @@ const ReusableTable = <T extends object>({
           btnAction2={btnAction2}
         />
       </TableContainer>
+      </ThemeProvider>
     </Rtl>
   );
 };
