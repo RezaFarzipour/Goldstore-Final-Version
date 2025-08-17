@@ -15,12 +15,11 @@ interface childrenPropstype {
 const DashboardLayout = ({ children, drawerList }: childrenPropstype) => {
   const [open, setOpen] = React.useState(false);
 
-
   const { data } = useQuery({
     queryKey: ["usersInfo"],
     queryFn: GetUserData,
-    staleTime: 0, 
-  refetchOnMount: true, 
+    staleTime: 0,
+    refetchOnMount: true,
   });
   return (
     <Box sx={svgcontainer}>

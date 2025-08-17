@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Rtl } from "../element/rtl";
 import { Button, Typography } from "@mui/material";
 import ListBoxElement from "../element/ListBoxElement";
-import { deleteCookie } from "../../utils/cookie";
+import { deleteCookie, getCookie } from "../../utils/cookie";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import EditIcon from "@mui/icons-material/Edit";
 type DashboardDrawerProps = {
@@ -34,6 +34,8 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null);
   const [cMinHeight, setCMinHeight] = React.useState<boolean>(false);
+  const userType: string | null = getCookie("user_type");
+
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
@@ -107,7 +109,7 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
                     >
                       {segment.icon}
                       <ListItemText
-                        primaryTypographyProps={{ fontSize: "17px" }}
+                        primaryTypographyProps={{ fontSize: "14px" }}
                         primary={segment.label}
                       />
                     </Box>
@@ -124,7 +126,7 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
               startIcon={<ExitToAppIcon />}
               onClick={handleLogout}
               sx={{
-                color: "#fff",
+                color: "#d3564dff",
                 fontWeight: 400,
                 fontSize: "17px",
                 ":hover": {
@@ -140,41 +142,38 @@ const DashboardDrawer: React.FC<DashboardDrawerProps> = ({
             </Button>
           </Box>
         </Box>
-
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-around",
-
-            my: 2,
-          }}
-        >
-          <Typography
-            sx={{ color: "#ddd", fontWeight: "semibold", fontSize: "16px" }}
-            className="text-secondary-800 text-sm font-bold"
+        {userType === "customer" && (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-around",
+              my: 2,
+            }}
           >
-            {data ? `${data.first_name} ${data.last_name}` : "نام و نام خانوادگی"}
-          </Typography>
-          <Link to={"/customerdashboard/edit-profile"}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                p: 2.2,
-                height: 30,
-                width: 30,
-                borderRadius: "50%",
-                border: "2px solid #ddd",
-                cursor: "pointer",
-              }}
+            <Typography
+              sx={{ color: "#ddd", fontWeight: "semibold", fontSize: "16px" }}
+              className="text-secondary-800 text-sm font-bold"
             >
-              {" "}
-              <EditIcon sx={{ color: "white", fontSize: 17 }} />
-            </Box>
-          </Link>
-        </Box>
+              {data
+                ? `${data.first_name} ${data.last_name}`
+                : "نام و نام خانوادگی"}
+            </Typography>
+            <Link to={"/customerdashboard/edit-profile"}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  p: 2.2,
+                  cursor: "pointer",
+                }}
+              >
+                <EditIcon sx={{ color: "white", fontSize: 17 }} />
+              </Box>
+            </Link>
+          </Box>
+        )}
       </Box>
     </Rtl>
   );

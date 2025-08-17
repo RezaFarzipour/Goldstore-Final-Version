@@ -19,6 +19,7 @@ import {
   editProfileSchema,
 } from "../../../schemas/editProfileSchema";
 import { useToast } from "../../../context/ToastProvider";
+import CircularLoading from "../../element/CircularLoading";
 
 const EditProfile = () => {
   const navigate = useNavigate();
@@ -101,8 +102,9 @@ const EditProfile = () => {
     }
   }, [UserData, reset]);
 
-  if (isPending) return <h2>در حال بارگذاری</h2>;
-
+  if (isPending) {
+    return <CircularLoading />;
+  }
   return (
     <Rtl>
       <Box
@@ -111,7 +113,7 @@ const EditProfile = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-
+          pt: 2,
           px: 2,
         }}
       >
@@ -144,7 +146,7 @@ const EditProfile = () => {
               اطلاعات کاربر
             </Typography>
             {signupInputs.map((item) => (
-              <Box sx={{ p: 2 }} key={item.id}>
+              <Box sx={{ p: 2, minWidth: "300px" }} key={item.id}>
                 <TextField
                   error={!!errors[item.name as keyof SignupFormValues]}
                   helperText={
