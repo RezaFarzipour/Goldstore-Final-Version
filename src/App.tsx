@@ -4,7 +4,6 @@ import defaultOptions from "./configs/reactQuery";
 import { ToastProvider } from "./context/ToastProvider";
 import AppRoutes from "./routes/AppRoutes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 // تابع برای اسکرول به بالای صفحه
 const scrollToTop = () => {
@@ -27,7 +26,6 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ToastProvider>
         <AppRoutes />
-       <ReactQueryDevtools initialIsOpen={false} />
       </ToastProvider>
     </QueryClientProvider>
   );
