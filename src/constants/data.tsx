@@ -278,21 +278,21 @@ export const AdmindrawerList: DrawerItem[] = [
         icon: <StorefrontIcon />,
         subLabel: "خرید طلا",
         path: "/admin/reports/gold-buy",
-        children: [],
+       
       },
       {
         id: 52,
         icon: <SellIcon />,
         subLabel: "فروش طلا",
         path: "/admin/reports/gold-sale",
-        children: [],
+     
       },
       {
         id: 53,
         icon: <ReceiptLongIcon />,
         subLabel: "تراکنش ها",
         path: "/admin/reports/transactions",
-        children: [],
+    
       },
     ],
   },

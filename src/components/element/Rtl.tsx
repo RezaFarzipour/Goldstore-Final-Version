@@ -20,7 +20,7 @@ function Rtl({ children }: { children: React.ReactNode }) {
 //make tables rtl
 
 function TableRtl({ children }: { children: React.ReactNode }) {
-  const [locale] = useState<string>("faIR");
+  const [locale] = useState<keyof typeof locales>("faIR");
   const theme = useTheme();
   const themeWithLocale = useMemo(
     () => createTheme(theme, locales[locale]),

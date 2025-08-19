@@ -1,8 +1,7 @@
-import React, {  useState } from "react";
+import React from "react";
 import {  useNavigate } from "react-router-dom";
 import { checkOtp } from "../../../services/auth";
 import { getCookie, setCookie } from "../../../utils/cookie";
-import Alerts from "../../element/AlertElement";
 import AuthLayout from "../../containers/layout/authLayout";
 import VerifyCodeBoxInput from "../../modules/authModules/VerifyCodeBoxInput";
 import { useToast } from "../../../context/ToastProvider";

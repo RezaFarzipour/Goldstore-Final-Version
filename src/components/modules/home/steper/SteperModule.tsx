@@ -18,7 +18,7 @@ import {
 } from "./style";
 
 import { colors } from "../../../../styles/theme";
-import { Rtl } from "../../../element/rtl";
+import { Rtl } from "../../../element/Rtl";
 
 const SteperStep: React.FC = () => {
   const [activeStep, setActiveStep] = React.useState<number>(0);

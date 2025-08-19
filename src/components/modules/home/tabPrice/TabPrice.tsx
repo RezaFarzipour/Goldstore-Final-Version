@@ -17,7 +17,7 @@ import {
   TabsItem,
 } from "./style";
 import TabsInputs from "./TabsInputs";
-import { Rtl } from "../../../element/rtl";
+import { Rtl } from "../../../element/Rtl";
 import { useQuery } from "@tanstack/react-query";
 import { HomeGoldStockPrice } from "../../../../services/home";
 import {

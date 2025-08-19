@@ -6,7 +6,7 @@ import { colors } from "../../styles/theme";
 
 export const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
-))(({ theme }) => ({
+))(() => ({
   backgroundColor: colors.gold[100],
   borderRadius: "11px",
   marginTop: "10px",

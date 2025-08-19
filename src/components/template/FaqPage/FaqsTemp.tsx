@@ -3,7 +3,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Typography from "@mui/material/Typography";
 import { Box, Container, Grid2 } from "@mui/material";
 import { faqsObject1, faqsObject2 } from "../../../constants/data";
-import { TypoOneSx, TypoThreeSx, TypoTitle, TypotwoSx } from "./style";
+import { TypoOneSx, TypoThreeSx, TypoTitle, TypotwoSx } from './Style';
 import { FaqItem } from "../../../types";
 import {
   Accordion,

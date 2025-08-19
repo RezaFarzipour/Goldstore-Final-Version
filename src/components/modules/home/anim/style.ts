@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
 
-export const Cotainer = styled("div")(({ theme }) => ({
+export const Cotainer = styled("div")(() => ({
     minWidth: "400px",
     width: "400px",
     display: "flex",
@@ -8,7 +8,7 @@ export const Cotainer = styled("div")(({ theme }) => ({
     alignItems: "center",
     flexWrap: "wrap",
 }));
-export const DivOne = styled("div")(({ theme }) => ({
+export const DivOne = styled("div")(() => ({
     position: "relative",
     width: "40px",
     height: "40px",
@@ -26,7 +26,7 @@ export const BoxOneSX = {
 
 
 //ArrowBottom Styles:
-export const Span = styled("div")(({ theme }) => ({
+export const Span = styled("div")(() => ({
     transform: "rotate(45deg)",
     animation: "Span1 2s  ease-out infinite ",
     "@keyframes Span1": {
@@ -42,7 +42,7 @@ export const Span = styled("div")(({ theme }) => ({
         },
     },
 }));
-export const Span2 = styled("div")(({ theme }) => ({
+export const Span2 = styled("div")(() => ({
     transform: "rotate(45deg)",
     animation: "Span2 2s   ease-in-out infinite ",
     "@keyframes Span2": {
@@ -58,7 +58,7 @@ export const Span2 = styled("div")(({ theme }) => ({
         },
     },
 }));
-export const Span3 = styled("div")(({ theme }) => ({
+export const Span3 = styled("div")(() => ({
     transform: "rotate(45deg)",
     animation: "Span3 2s  ease-in infinite ",
     "@keyframes Span3": {

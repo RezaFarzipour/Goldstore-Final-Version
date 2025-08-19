@@ -1,5 +1,5 @@
 import React from 'react'
-import { Rtl } from '../../element/rtl'
+import { Rtl } from '../../element/Rtl'
 import { Grid2, Paper } from '@mui/material'
 
 import AuthGoldImage from '../../modules/authModules/authGoldImage'

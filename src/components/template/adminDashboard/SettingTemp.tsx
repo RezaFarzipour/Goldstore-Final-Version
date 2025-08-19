@@ -1,4 +1,4 @@
-import { Rtl } from "../../element/rtl";
+import { Rtl } from "../../element/Rtl";
 import { Box } from "@mui/material";
 import DepositeBox from "../../modules/DepositeBoxModule";
 import AdminPermission from "../../element/AdminPerrmishion";

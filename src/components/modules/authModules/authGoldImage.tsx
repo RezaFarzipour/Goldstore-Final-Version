@@ -1,5 +1,4 @@
 import { Box, Typography } from '@mui/material'
-import React from 'react'
 import GoldImg from '../../../assets/images/gold-block.1262eb83.webp'
 import styles from './text.module.css'
 const AuthGoldImage = () => {

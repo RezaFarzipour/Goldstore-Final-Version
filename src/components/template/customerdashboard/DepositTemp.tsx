@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { Rtl } from "../../element/rtl";
+import { Rtl } from "../../element/Rtl";
 import SectionTitle from "../../element/SectionTitle";
 import DepositeBox from "../../modules/DepositeBoxModule";
 

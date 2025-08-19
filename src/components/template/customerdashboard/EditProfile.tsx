@@ -8,7 +8,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { colors } from "../../../styles/theme";
-import { Rtl } from "../../element/rtl";
+import { Rtl } from "../../element/Rtl";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   GetUserData,
