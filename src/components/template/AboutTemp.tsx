@@ -6,7 +6,7 @@ const AboutUsPage = () => {
     <Layout>
       <Grid2
         container
-        sx={{ p: { xs: 1, md: 8 }, justifyContent: "center", display: "flex" }}
+        sx={{ p: { xs: 1, md: 8 }, mt:{xs:4}, justifyContent: "center", display: "flex" }}
       >
         <Typography
           sx={{
