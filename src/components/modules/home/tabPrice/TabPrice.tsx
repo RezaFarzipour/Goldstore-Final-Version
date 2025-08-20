@@ -25,6 +25,7 @@ import {
   toPersianDigits,
 } from "../../../../utils/numberFormatter";
 import { useGoldConverter } from "../../../../hooks/useGoldConverter";
+import Loader from "../../../element/Loader";
 
 const TabPrice = () => {
   const [value, setValue] = React.useState(0);
@@ -96,7 +97,7 @@ const TabPrice = () => {
   // Extracted form component
 
   if (isLoading) {
-    return <div>در حال بارگذاری...</div>;
+    return <Loader/>;
   }
 
   return (
