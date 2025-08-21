@@ -11,7 +11,6 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title }) => {
     <Box
       sx={{
         display: "flex",
-        mt:5,
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
