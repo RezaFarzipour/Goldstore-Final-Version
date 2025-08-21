@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { Snackbar, Alert } from "@mui/material";
-import { Rtl } from "../components/element/rtl";
+import { Rtl } from "../components/element/Rtl"; 
 
 // تعریف نوع برای Context
 interface ToastContextType {

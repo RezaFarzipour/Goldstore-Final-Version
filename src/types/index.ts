@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+
 
 export interface NavLinks {
   id: number;
@@ -36,12 +36,16 @@ export type FaqItem = {
 
 
 export type DrawerItem = {
+  icon?: React.ReactNode;
   id: number;
-  subLabel?: string;
-  label?: string;
-  icon?: ReactNode;
-  path: string;
-  children?: DrawerItem[];
+  label: string;
+  path: string ;
+  children?: {
+    icon?: React.ReactNode;
+    id: number;
+    subLabel: string;
+    path: string;
+  }[];
 };
 
 export type customerDashboardDataType = {

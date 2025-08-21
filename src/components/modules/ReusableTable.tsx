@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { colors } from "../../styles/theme";
-import { Rtl } from "../element/rtl";
+import { Rtl } from "../element/Rtl";
 import { ActionMenu } from "../element/ActionMenu";
 import EmptyPage from "../element/Empty";
 import { createTheme, ThemeProvider } from "@mui/material/styles";

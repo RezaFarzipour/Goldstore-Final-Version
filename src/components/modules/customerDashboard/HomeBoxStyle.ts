@@ -1,7 +1,4 @@
-import { colors } from "@mui/material";
-
-export const buttononeSx = (bg, dis) => {
-
+export const buttononeSx = (bg:string| undefined, dis:string) => {
   const S2 = {
     width: "80%",
     my: 1,
@@ -16,12 +13,10 @@ export const buttononeSx = (bg, dis) => {
     },
     whiteSpace: "nowrap",
     backgroundColor: bg,
-    color: "#eefefe"
+    //color: "#eefefe",
+  };
 
-  }
-
-  return S2
-
+  return S2;
 };
 
 export const PaperOneSx = {

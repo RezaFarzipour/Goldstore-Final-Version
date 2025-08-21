@@ -7,16 +7,19 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { colors } from "../../styles/theme";
 import { Box } from "@mui/material";
+import { DrawerItem } from "../../types";
 
-type DrawerItem = {
-  id: number;
-  label: string;
-  children?: {
-    id: number;
-    subLabel: string;
-    path: string;
-  }[];
-};
+// type DrawerItem = {
+//   icon?: React.ReactNode;
+//   id: number;
+//   label: string;
+//   children?: {
+//     icon?: React.ReactNode;
+//     id: number;
+//     subLabel: string;
+//     path: string;
+//   }[];
+// };
 
 type Props = {
   segment: DrawerItem;

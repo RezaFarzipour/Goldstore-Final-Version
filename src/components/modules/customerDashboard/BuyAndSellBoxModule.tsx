@@ -5,7 +5,7 @@ import { priceSeptrator } from "../../../utils/numberFormatter";
 import BuyAndSellBoxHeader from "../../element/buyandsell/BoxHeader";
 import BuyAndSellBoxFooter from "../../element/buyandsell/BoxFooter";
 import { BaseProps } from "../../../types";
-import { Rtl } from "../../element/rtl";
+import { Rtl } from "../../element/Rtl";
 import { useToast } from "../../../context/ToastProvider";
 import { useGoldConverter } from "../../../hooks/useGoldConverter";
 import { BButtonThreeSx, PaperOneSxBuyGold, PapertwoSx } from "./buysellstyle";

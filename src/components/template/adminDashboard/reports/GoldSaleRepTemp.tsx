@@ -31,7 +31,7 @@ const columns: Column<User>[] = [
 ];
 
 const GoldSaleRepTemp = () => {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["gold-sales"],
     queryFn: SaleList,
   });

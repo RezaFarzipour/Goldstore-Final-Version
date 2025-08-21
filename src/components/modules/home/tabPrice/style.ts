@@ -93,7 +93,7 @@ export const TabsItem = {
   },
 };
 
-export const TabItem = (colorTab) => {
+export const TabItem = (colorTab:string | boolean) => {
   const S4 = {
     bgcolor: colorTab ? null : `${colors.gold[100]} !important`,
     color: colorTab ? null : "#444 !important",
@@ -103,7 +103,7 @@ export const TabItem = (colorTab) => {
   return S4;
 };
 
-export const TabItem2 = (colorTab) => {
+export const TabItem2 = (colorTab:string | boolean) => {
   const S5 = {
     bgcolor: colorTab ? `${colors.gold[100]} !important` : null,
     color: colorTab ? "#444 !important" : null,

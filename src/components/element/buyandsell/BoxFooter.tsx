@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
 import { colors } from "../../../styles/theme";
 import { WalletDataResponse } from "../../../types";
 import { priceSeptrator } from "../../../utils/numberFormatter";
