@@ -6,7 +6,7 @@ import BuyAndSellBoxHeader from "../../element/buyandsell/BoxHeader";
 import BuyAndSellBoxFooter from "../../element/buyandsell/BoxFooter";
 import { BaseProps } from "../../../types";
 import { Rtl } from "../../element/Rtl";
-import { useToast } from "../../../context/ToastProvider";
+// import { useToast } from "../../../context/ToastProvider";
 import { useGoldConverter } from "../../../hooks/useGoldConverter";
 import { BButtonThreeSx, PaperOneSxBuyGold, PapertwoSx } from "./buysellstyle";
 
@@ -28,7 +28,7 @@ const BuyAndSellBox = ({
   walletData,
   price = 0,
   isPending,
-  walletBalance,
+  // walletBalance,
   textFieldValue,
   goldTextField,
   setGoldTextField,
@@ -36,7 +36,7 @@ const BuyAndSellBox = ({
   mutate,
 }: BuyAndSellBoxProps) => {
   const [isEditingGold, setIsEditingGold] = React.useState<boolean>(false);
-  const { showToast } = useToast();
+  // const { showToast } = useToast();
 
   useGoldConverter({
     price,
