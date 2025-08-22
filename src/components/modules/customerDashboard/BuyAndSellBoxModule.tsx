@@ -48,12 +48,12 @@ const BuyAndSellBox = ({
   });
 
   const handleSubmit = () => {
-    const totalMoney = parseFloat(textFieldValue.replace(/,/g, ""));
+    // const totalMoney = parseFloat(textFieldValue.replace(/,/g, ""));
 
-    if (walletBalance !== undefined && totalMoney > walletBalance) {
-      showToast("موجودی کافی نیست", "error");
-      return;
-    }
+    // if (walletBalance !== undefined && totalMoney > walletBalance) {
+    //   showToast("موجودی کافی نیست", "error");
+    //   return;
+    // }
 
     mutate(goldTextField);
   };
