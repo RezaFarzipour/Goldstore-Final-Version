@@ -7,8 +7,20 @@ import Layout from "../../containers/layout/Layout";
 import TabPrice from "../../modules/home/tabPrice/TabPrice";
 import ArrowBottom from "../../modules/home/anim/ArrowBottom";
 import Header from "../../modules/home/Header";
+import { HomeGoldStockPrice } from "../../../services/home";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "../../element/Loader";
 
 const Homepage: React.FC = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["settingData"],
+    queryFn: HomeGoldStockPrice,
+  });
+
+  if (isLoading) {
+    return <Loader/>;
+  }
+
   return (
     <Layout>
       <Container maxWidth="xl">
@@ -75,7 +87,7 @@ const Homepage: React.FC = () => {
               pt: { xs: 0, md: 4 },
             }}
           >
-            <TabPrice />
+            <TabPrice data={data}/>
           </Grid2>
         </Grid2>
 
