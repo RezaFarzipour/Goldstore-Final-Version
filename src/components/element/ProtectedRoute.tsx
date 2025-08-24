@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuthorize } from "../../hooks/useAuthorize";
 import { JSX } from "react";
 
@@ -16,27 +16,40 @@ const ProtectedRoute = ({
   guestOnly = false,
 }: ProtectedRouteProps) => {
   const { isAuthenticated, userType, isFullyRegistered } = useAuthorize();
+  const location = useLocation();
 
+  // -------------------------
+  // صفحات فقط برای مهمان‌ها
+  // -------------------------
   if (guestOnly) {
     if (isAuthenticated && isFullyRegistered) {
-      // اگر کاربر لاگین کرده، ریدایرکت کن به داشبوردش
+      // اگر کاربر کامل ثبت‌نام کرده، بفرستش داشبورد
       const dashboardPath =
         userType === "admin" ? "/admin" : "/customerdashboard";
       return <Navigate to={dashboardPath} replace />;
     }
-    // اگر مهمان هست، اجازه بده صفحه رو ببینه
+    // در غیر این صورت اجازه بده صفحه مهمان دیده بشه
     return children;
   }
 
-  // صفحات محافظت شده
+  // -------------------------
+  // صفحات محافظت‌شده (نیاز به لاگین)
+  // -------------------------
   if (!isAuthenticated) {
     return <Navigate to="/signup" replace />;
   }
 
+  // اگر لاگین کرده ولی هنوز ثبت‌نام تکمیلی نکرده
+  if (!isFullyRegistered && location.pathname !== "/signupinfo") {
+    return <Navigate to="/signupinfo" replace />;
+  }
+
+  // اگر نوع کاربر درست نباشه
   if (allowedUserType && userType !== allowedUserType) {
     return <Navigate to={redirectTo} replace />;
   }
 
+  // در حالت عادی صفحه رو نشون بده
   return children;
 };
 
