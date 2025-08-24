@@ -34,7 +34,7 @@ const VerifyNumberPage: React.FC = () => {
   return (
     <AuthLayout>
       {/* متن راهنما */}
-      <AdminHintToast adminPhone="09104466400" />
+      <AdminHintToast adminPhone="09921188364" />
 
       <VerifyNumberBoxInput
         onSubmit={onSubmit}
