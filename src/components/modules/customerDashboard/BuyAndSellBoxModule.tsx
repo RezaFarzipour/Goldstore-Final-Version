@@ -6,7 +6,7 @@ import BuyAndSellBoxHeader from "../../element/buyandsell/BoxHeader";
 import BuyAndSellBoxFooter from "../../element/buyandsell/BoxFooter";
 import { BaseProps } from "../../../types";
 import { Rtl } from "../../element/Rtl";
-import { useToast } from "../../../context/ToastProvider"; // ✅ فعال شد
+import { useToast } from "../../../context/ToastProvider";
 import { useGoldConverter } from "../../../hooks/useGoldConverter";
 import { BButtonThreeSx, PaperOneSxBuyGold, PapertwoSx } from "./buysellstyle";
 
@@ -56,6 +56,14 @@ const BuyAndSellBox = ({
     ) {
       showToast("موجودی کافی نیست", "error");
       return;
+    }
+
+    if (buttonValue === "خرید" && walletBalance !== undefined) {
+      const totalMoney = parseFloat(textFieldValue.replace(/,/g, ""));
+      if (totalMoney > walletBalance) {
+        showToast("موجودی کافی نیست", "error");
+        return;
+      }
     }
 
     mutate(goldTextField);
