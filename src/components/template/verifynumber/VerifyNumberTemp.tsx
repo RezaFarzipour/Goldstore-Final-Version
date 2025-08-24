@@ -6,6 +6,7 @@ import VerifyNumberBoxInput from "../../modules/authModules/VerifyNumberBoxInput
 import AuthLayout from "../../containers/layout/authLayout";
 import { PhoneFormData } from "../../../schemas/phoneSchema";
 import { useToast } from "../../../context/ToastProvider";
+import AdminHintToast from "../../modules/AdminHintToast";
 
 const VerifyNumberPage: React.FC = () => {
   const navigate = useNavigate();
@@ -16,8 +17,6 @@ const VerifyNumberPage: React.FC = () => {
   const onSubmit = async (data: PhoneFormData) => {
     setLoading(true);
     const { response, err } = await sendOtp(data.phone);
-
-    console.log("response", response);
 
     if (response && response.status === 200) {
       const code = response.data?.code;
@@ -34,6 +33,9 @@ const VerifyNumberPage: React.FC = () => {
 
   return (
     <AuthLayout>
+      {/* متن راهنما */}
+      <AdminHintToast adminPhone="09104466400" />
+
       <VerifyNumberBoxInput
         onSubmit={onSubmit}
         setPhoneNumber={setPhoneNumber}
