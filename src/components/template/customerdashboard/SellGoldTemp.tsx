@@ -25,11 +25,8 @@ const SellGold = () => {
   ErrorPendingHandler(error?.message, isPending);
   const sellPrice = walletData?.sellPrice;
 
-  const {
-    mutate,
-    isPending: selling,
-  } = useMutation({
-    mutationKey: ["buygold"],
+  const { mutate, isPending: selling } = useMutation({
+    mutationKey: ["sellgold"],
     mutationFn: sellgold,
     onSuccess: (data) => {
       if (data.status === 200) {
@@ -39,8 +36,14 @@ const SellGold = () => {
       setGoldTextField("");
       queryClient.invalidateQueries({ queryKey: ["walletdata"] });
     },
-    onError: () => {
-      showToast("خطایی رخ داده است", "error");
+    onError: (err: { responseFA: string; responseEN: string }) => {
+      if (err.responseFA) {
+        showToast(err.responseFA, "error");
+      } else if (err.responseEN) {
+        showToast(err.responseEN, "error");
+      } else {
+        showToast("خطایی رخ داده است", "error");
+      }
       setTextFieldValue("");
       setGoldTextField("");
     },
@@ -49,15 +52,20 @@ const SellGold = () => {
   return (
     <>
       <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center",flexDirection:"column" }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
       >
         <SectionTitle title="فروش طلا" />
         <BuyAndSellBox
-        setGoldTextField={setGoldTextField}
-        setTextFieldValue={setTextFieldValue}
-        textFieldValue={textFieldValue}
-        goldTextField={goldTextField}
-        walletBalance={walletData?.goldBalance}
+          setGoldTextField={setGoldTextField}
+          setTextFieldValue={setTextFieldValue}
+          textFieldValue={textFieldValue}
+          goldTextField={goldTextField}
+          walletBalance={walletData?.goldBalance}
           mutate={mutate}
           isPending={selling}
           price={sellPrice}

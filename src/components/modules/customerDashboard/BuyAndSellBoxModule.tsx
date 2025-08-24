@@ -6,7 +6,7 @@ import BuyAndSellBoxHeader from "../../element/buyandsell/BoxHeader";
 import BuyAndSellBoxFooter from "../../element/buyandsell/BoxFooter";
 import { BaseProps } from "../../../types";
 import { Rtl } from "../../element/Rtl";
-// import { useToast } from "../../../context/ToastProvider";
+import { useToast } from "../../../context/ToastProvider"; // ✅ فعال شد
 import { useGoldConverter } from "../../../hooks/useGoldConverter";
 import { BButtonThreeSx, PaperOneSxBuyGold, PapertwoSx } from "./buysellstyle";
 
@@ -28,7 +28,7 @@ const BuyAndSellBox = ({
   walletData,
   price = 0,
   isPending,
-  // walletBalance,
+  walletBalance,
   textFieldValue,
   goldTextField,
   setGoldTextField,
@@ -36,7 +36,7 @@ const BuyAndSellBox = ({
   mutate,
 }: BuyAndSellBoxProps) => {
   const [isEditingGold, setIsEditingGold] = React.useState<boolean>(false);
-  // const { showToast } = useToast();
+  const { showToast } = useToast(); // ✅
 
   useGoldConverter({
     price,
@@ -48,25 +48,27 @@ const BuyAndSellBox = ({
   });
 
   const handleSubmit = () => {
-    // const totalMoney = parseFloat(textFieldValue.replace(/,/g, ""));
-
-    // if (walletBalance !== undefined && totalMoney > walletBalance) {
-    //   showToast("موجودی کافی نیست", "error");
-    //   return;
-    // }
+    // فقط برای فروش موجودی چک میشه
+    if (
+      buttonValue === "فروش" &&
+      walletBalance !== undefined &&
+      parseFloat(goldTextField) > walletBalance
+    ) {
+      showToast("موجودی کافی نیست", "error");
+      return;
+    }
 
     mutate(goldTextField);
   };
 
   //money onChange
   const moneyTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsEditingGold(false); // یعنی کاربر داره پول وارد می‌کنه
+    setIsEditingGold(false);
     const raw = event.target.value.replace(/,/g, "");
     if (raw === "") {
       setTextFieldValue("");
       return;
     }
-
     const num = Number(raw);
     if (!isNaN(num)) {
       setTextFieldValue(priceSeptrator(num));
@@ -75,7 +77,7 @@ const BuyAndSellBox = ({
 
   // Gold onChange
   const goldTextFieldHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsEditingGold(true); // یعنی کاربر داره طلا وارد می‌کنه
+    setIsEditingGold(true);
     setGoldTextField(event.target.value);
   };
 
