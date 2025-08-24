@@ -44,7 +44,7 @@ const VerifyCodeBoxInput = ({
       >
         طلای تهران
       </Typography>
-      <Box sx={{ width: { xs: "80%", md: "100%" } }}>
+      <Box sx={{ width: { xs: "100%", md: "100%" } }}>
         <Typography
           fontSize={{ xs: "14px", md: "18px" }}
           mb={3}

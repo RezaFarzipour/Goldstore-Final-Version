@@ -36,7 +36,7 @@ const BuyAndSellBox = ({
   mutate,
 }: BuyAndSellBoxProps) => {
   const [isEditingGold, setIsEditingGold] = React.useState<boolean>(false);
-  const { showToast } = useToast();
+  const { showToast } = useToast(); // ✅
 
   useGoldConverter({
     price,
@@ -48,11 +48,22 @@ const BuyAndSellBox = ({
   });
 
   const handleSubmit = () => {
-    const totalMoney = parseFloat(textFieldValue.replace(/,/g, ""));
-
-    if (walletBalance !== undefined && totalMoney > walletBalance) {
+    // فقط برای فروش موجودی چک میشه
+    if (
+      buttonValue === "فروش" &&
+      walletBalance !== undefined &&
+      parseFloat(goldTextField) > walletBalance
+    ) {
       showToast("موجودی کافی نیست", "error");
       return;
+    }
+
+    if (buttonValue === "خرید" && walletBalance !== undefined) {
+      const totalMoney = parseFloat(textFieldValue.replace(/,/g, ""));
+      if (totalMoney > walletBalance) {
+        showToast("موجودی کافی نیست", "error");
+        return;
+      }
     }
 
     mutate(goldTextField);
@@ -60,13 +71,12 @@ const BuyAndSellBox = ({
 
   //money onChange
   const moneyTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsEditingGold(false); // یعنی کاربر داره پول وارد می‌کنه
+    setIsEditingGold(false);
     const raw = event.target.value.replace(/,/g, "");
     if (raw === "") {
       setTextFieldValue("");
       return;
     }
-
     const num = Number(raw);
     if (!isNaN(num)) {
       setTextFieldValue(priceSeptrator(num));
@@ -75,7 +85,7 @@ const BuyAndSellBox = ({
 
   // Gold onChange
   const goldTextFieldHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsEditingGold(true); // یعنی کاربر داره طلا وارد می‌کنه
+    setIsEditingGold(true);
     setGoldTextField(event.target.value);
   };
 

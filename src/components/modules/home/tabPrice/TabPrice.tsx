@@ -18,16 +18,23 @@ import {
 } from "./style";
 import TabsInputs from "./TabsInputs";
 import { Rtl } from "../../../element/Rtl";
-import { useQuery } from "@tanstack/react-query";
-import { HomeGoldStockPrice } from "../../../../services/home";
 import {
   priceSeptrator,
   toPersianDigits,
 } from "../../../../utils/numberFormatter";
 import { useGoldConverter } from "../../../../hooks/useGoldConverter";
-import Loader from "../../../element/Loader";
 
-const TabPrice = () => {
+interface GoldPriceData {
+  buy_price: number | string;
+  sale_price: number | string;
+}
+
+type TabPriceProps = {
+  data?: GoldPriceData; // چون ممکنه دیتا undefined باشه
+};
+
+const TabPrice : React.FC<TabPriceProps> = ({data}) => {
+
   const [value, setValue] = React.useState(0);
   const [textFieldValue, setTextFieldValue] = React.useState<string | number>(
     ""
@@ -35,10 +42,10 @@ const TabPrice = () => {
   const [goldTextField, setGoldTextField] = React.useState<string | number>("");
   const [colorTab, setColorTab] = React.useState(false);
   const [isEditingGold, setIsEditingGold] = React.useState<boolean>(false);
-  const { data, isLoading } = useQuery({
-    queryKey: ["settingData"],
-    queryFn: HomeGoldStockPrice,
-  });
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ["settingData"],
+  //   queryFn: HomeGoldStockPrice,
+  // });
 
   const buyPrice = data?.buy_price ? Number(data.buy_price) : 0;
   const salePrice = data?.sale_price ? Number(data.sale_price) : 0;
@@ -96,9 +103,6 @@ const TabPrice = () => {
 
   // Extracted form component
 
-  if (isLoading) {
-    return <Loader/>;
-  }
 
   return (
     <Paper sx={TabPricePaper}>

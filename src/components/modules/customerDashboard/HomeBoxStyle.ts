@@ -4,7 +4,7 @@ export const buttononeSx = (bg:string| undefined, dis:string) => {
     my: 1,
     fontWeight: "300",
     fontSize: { xs: "18px", md: "20px" },
-    color: "#222",
+    color: "#efefef",
     // bgcolor: obj.btnColor,
     display: dis,
     "&:hover": {

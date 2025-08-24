@@ -44,12 +44,14 @@ const Diamond = ({ startTime, endTime }: DiamondProps) => {
         position: "relative",
       }}
     >
-      {/* ویدیو داخل لوزی */}
+  
       <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
+       ref={videoRef}
+       autoPlay
+       muted
+       loop
+       playsInline    
+       webkit-playsinline="true" 
         style={{
           position: "absolute",
           top: "20%",
