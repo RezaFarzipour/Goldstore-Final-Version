@@ -109,18 +109,20 @@ const EditProfile = () => {
     <Rtl>
       <Box
         sx={{
-          minHeight: "80vh",
+          minHeight: {xs:"80vh",md:"70vh"},
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           pt: 2,
           px: 2,
+        
         }}
       >
         <Paper
           elevation={6}
           sx={{
             p: 4,
+            height: {  md: "75vh" },
             borderRadius: 4,
             maxWidth: 500,
             width: "100%",

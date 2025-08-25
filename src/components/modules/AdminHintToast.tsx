@@ -37,9 +37,17 @@ export default function AdminHintToast({ adminPhone }: { adminPhone: string }) {
             <Typography component="span" sx={{ fontWeight: 700, color: "success.light" }}>
               کاربر
             </Typography>{" "}
-            با شماره{" "}
+            اگر می‌خواهید داشبورد{" "}
+            <Typography component="span" sx={{ fontWeight: 700, color: "info.main" }}>
+              دیتا
+            </Typography>{" "}
+            داشته باشد، با شماره{" "}
+            <Typography component="span" sx={{ fontWeight: 700, color: "amber.300" }}>
+              09921188364
+            </Typography>{" "}
+            وارد شوید. در غیر این صورت می‌توانید با شماره{" "}
             <Typography component="span" sx={{ fontWeight: 700 }}>
-              خودتان
+              شخصی خودتان
             </Typography>{" "}
             وارد شوید.
           </Typography>

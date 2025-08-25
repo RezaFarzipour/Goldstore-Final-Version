@@ -21,7 +21,7 @@ const VerifyCodePage = () => {
     setLoading(true);
 
     const { response, err } = await checkOtp(token, verifyCode);
-    console.log("res",response);
+
 
     if (response && response.status === 200) {
       showToast("به سامانه ی طلای تهران خوش آمدید","success")

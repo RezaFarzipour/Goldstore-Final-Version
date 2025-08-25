@@ -40,7 +40,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
       <Rtl>
         <Snackbar
           open={open}
-          autoHideDuration={5000}
+          autoHideDuration={10000}
           onClose={handleClose}
           anchorOrigin={{ vertical: "top", horizontal: "left" }}
         >
