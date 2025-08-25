@@ -20,33 +20,77 @@ export default function AdminHintToast({ adminPhone }: { adminPhone: string }) {
         }}
       >
         <Stack spacing={0.5}>
-          <Typography variant="body2" sx={{ color: "grey.100" }}>
+          <Typography
+            variant="body2"
+            sx={{ color: "grey.100", fontSize: { xs: "10px", md: "14px" } }}
+          >
             برای ورود به داشبورد{" "}
-            <Typography component="span" sx={{ fontWeight: 700, color: "warning.main" }}>
+            <Typography
+              component="span"
+              sx={{
+                fontWeight: 700,
+                color: "warning.main",
+                fontSize: { xs: "10px", md: "12px" },
+              }}
+            >
               ادمین
             </Typography>{" "}
             با شماره{" "}
-            <Typography component="span" sx={{ fontWeight: 700, color: "amber.300" }}>
+            <Typography
+              component="span"
+              sx={{
+                fontWeight: 700,
+                color: "amber.300",
+                fontSize: { xs: "10px", md: "12px" },
+              }}
+            >
               {adminPhone}
             </Typography>{" "}
             وارد شوید.
           </Typography>
 
-          <Typography variant="body2" sx={{ color: "grey.100" }}>
+          <Typography
+            variant="body2"
+            sx={{ color: "grey.100", fontSize: { xs: "10px", md: "14px" } }}
+          >
             برای ورود به داشبورد{" "}
-            <Typography component="span" sx={{ fontWeight: 700, color: "success.light" }}>
+            <Typography
+              component="span"
+              sx={{
+                fontWeight: 700,
+                color: "success.light",
+                fontSize: { xs: "10px", md: "14px" },
+              }}
+            >
               کاربر
             </Typography>{" "}
             اگر می‌خواهید داشبورد{" "}
-            <Typography component="span" sx={{ fontWeight: 700, color: "info.main" }}>
+            <Typography
+              component="span"
+              sx={{
+                fontWeight: 700,
+                color: "info.main",
+                fontSize: { xs: "10px", md: "14px" },
+              }}
+            >
               دیتا
             </Typography>{" "}
             داشته باشد، با شماره{" "}
-            <Typography component="span" sx={{ fontWeight: 700, color: "amber.300" }}>
+            <Typography
+              component="span"
+              sx={{
+                fontWeight: 700,
+                color: "amber.300",
+                fontSize: { xs: "10px", md: "14px" },
+              }}
+            >
               09921188364
             </Typography>{" "}
             وارد شوید. در غیر این صورت می‌توانید با شماره{" "}
-            <Typography component="span" sx={{ fontWeight: 700 }}>
+            <Typography
+              component="span"
+              sx={{ fontWeight: 700, fontSize: { xs: "12px", md: "14px" } }}
+            >
               شخصی خودتان
             </Typography>{" "}
             وارد شوید.

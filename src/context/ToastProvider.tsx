@@ -30,9 +30,11 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (_?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === "clickaway") return;
     setOpen(false);
   };
+  
 
   return (
     <ToastContext.Provider value={{ showToast }}>
