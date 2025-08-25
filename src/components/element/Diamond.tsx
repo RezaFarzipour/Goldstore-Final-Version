@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Box, useMediaQuery } from "@mui/material";
-import header from "../../assets/video/header.mp4";
+import header from "../../assets/video/header.webm";
 
 interface DiamondProps {
   position?: "top" | "bottom";
@@ -61,7 +61,7 @@ const Diamond = ({ startTime, endTime }: DiamondProps) => {
           objectFit: "cover",
         }}
       >
-        <source src={header} type="video/mp4" />
+        <source src={header} type="video/webm" />
       </video>
     </Box>
   );
